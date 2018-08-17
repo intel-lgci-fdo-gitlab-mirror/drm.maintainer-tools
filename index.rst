@@ -27,6 +27,7 @@ Contents:
    drm-misc
    drm-intel
    committer-guidelines
+   maintainer-guidelines
    commit-access
    getting-started
    dim
