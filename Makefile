@@ -9,7 +9,8 @@
 
 # You can set these variables from the command line.
 SPHINXOPTS    =
-SPHINXBUILD   = sphinx-build
+SPHINXBUILD  ?= $(shell command -v sphinx-build-3 || command -v sphinx-build)
+RST2MAN      ?= $(shell command -v rst2man-3 || command -v rst2man)
 PAPER         =
 BUILDDIR      = _build
 
@@ -56,8 +57,8 @@ mancheck:
 			echo "$@: $$cmd not documented"; \
 		fi \
 	done
-	rst2man --strict --no-raw dim.rst >/dev/null
-	rst2man --strict --no-raw qf.rst >/dev/null
+	$(RST2MAN) --strict --no-raw dim.rst >/dev/null
+	$(RST2MAN) --strict --no-raw qf.rst >/dev/null
 
 check: shellcheck mancheck doccheck
 
