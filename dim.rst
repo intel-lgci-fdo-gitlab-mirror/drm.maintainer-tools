@@ -28,7 +28,7 @@ the drm-intel_ and drm-misc_ git repositories.
 
 This man page is a command-line reference for the tool only; for more
 comprehensive documentation, including a getting started guide, see
-https://01.org/linuxgraphics/gfx-docs/maintainer-tools/index.html, or the same
+https://drm.pages.freedesktop.org/maintainer-tools/, or the same
 in source form at https://gitlab.freedesktop.org/drm/maintainer-tools.
 
 .. _drm-intel: drm-intel.html

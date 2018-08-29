@@ -7,3 +7,15 @@ check:
     stage: build
     script:
       - make check
+
+pages:
+    stage: deploy
+    script:
+      - make html
+      - cp -r _build/html public
+    artifacts:
+        paths:
+          - public
+    only:
+        refs:
+          - master
