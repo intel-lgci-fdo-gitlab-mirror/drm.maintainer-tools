@@ -1,7 +1,7 @@
 image: fedora:latest
 
 before_script:
-  - dnf install -y ShellCheck python2-docutils python2-sphinx make
+  - dnf install -y ShellCheck python3-docutils python3-sphinx make
 
 check:
     stage: build
