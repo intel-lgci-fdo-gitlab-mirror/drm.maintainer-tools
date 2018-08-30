@@ -2032,14 +2032,6 @@ function dim_update_branches
 	fi
 
 	cd $DIM_PREFIX/maintainer-tools
-	if ! git remote | grep -q '^maintainer-tools$' ; then
-		git remote add maintainer-tools $maintainer_tools_https
-		git fetch maintainer-tools
-		git branch --set-upstream-to=maintainer-tools/master
-	else
-		echo "Maintainer tools already migrated."
-	fi
-
 	if git_is_current_branch maintainer-tools ; then
 		echo "Updating maintainer-tools ..."
 		git pull --rebase
