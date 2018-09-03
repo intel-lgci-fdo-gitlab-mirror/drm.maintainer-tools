@@ -14,3 +14,6 @@ contributions, bug reports, and discussion about the tooling and documentation.
 
 .. _dim-tools@lists.freedesktop.org: https://lists.freedesktop.org/mailman/listinfo/dim-tools
 
+Visit the  `DRM Maintainer Tools
+Documentation <https://drm.pages.freedesktop.org/maintainer-tools/>`_ for more
+information on these tools.
