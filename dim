@@ -2128,7 +2128,7 @@ function dim_setup
 
 	cd $DIM_PREFIX
 
-	setup_aux_checkout maintainer-tools $maintainer_tools_https maintainer-tools
+	setup_aux_checkout master $maintainer_tools_https maintainer-tools
 
 	setup_aux_checkout rerere-cache $drm_tip_ssh drm-rerere
 
