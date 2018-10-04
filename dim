@@ -1645,6 +1645,8 @@ function dim_sparse
 		exit 1
 	fi
 
+	echo "Sparse version: $(sparse --version)"
+
 	_restore_head_on_exit
 
 	# make the initial reference build
