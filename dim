@@ -475,6 +475,24 @@ function dim_retip
 	git rebase --onto $new_upstream $upstream $branch "$@"
 }
 
+function dim_range_diff
+{
+	local branch
+
+	branch=${1:-@\{1\}}
+
+	if [[ $(git rev-parse $branch | wc -l) -eq 1 ]] ; then
+		if [[ $(git rev-parse $branch) == "$branch" ]] ; then
+			branch="@{1}"
+		else
+			shift || true
+		fi
+		git range-diff $branch...HEAD "$@"
+	else
+		git range-diff "$@"
+	fi
+}
+
 # update for-linux-next and for-linux-next-fixes branches
 function update_linux_next # branch next next-fixes fixes
 {
@@ -2190,6 +2208,7 @@ function list_developer_commands
 		"cite"
 		"fixes"
 		"retip"
+		"range-diff"
 		"sparse"
 		"tc"
 		# help commands

@@ -95,6 +95,16 @@ retip [*branch*] [*git-rebase option* ...]
 Rebase the given local branch, current branch by default, onto drm-tip. Options
 after the branch will be passed to **git-rebase**.
 
+range-diff [ *commit-ish* ] [ *git-range-diff options* ]
+-------------------------------------------------------------------------------------
+
+Convenience wrapper around the git range-diff command which automatically
+compares against HEAD if you only specify a commit-ish. In all other cases
+forwards to git range-diff. Defaults to @{1}, which is very useful for reviewing
+rebases. Additional options after the commit-ish will be passed to
+**git-range-diff**. Anything that can't be parsed as a commit-ish will also be
+forward in its entirety.
+
 COMMANDS FOR COMMITTERS AND MAINTAINERS
 =======================================
 
