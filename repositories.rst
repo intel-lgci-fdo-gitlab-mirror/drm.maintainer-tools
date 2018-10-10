@@ -62,7 +62,7 @@ The DRM Misc Repository
 -----------------------
 
 See :ref:`drm-misc` and `the drm-misc repository`_ for repository
-details. Maintained by Maarten Lankhorst, Gustavo Padovan, and Sean Paul, with a
+details. Maintained by Maarten Lankhorst, Maxime Ripard, and Sean Paul, with a
 large pool of committers.
 
 .. _the drm-misc repository: https://cgit.freedesktop.org/drm/drm-misc
