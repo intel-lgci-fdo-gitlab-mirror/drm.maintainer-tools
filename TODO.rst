@@ -11,7 +11,6 @@ dim
   https://lists.linuxfoundation.org/pipermail/ksummit-discuss/2014-May/000554.html
 - add patchwork Link: also after manually resolving conflicts in drm
   apply-resolved
-- pull in dim extract-tags tool from Ville
 - allow dim rebuild-nightly to pull branches from local trees in dry-run mode.
   This is useful to confirm a backmerge is indeed correct, by comparing the
   resulting -nightly with the old one. Current the branch must be pushed out
