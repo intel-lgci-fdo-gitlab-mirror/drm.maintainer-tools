@@ -924,7 +924,10 @@ function apply_patch #patch_file
 		sob=-s
 	fi
 
-	git am --scissors -3 $sob "$@" $patch
+	if ! git am --scissors -3 $sob "$@" $patch ; then
+		echoerr "ERROR: git apply-mbox failed"
+		return 1
+	fi
 
 	if [ -n "$message_id" ]; then
 		dim_commit_add_tag "Link: https://patchwork.freedesktop.org/patch/msgid/$message_id"
