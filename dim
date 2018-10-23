@@ -2026,12 +2026,7 @@ function dim_update_branches
 
 	cd $DIM_PREFIX/$DIM_REPO
 
-	for repo in "${!drm_tip_repos[@]}"; do
-		remote=$(repo_to_remote $repo)
-		echo -n "Fetching $repo (local remote $remote)... "
-		git_fetch_helper $remote
-		echo "Done."
-	done
+	fetch_all
 
 	assert_repo_clean
 
