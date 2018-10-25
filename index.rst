@@ -30,6 +30,7 @@ Contents:
    getting-started
    dim
    qf
+   code-of-conduct
    CONTRIBUTING
    MAINTAINERS
    COPYING

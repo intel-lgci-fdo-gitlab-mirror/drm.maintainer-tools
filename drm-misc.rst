@@ -175,19 +175,6 @@ Maintainers mostly provide services to keep drm-misc running smoothly:
 * Take the blame when something goes wrong. Maintainers interface and represent
   the entire group of committers to the wider kernel community.
 
-Code of Conduct
-===============
-
-Please be aware the fd.o Code of Conduct also applies to drm-misc:
-
-https://www.freedesktop.org/wiki/CodeOfConduct/
-
-See the MAINTAINERS file for contact details of the drm-misc maintainers.
-
-Abuse of commit rights, like engaging in commit fights or willfully pushing
-patches that violate the documented merge criteria, will also be handled through
-the Code of Conduct enforcement process.
-
 Tooling
 =======
 

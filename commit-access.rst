@@ -104,18 +104,3 @@ reinstated when they come back to the project.
 
 Maintainers and committers should encourage contributors to request commit
 rights.
-
-Code of Conduct
-~~~~~~~~~~~~~~~
-
-Please be aware the freedesktop.org Code of Conduct also applies to i915:
-
-https://www.freedesktop.org/wiki/CodeOfConduct/
-
-See the MAINTAINERS file for contact details of the i915 maintainers.
-
-Abuse of commit rights, like engaging in commit fights or willfully pushing
-patches that violate the documented merge criteria or process, will also be
-handled through the Code of Conduct enforcement process. Violations may lead to
-temporary or permanent account or commit rights suspension according to
-freedesktop.org umbrella rules.
