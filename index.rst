@@ -32,6 +32,7 @@ Contents:
    qf
    CONTRIBUTING
    MAINTAINERS
+   COPYING
    TODO
 
 Indices and tables

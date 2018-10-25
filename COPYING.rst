@@ -1,3 +1,9 @@
+.. _license:
+
+=========
+ License
+=========
+
 Copyright © 2012-2015 Intel Corporation
 
 Permission is hereby granted, free of charge, to any person obtaining a

@@ -333,9 +333,3 @@ Tooling
 drm-intel git repositories are managed with dim_:
 
 .. _dim: dim.html
-
-Copyright
-=========
-
-.. include:: COPYING
-	:literal:
