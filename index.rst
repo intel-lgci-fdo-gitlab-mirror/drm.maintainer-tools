@@ -17,6 +17,7 @@ Contents:
    dim
    qf
    CONTRIBUTING
+   MAINTAINERS
    TODO
 
 Indices and tables
