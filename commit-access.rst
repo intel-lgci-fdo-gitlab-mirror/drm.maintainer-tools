@@ -29,7 +29,7 @@ below criteria:
   stack who only do the oddball rare patch within drm-misc itself.
 
 - Agrees to use their commit rights in accordance with the documented merge
-  criteria, tools, and processes.
+  criteria, tools, processes, and :ref:`code-of-conduct`.
 
 Apply for an account (and any other account change requests) through
 
@@ -73,7 +73,7 @@ following criteria:
   occasional patch within i915 itself.
 
 - Agrees to use their commit rights in accordance with the documented merge
-  criteria, tools, and processes.
+  criteria, tools, processes, and :ref:`code-of-conduct`.
 
 The above criteria are in place to encourage and require committers are actively
 and broadly engaged upstream, and that they are acquainted and comfortable with
