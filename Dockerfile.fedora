@@ -1,0 +1,4 @@
+FROM fedora:28
+
+RUN dnf install -y \
+	ShellCheck python3-docutils python3-sphinx make

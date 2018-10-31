@@ -1,7 +1,26 @@
-image: fedora:latest
+image: $CI_REGISTRY/$CI_PROJECT_PATH/dim-fedora:latest
 
-before_script:
-  - dnf install -y ShellCheck python3-docutils python3-sphinx make
+stages:
+  - containers
+  - build
+  - deploy
+
+container-build:
+    stage: containers
+    image: docker:stable
+    only:
+        changes:
+            - Dockerfile.fedora
+            - .gitlab-ci.yml
+    services:
+        - docker:dind
+    variables:
+        DOCKER_HOST: tcp://docker:2375
+        DOCKER_DRIVER: overlay2
+    script:
+        - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+        - docker build -t $CI_REGISTRY/$CI_PROJECT_PATH/dim-fedora -f Dockerfile.fedora .
+        - docker push $CI_REGISTRY/$CI_PROJECT_PATH/dim-fedora
 
 check:
     stage: build
