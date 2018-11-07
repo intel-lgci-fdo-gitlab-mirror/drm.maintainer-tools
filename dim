@@ -795,13 +795,13 @@ function checkpatch_commit_push
 	author_outlook=$(git show -s $sha1 --format="format:%an" | sed -e 's/\([^ ]*\) \(.*\)/\2, \1/')
 
 	# check for author sign-off
-	if ! git show -s $sha1 | grep -qi "S.*-by:.*\\($author\\|$author_outlook\\)" ; then
+	if ! git show -s $sha1 | grep -qi "Signed-off-by:.*\\($author\\|$author_outlook\\)" ; then
 		echoerr "$sha1 is lacking author of sign-off"
 		rv=1
 	fi
 
 	# check for committer sign-off
-	if ! git show -s $sha1 | grep -qi "S.*-by:.*$committer"  ; then
+	if ! git show -s $sha1 | grep -qi "Signed-off-by:.*$committer"  ; then
 		echoerr "$sha1 is lacking committer of sign-off"
 		rv=1
 	fi
