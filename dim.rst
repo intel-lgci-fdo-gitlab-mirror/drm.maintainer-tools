@@ -362,13 +362,8 @@ should be preferred.
 
 update-next
 -----------
-Pushes out the latest dinq to drm-intel-next and tags it. Also
-pushes out the latest drm-tip to drm-intel-testing. For an
-overview a gitk view of the currently unmerged feature pile is
-opened.
-
-Also checks that the drm-intel-fixes|-next-queued are fully
-merged into drm-tip to avoid operator error.
+Pushes out the latest dinq to drm-intel-next and tags it. For an overview a gitk
+view of the currently unmerged feature pile is opened.
 
 The tag will be signed using the key specified by \$DIM_GPG_KEYID, if set.
 

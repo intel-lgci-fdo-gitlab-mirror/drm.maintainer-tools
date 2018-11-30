@@ -94,15 +94,6 @@ dim_pull_request_recipients=(
 	"Dave Airlie <airlied@gmail.com>"
 )
 
-# Recipients for drm-intel-testing updates.
-dim_test_request_recipients=(
-	-c "Jani Nikula <jani.nikula@linux.intel.com>"
-	-c "Joonas Lahtinen <joonas.lahtinen@linux.intel.com>"
-	-c "Rodrigo Vivi <rodrigo.vivi@intel.com>"
-	-c "intel-gfx@lists.freedesktop.org"
-	"Jari Tahvanainen <jari.tahvanainen@intel.com>"
-)
-
 # integration configuration
 dim_integration_config=nightly.conf
 
@@ -1860,23 +1851,9 @@ function dim_update_driver_date
 
 function dim_update_next
 {
-	local remote
-
 	assert_branch drm-intel-next-queued
 
-	remote=$(repo_to_remote drm-tip)
-
 	git pull --ff-only
-	git fetch drm-tip
-
-	if ! git branch --merged $remote/drm-tip | grep -q drm-intel-fixes ; then
-		echo "drm-intel-fixes not merged into drm-tip, please update!"
-		exit 2
-	fi
-	if ! git branch --merged $remote/drm-tip | grep -q drm-intel-next-queued ; then
-		echo "drm-intel-next-queued not merged into drm-tip, please update!"
-		exit 2
-	fi
 
 	dim_update_driver_date "drm/i915" "drivers/gpu/drm/i915/i915_drv.h"
 
@@ -1890,38 +1867,17 @@ function dim_update_next
 
 function dim_update_next_continue
 {
-	local remote intel_remote req_file tag tag_testing
+	local remote tag
 
 	assert_branch drm-intel-next-queued
 
-	intel_remote=$(repo_to_remote drm-intel)
-	remote=$(repo_to_remote drm-tip)
+	remote=$(repo_to_remote drm-intel)
 
-	git push $DRY_RUN -f $intel_remote drm-intel-next-queued:drm-intel-next
+	git push $DRY_RUN -f $remote drm-intel-next-queued:drm-intel-next
 	tag=$(tag_name "drm-intel-next")
-	tag_testing="${tag/next/testing}"
 
 	tag_branch $tag drm-intel-next
-	git push $DRY_RUN $intel_remote $tag
-
-	echo "Updating drm-intel-testing to latest drm-tip"
-	git push $DRY_RUN $intel_remote +$remote/drm-tip:drm-intel-testing
-	$DRY git tag $tag_testing $intel_remote/drm-intel-testing
-	$DRY git push $intel_remote $tag_testing
-
-	req_file=$(mktemp)
-	cat > $req_file <<-HERE
-		Hi all,
-
-		The following changes tagged $tag_testing:
-
-		HERE
-
-	prep_pull_mail_overview "$tag" >> $req_file
-	prep_pull_mail_signature >> $req_file
-
-	$DRY $DIM_MUA -s "Updated drm-intel-testing" \
-	     -i $req_file "${dim_test_request_recipients[@]}"
+	git push $DRY_RUN $remote $tag
 }
 
 function dim_tag_branch
