@@ -1892,16 +1892,16 @@ function dim_tag_branch
 
 	git fetch $remote
 
-	if [ $(git rev-parse $branch) == $(git rev-parse "$branch@{u}") ] ; then
-		echo "Tagging current $branch"
-
-		tag=$(tag_name "$branch")
-		tag_branch $tag $branch
-		git push $DRY_RUN $remote $tag
-	else
-		echo "$branch not up-to-date, aborting"
-		exit
+	if [ $(git rev-parse $branch) != $(git rev-parse "$branch@{u}") ]; then
+		echoerr "ERROR: $branch not up-to-date"
+		return 1
 	fi
+
+	echo "Tagging current $branch"
+
+	tag=$(tag_name "$branch")
+	tag_branch $tag $branch
+	git push $DRY_RUN $remote $tag
 }
 
 function dim_tag_next
