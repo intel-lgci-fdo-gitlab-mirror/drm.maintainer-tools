@@ -274,6 +274,11 @@ for-each-workdir *command*
 Run the given command in all active workdirs including the main linux kernel
 repository under \$DIM_REPO.
 
+update-driver-date *prefix* *file*
+----------------------------------
+Update the the DRIVER_DATE and DRIVER_TIMESTAMP macros in *file* to match
+current date and time, and commit the change using given subject prefix.
+
 COMMANDS FOR MAINTAINERS
 ========================
 

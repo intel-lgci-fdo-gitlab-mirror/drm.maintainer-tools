@@ -1841,6 +1841,23 @@ function tag_branch
 	$DRY git tag -a $DIM_GPG_KEYID -f $tag
 }
 
+# $1: commit subject prefix
+# $2: file
+function dim_update_driver_date
+{
+	local prefix file driver_date driver_timestamp
+
+	prefix=${1:?$usage}
+	file=${2:?$usage}
+
+	driver_date=$(date +%Y%m%d)
+	driver_timestamp=$(date +%s)
+
+	$DRY sed -i -e "s/^#define DRIVER_DATE.*\"[0-9]*\"$/#define DRIVER_DATE\t\t\"$driver_date\"/; s/^#define DRIVER_TIMESTAMP.*/#define DRIVER_TIMESTAMP\t$driver_timestamp/" "$file"
+	$DRY git add "$file"
+	git commit $DRY_RUN -sm "$prefix: Update DRIVER_DATE to $driver_date"
+}
+
 function dim_update_next
 {
 	local remote
@@ -1861,12 +1878,7 @@ function dim_update_next
 		exit 2
 	fi
 
-	driver_date=$(date +%Y%m%d)
-	driver_timestamp=$(date +%s)
-	$DRY sed -i -e "s/^#define DRIVER_DATE.*\"[0-9]*\"$/#define DRIVER_DATE\t\t\"$driver_date\"/; s/^#define DRIVER_TIMESTAMP.*/#define DRIVER_TIMESTAMP\t$driver_timestamp/" \
-	     drivers/gpu/drm/i915/i915_drv.h
-	$DRY git add drivers/gpu/drm/i915/i915_drv.h
-	git commit $DRY_RUN -sm "drm/i915: Update DRIVER_DATE to $driver_date"
+	dim_update_driver_date "drm/i915" "drivers/gpu/drm/i915/i915_drv.h"
 
 	gitk --first-parent drm-intel-next-queued ^$(branch_to_remote drm-next)/drm-next &
 
