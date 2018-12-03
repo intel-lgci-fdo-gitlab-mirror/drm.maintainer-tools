@@ -1898,9 +1898,10 @@ function dim_update_next_continue
 
 function dim_tag_branch
 {
-	local branch remote tag
+	local branch upstream remote tag unmerged_tags
 
-	branch=$1
+	branch=${1:?$usage}
+	upstream=$2
 	assert_branch $branch
 	remote=$(branch_to_remote $branch)
 
@@ -1914,6 +1915,16 @@ function dim_tag_branch
 	fi
 
 	echo "Tagging current $branch"
+
+	if [[ -n "$upstream" ]]; then
+		# If there are unmerged tags, show changes since last
+		unmerged_tags=$(git_unmerged_tags "$branch" "$upstream")
+		if [[ -n "$unmerged_tags" ]]; then
+			upstream="${unmerged_tags%% *}"
+		fi
+
+		gitk --first-parent "$branch" "^$upstream" &
+	fi
 
 	tag=$(tag_name "$branch")
 	tag_branch $tag $branch

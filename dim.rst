@@ -374,12 +374,14 @@ When **update-next** fails to push the special release commit (because it raced 
 another committer) rebase and push manually, and then continue using this
 command.
 
-tag-branch *branch*
--------------------
+tag-branch *branch* [*upstream*]
+--------------------------------
 Pushes a new tag for the specified branch after checking that the remote is 
 up-to-date.
 
 The tag will be signed using the key specified by \$DIM_GPG_KEYID, if set.
+
+If upstream is provided, launch gitk to show the changes to be tagged.
 
 tag-next
 --------
