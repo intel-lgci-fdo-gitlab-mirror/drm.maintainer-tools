@@ -345,6 +345,22 @@ function git_branch_exists # branch
 	fi
 }
 
+# $1: branch
+# $2: upstream
+function git_unmerged_tags
+{
+	local branch upstream
+
+	branch=$1
+	upstream=$2
+
+	# assume branch based tag names, ensure space separated list
+	git log --decorate --pretty=%D "$branch@{upstream}" ^$upstream |\
+		grep -o "tag: $branch-[0-9-]\+" |\
+		sed -e "s/^tag: //" |\
+		tr "\n" " "
+}
+
 function git_committer_email
 {
 	if ! committer_email=$(git config --get user.email) ; then
@@ -1930,7 +1946,7 @@ function dim_pull_request
 
 	if [ "$branch" = "drm-intel-next" ]; then
 		# drm-intel-next pulls have been tagged using dim update-next
-		drm_intel_next_tags=$(git log "$branch@{upstream}" ^$upstream --decorate | grep "(.*tag: drm-intel-next-" | sed -e "s/^.*(.*tag: \(drm-intel-next-[^ ,]*\).*)$/\1/")
+		drm_intel_next_tags=$(git_unmerged_tags "$branch" "$upstream")
 		prep_pull_mail $req_file $drm_intel_next_tags
 		tag=$(git describe --all --exact "$branch@{upstream}")
 
