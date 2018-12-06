@@ -79,6 +79,27 @@ when it's tricky or something fails in the below procedure.
 
 And if any step fails or the conflict is tricky just ping maintainers.
 
+Removing a Wrong Conflict Resolution
+------------------------------------
+
+Occasionally someone screws up and pushes a broken merge conflict resolution to
+drm-tip. Getting rid of that requires a few steps.
+
+1. First identify which commit in the drm-rerere branch contains the bad merge
+   resolution. If you know who pushed the bad merge then searching by author is
+   easiest, otherwise figure out which stored resolution is the wrong one.
+
+2. Revert that commit and make sure there's no other cache resolutions around::
+
+      $ cd $DIM_PREFIX/drm-rerere
+      $ git pull # to avoid with others
+      $ git revert $broken_resolution_sha1
+      $ git clean -dfx
+
+3. Re-resolve the conflict and try to get it right this time around::
+
+      $ dim rebuild-tip
+
 If the Conflict Reappears
 -------------------------
 
