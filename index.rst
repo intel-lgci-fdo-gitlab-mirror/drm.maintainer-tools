@@ -36,7 +36,6 @@ Contents:
    CONTRIBUTING
    MAINTAINERS
    COPYING
-   TODO
 
 Indices and tables
 ==================
