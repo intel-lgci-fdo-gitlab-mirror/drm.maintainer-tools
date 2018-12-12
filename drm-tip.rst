@@ -128,7 +128,51 @@ best way to go about this is:
 
        $ git diff | dim cat-to-fixup
 
-   And finally rebuild the integration tree, which should now go through
+
+Anytime you add or change a manual merge fixup please inform the maintainers of
+both involved trees so that they are aware of the situation and can consider
+resolving the conflict permantly with a backmerge or pull.
+3. Finally rebuild the integration tree, which should now go through
    smoothly, at least for this merge::
 
        $ dim rebuild-tip
+
+Anytime you add or change a manual merge fixup please inform the maintainers of
+both involved trees so that they are aware of the situation and can consider
+resolving the conflict permantly with a backmerge or pull.
+
+Fixing Silent Conflicts
+-----------------------
+
+A really annoying case is when a merge has a silent conflict, i.e. git merge
+succeeds, but the resulting source fails to compile or run. Often this happens
+when one branch changes a function or structure, while a 2nd branch adds a new
+user. The important part is to make sure we supply the fixup patch for the right
+merge commit.
+
+1. Identify the merge that breaks the build.
+
+2. Rebuild drm-tip in interactive mode, and stop until the broken merge has been
+   done::
+
+      $ dim -i rebuild-tip
+
+   Stop the rebuilding of drm-tip by hitting ^C.
+
+3. Resolve the conflict normally, but don't stage it or commit it in any
+   fashion. Check that the resolution looks correct::
+
+       $ git diff
+
+   Of course also make sure it actually builds/works. Then store it as a manual fixup patch::
+
+       $ git diff | dim cat-to-fixup
+
+4. Finally rebuild the integration tree, which should now result in a working
+   tree with no broken merges::
+
+       $ dim rebuild-tip
+
+Anytime you add or change a manual merge fixup please inform the maintainers of
+both involved trees so that they are aware of the situation and can consider
+resolving the conflict permantly with a backmerge or pull.
