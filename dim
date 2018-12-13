@@ -973,7 +973,7 @@ function dim_apply_branch
 	cat > $file
 	git mailsplit -b -o$dir $file > /dev/null
 
-	for patch in $dir/*; do
+	for patch in "$dir"/*; do
 		if ! apply_patch $patch "$@"; then
 			rv=1
 		fi
