@@ -128,10 +128,6 @@ best way to go about this is:
 
        $ git diff | dim cat-to-fixup
 
-
-Anytime you add or change a manual merge fixup please inform the maintainers of
-both involved trees so that they are aware of the situation and can consider
-resolving the conflict permantly with a backmerge or pull.
 3. Finally rebuild the integration tree, which should now go through
    smoothly, at least for this merge::
 
