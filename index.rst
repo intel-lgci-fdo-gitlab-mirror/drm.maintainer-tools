@@ -24,6 +24,7 @@ Contents:
 
    repositories
    drm-tip
+   drm
    drm-misc
    drm-intel
    committer-guidelines
