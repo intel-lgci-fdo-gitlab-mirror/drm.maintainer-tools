@@ -565,10 +565,12 @@ function rr_cache_dir
 
 function git_dir
 {
-	if [ -d $PWD/.git ] ; then
-		echo $PWD/.git
+	local dir=${1:-$PWD}
+
+	if [ -d $dir/.git ] ; then
+		echo $dir/.git
 	else
-		cut -d ' ' -f 2 < $PWD/.git
+		cut -d ' ' -f 2 < $dir/.git
 	fi
 }
 
