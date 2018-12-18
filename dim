@@ -1088,12 +1088,7 @@ function dim_backmerge
 
 	git merge --rerere-autoupdate --no-commit $upstream >& /dev/null || true
 
-	if [[ -d .git ]]; then
-		patch_file=".git"
-	else
-		patch_file=$(cut -d ' ' -f 2 .git)
-	fi
-	patch_file=$patch_file/MERGE_MSG
+	patch_file=$(git_dir)/MERGE_MSG
 
 
 	cat > $patch_file <<-HERE
@@ -1340,7 +1335,7 @@ dim_alias_mrr=magic-rebase-resolve
 function dim_magic_rebase_resolve
 {
 	git diff HEAD | patch -p1 -R
-	dim_magic_patch < .git/rebase-merge/patch
+	dim_magic_patch < $(git_dir)/rebase-merge/patch
 	make $DIM_MAKE_OPTIONS
 	git add -u
 	git rebase --continue
@@ -2102,7 +2097,7 @@ function setup_aux_checkout # name url directory
 			git clone --reference=$DIM_PREFIX/$DIM_REPO/.git $url $dir
 			cd $dir
 			git config remote.origin.url $url
-			echo "$DIM_PREFIX/$DIM_REPO/.git/objects" > .git/objects/info/alternates
+			echo "$(git_dir $DIM_PREFIX/$DIM_REPO)/objects" > $(git_dir)/objects/info/alternates
 			git repack -a -d -l
 			remote=origin
 		fi
@@ -2132,7 +2127,7 @@ function dim_setup
 	fi
 	cd $DIM_PREFIX
 
-	if [ ! -d $DIM_PREFIX/$DIM_REPO/.git ]; then
+	if [ ! -d $(git_dir $DIM_PREFIX/$DIM_REPO) ]; then
 		echoerr "No git checkout found in $DIM_PREFIX/$DIM_REPO."
 		echoerr "Please set up your maintainer linux repository at $DIM_PREFIX/$DIM_REPO with"
 		echoerr "    cd $DIM_PREFIX"
