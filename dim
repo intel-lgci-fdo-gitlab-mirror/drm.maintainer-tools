@@ -554,15 +554,6 @@ function check_conflicts # tree
 	true
 }
 
-function rr_cache_dir
-{
-	if [ -d $DIM_PREFIX/drm-tip/.git/ ] ; then
-		echo $DIM_PREFIX/drm-tip/.git/rr-cache
-	else
-		echo $DIM_PREFIX/$DIM_REPO/.git/rr-cache
-	fi
-}
-
 function git_dir
 {
 	local dir=${1:-$PWD}
@@ -606,16 +597,24 @@ function pull_rerere_cache
 
 function update_rerere_cache
 {
+	local rr_cache_dir
+
 	echo -n "Updating rerere cache... "
 
 	pull_rerere_cache
 
-	if [ ! -L $(rr_cache_dir) ] ; then
-		if [ -d $(rr_cache_dir) ] ; then
-			rm -Rf $(rr_cache_dir)
+	cd $DIM_PREFIX/drm-tip/
+
+	rr_cache_dir=$(git rev-parse --git-common-dir)/rr-cache
+
+	if [ ! -L $rr_cache_dir ] ; then
+		if [ -d $rr_cache_dir ] ; then
+			rm -Rf $rr_cache_dir
 		fi
-		ln -s "$DIM_PREFIX/drm-rerere/rr-cache" $(dirname $(rr_cache_dir))
+		ln -s "$DIM_PREFIX/drm-rerere/rr-cache" $rr_cache_dir
 	fi
+
+	cd ~-
 
 	echo "Done."
 }
