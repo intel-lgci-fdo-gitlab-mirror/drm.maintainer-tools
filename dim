@@ -556,13 +556,7 @@ function check_conflicts # tree
 
 function git_dir
 {
-	local dir=${1:-$PWD}
-
-	if [ -d $dir/.git ] ; then
-		echo $dir/.git
-	else
-		cut -d ' ' -f 2 < $dir/.git
-	fi
+	git -C ${1:-$PWD} rev-parse --absolute-git-dir
 }
 
 function pull_rerere_cache
