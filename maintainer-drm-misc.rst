@@ -21,6 +21,8 @@ Maintainers mostly provide services to keep drm-misc running smoothly:
 * Fast-forward (when possible) `-fixes` to each released -rc kernel tag, to
   keep it current. We try to avoid backmerges for bugfix branches, and rebasing
   isn't an option with multiple committers.
+  This is especially important for -rc1, so the tooling will pick up that
+  the drm-misc-next-fixes branch is closed.
 
 * Pull requests become noisy if `-fixes` has been fast-forwarded to Linus'
   latest -rc tag but drm-upstream hasn't done the same yet: The shortlog
