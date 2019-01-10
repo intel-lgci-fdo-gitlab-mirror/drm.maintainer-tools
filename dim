@@ -1456,10 +1456,6 @@ function dim_checkout
 	if ! git_branch_exists $branch ; then
 		repo=$(branch_to_repo $branch)
 
-		if [[ $branch == "drm-intel-next" ]] ; then
-			repo="drm-intel"
-		fi
-
 		if [[ $repo == "" ]] ; then
 			echoerr "$branch not found in $dim_integration_config"
 			exit 1
@@ -2027,12 +2023,6 @@ function dim_update_branches
 			$DRY git rebase -i
 		fi
 	done
-	if git_branch_exists drm-intel-next ; then
-		intel_remote=$(repo_to_remote drm-intel)
-
-		dim_checkout drm-intel-next
-		$DRY git reset --hard $intel_remote/drm-intel-next
-	fi
 
 	cd $DIM_PREFIX/maintainer-tools
 	if git_is_current_branch maintainer-tools ; then
