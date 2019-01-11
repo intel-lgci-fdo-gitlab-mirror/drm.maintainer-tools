@@ -724,7 +724,11 @@ function dim_rebuild_tip
 		remote=$(repo_to_remote $repo)
 		sha1=$remote/$branch
 
-		echo -n "Merging $repo (local remote $remote) $branch... "
+		if [[ "$repo" = "$remote" ]]; then
+			echo -n "Merging $repo/$branch... "
+		else
+			echo -n "Merging $repo/$branch (local remote $remote)... "
+		fi
 
 		if [[ -n "$override" ]]; then
 			sha1=$override
