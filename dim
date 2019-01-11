@@ -656,7 +656,11 @@ function fetch_all
 {
 	for repo in "${!drm_tip_repos[@]}"; do
 		remote=$(repo_to_remote $repo)
-		echo -n "Fetching $repo (local remote $remote)... "
+		if [[ "$repo" = "$remote" ]]; then
+			echo -n "Fetching $repo... "
+		else
+			echo -n "Fetching $repo (local remote $remote)... "
+		fi
 		git_fetch_helper $remote
 		echo "Done."
 	done
