@@ -2146,9 +2146,12 @@ function dim_setup
 		exit 1
 	fi
 
-	cd $DIM_PREFIX
+	if [[ ! -d "$(git_dir $DIM_PREFIX/maintainer-tools)" ]]; then
+		echoerr "No maintainer-tools git checkout found in '$DIM_PREFIX/maintainer-tools'."
+		echoerr "dim update will not work. Please fix."
+	fi
 
-	setup_aux_checkout master $maintainer_tools_https maintainer-tools
+	cd $DIM_PREFIX
 
 	setup_aux_checkout rerere-cache $drm_tip_ssh drm-rerere
 
