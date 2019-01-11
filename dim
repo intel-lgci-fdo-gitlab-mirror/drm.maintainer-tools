@@ -155,6 +155,19 @@ function pause
 	echo
 }
 
+function ask_user
+{
+	local prompt="$@ (y/N) "
+
+	read -n 1 -rsp "$prompt"
+	echo
+	if [[ $REPLY =~ ^[Yy]$ ]]; then
+		return 0
+	else
+		return 1
+	fi
+}
+
 #
 # Variable naming convetion:
 #
@@ -2107,18 +2120,26 @@ function dim_setup
 	drm_tip_ssh=ssh://git.freedesktop.org/git/drm-tip
 	linux_upstream_git=git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
 
-	if [ ! -d $DIM_PREFIX ]; then
-		echoerr "Directory $DIM_PREFIX doesn't exist."
-		echoerr "Please set up your repository directory with"
-		echoerr "    mkdir -p $DIM_PREFIX"
-		echoerr "or update your configuration (see dimrc.sample)."
-		exit 1
+	if [[ ! -d "$DIM_PREFIX" ]]; then
+		if ask_user "The DIM_PREFIX repository directory '$DIM_PREFIX' doesn't exist. Create?"; then
+			mkdir -p "$DIM_PREFIX"
+		else
+			echoerr "Please set up your DIM_PREFIX repository directory with"
+			echoerr "    mkdir -p $DIM_PREFIX"
+			echoerr "or update your configuration (see dimrc.sample)."
+			exit 1
+		fi
 	fi
-	cd $DIM_PREFIX
 
-	if [ ! -d $(git_dir $DIM_PREFIX/$DIM_REPO) ]; then
-		echoerr "No git checkout found in $DIM_PREFIX/$DIM_REPO."
-		echoerr "Please set up your maintainer linux repository at $DIM_PREFIX/$DIM_REPO with"
+	if [[ ! -d "$DIM_PREFIX/$DIM_REPO" ]]; then
+		if ask_user "The DIM_REPO maintainer kernel repository '$DIM_PREFIX/$DIM_REPO' doesn't exist. Clone upstream?"; then
+			git clone "$linux_upstream_git" "$DIM_REPO"
+		fi
+	fi
+
+	if [[ ! -d "$(git_dir $DIM_PREFIX/$DIM_REPO)" ]]; then
+		echoerr "No kernel git checkout found in '$DIM_PREFIX/$DIM_REPO'."
+		echoerr "Please set up your DIM_REPO maintainer kernel repository at '$DIM_PREFIX/$DIM_REPO' with:"
 		echoerr "    cd $DIM_PREFIX"
 		echoerr "    git clone $linux_upstream_git $DIM_REPO"
 		echoerr "or update your configuration (see dimrc.sample)."
