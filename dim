@@ -2044,8 +2044,8 @@ function dim_update_branches
 	done
 
 	cd $DIM_PREFIX/maintainer-tools
-	if git_is_current_branch maintainer-tools ; then
-		echo "Updating maintainer-tools ..."
+	if git_is_current_branch master || git_is_current_branch maintainer-tools; then
+		echo "Updating maintainer-tools..."
 		git pull --rebase
 	fi
 
