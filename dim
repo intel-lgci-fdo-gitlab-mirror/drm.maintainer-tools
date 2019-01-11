@@ -81,7 +81,6 @@ maintainer_tools_https=https://gitlab.freedesktop.org/drm/maintainer-tools.git
 # Recipients for all dim based pull requests.
 # Add To: lines to the end, Cc: lines in the beginning with -c.
 dim_pull_request_recipients=(
-	-c "Daniel Vetter <daniel.vetter@ffwll.ch>"
 	-c "Jani Nikula <jani.nikula@linux.intel.com>"
 	-c "Joonas Lahtinen <joonas.lahtinen@linux.intel.com>"
 	-c "Rodrigo Vivi <rodrigo.vivi@intel.com>"
@@ -92,6 +91,7 @@ dim_pull_request_recipients=(
 	-c "intel-gfx@lists.freedesktop.org"
 	-c "dim-tools@lists.freedesktop.org"
 	"Dave Airlie <airlied@gmail.com>"
+	"Daniel Vetter <daniel.vetter@ffwll.ch>"
 )
 
 # integration configuration
