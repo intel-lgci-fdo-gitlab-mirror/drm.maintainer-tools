@@ -892,7 +892,7 @@ function checkpatch_commit_push_range
 # push.
 function dim_push_branch
 {
-	local branch remote
+	local branch remote count
 
 	branch=${1:?$usage}
 	shift
@@ -902,6 +902,16 @@ function dim_push_branch
 	remote=$(branch_to_remote $branch)
 
 	checkpatch_commit_push_range 1 "$branch@{u}..$branch" --first-parent
+
+	# Apart from maintainers pushing merges or rebases, most patches should
+	# be pushed in small batches.
+	count=$(git rev-list --count --first-parent "$branch@{u}..$branch")
+	if [[ $count -gt 10 ]]; then
+		if ! ask_user "Pushing $count commits. Are you sure?"; then
+			echoerr "NOTE: Branch not pushed."
+			return 1
+		fi
+	fi
 
 	git push $DRY_RUN $remote $branch "$@"
 
