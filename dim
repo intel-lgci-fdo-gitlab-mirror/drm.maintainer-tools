@@ -805,11 +805,13 @@ function dim_rebuild_tip
 # additional patch checks before pushing, e.g. for r-b tags
 function checkpatch_commit_push
 {
-	local sha1 managed_branch rv author committer author_outlook
+	local sha1 managed_branch rv author committer author_outlook cite
 
 	sha1=$1
 	managed_branch=$2
 	rv=0
+
+	cite=$(dim_cite $sha1)
 
 	# use real names for people with many different email addresses
 	author=$(git show -s $sha1 --format="format:%an")
@@ -819,26 +821,26 @@ function checkpatch_commit_push
 
 	# check for author sign-off
 	if ! git show -s $sha1 | grep -qi "Signed-off-by:.*\\($author\\|$author_outlook\\)" ; then
-		echoerr "$sha1 is lacking author of sign-off"
+		echoerr "$cite: author Signed-off-by missing."
 		rv=1
 	fi
 
 	# check for committer sign-off
 	if ! git show -s $sha1 | grep -qi "Signed-off-by:.*$committer"  ; then
-		echoerr "$sha1 is lacking committer of sign-off"
+		echoerr "$cite: committer Signed-off-by missing."
 		rv=1
 	fi
 
 	# check for Link tag
 	if [[ "$managed_branch" = "1" ]] && ! git show -s $sha1 | grep -qi 'Link:'  ; then
-		echoerr "$sha1 is lacking of link tag"
+		echoerr "$cite: Link tag missing."
 		rv=1
 	fi
 
 	# check for a-b/r-b tag
 	if ! git show -s $sha1 | grep -qi '\(reviewed\|acked\)\S*-by:' && \
 	   ! [[ "$committer" != "$author" ]]; then
-		echoerr "$sha1 is lacking mandatory review"
+		echoerr "$cite: mandatory review missing."
 		rv=1
 	fi
 
@@ -847,16 +849,18 @@ function checkpatch_commit_push
 
 function checkmerge_commit_push
 {
-	local sha1 managed_branch rv body_text
+	local sha1 managed_branch rv body_text cite
 
 	sha1=$1
 	managed_branch=${2}
 	rv=0
 
+	cite=$(dim_cite $sha1)
+
 	body_text="$(git show $sha1 -s --format="format:%b" | grep -v "^$" | grep -v "^\S*:")"
 
 	if [[ -z "$body_text" ]] ; then
-		echoerr "$sha1 is lacking merge commit justification"
+		echoerr "$cite: merge commit justification missing."
 		rv=1
 	fi
 
