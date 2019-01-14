@@ -2275,9 +2275,8 @@ function dim_cite
 
 	sha1=${1:?$usage}
 
-	cd $DIM_PREFIX/$DIM_REPO
-
-	git log -1 $sha1 "--pretty=format:%H (\"%s\")%n" | \
+	git --git-dir="$DIM_PREFIX/$DIM_REPO/.git" log -1 $sha1 \
+	    "--pretty=format:%H (\"%s\")%n" | \
 		sed -e 's/\([0-f]\{12\}\)[0-f]*/\1/'
 }
 
