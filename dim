@@ -892,7 +892,7 @@ function checkpatch_commit_push_range
 # push.
 function dim_push_branch
 {
-	local branch remote count
+	local branch remote committer_email count
 
 	branch=${1:?$usage}
 	shift
@@ -901,7 +901,9 @@ function dim_push_branch
 
 	remote=$(branch_to_remote $branch)
 
-	checkpatch_commit_push_range 1 "$branch@{u}..$branch" --first-parent
+	committer_email=$(git_committer_email)
+
+	checkpatch_commit_push_range 1 "$branch@{u}..$branch" --first-parent --committer="$committer_email"
 
 	# Apart from maintainers pushing merges or rebases, most patches should
 	# be pushed in small batches.
