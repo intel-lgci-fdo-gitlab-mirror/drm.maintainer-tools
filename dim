@@ -157,7 +157,7 @@ function pause
 
 function ask_user
 {
-	local prompt="$@ (y/N) "
+	local prompt="$* (y/N) "
 
 	read -n 1 -rsp "$prompt"
 	echo
