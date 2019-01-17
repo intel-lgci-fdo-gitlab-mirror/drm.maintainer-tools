@@ -432,18 +432,11 @@ message_print_body ()
 	python2 <<EOF
 import email
 
-def print_part(part):
-    mtype = part.get_content_maintype()
-    if mtype == 'text':
-        print(part.get_payload(decode=True))
-
 def print_msg(file):
     msg = email.message_from_file(file)
-    if msg.is_multipart():
-        for part in msg.get_payload():
-            print_part(part)
-    else:
-        print_part(msg)
+    for part in msg.walk():
+        if part.get_content_type() == 'text/plain':
+            print(part.get_payload(decode=True))
 
 print_msg(open('$1', 'r'))
 EOF
