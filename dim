@@ -1571,7 +1571,7 @@ function checkpatch_commit
 			profile_options=""
 			;;
 		drm-intel)
-			profile_options="--max-line-length=100 --ignore=BIT_MACRO,PREFER_KERNEL_TYPES,SPLIT_STRING,LONG_LINE_STRING,BOOL_MEMBER"
+			profile_options="--max-line-length=100 --ignore=BIT_MACRO,SPLIT_STRING,LONG_LINE_STRING,BOOL_MEMBER"
 			;;
 		*)
 			echoerr "Unknown checkpatch profile $profile"
