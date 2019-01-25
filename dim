@@ -772,7 +772,7 @@ function dim_rebuild_tip
 
 			# because we filter out fast-forward merges there will
 			# always be something to commit
-			git commit --no-edit --quiet
+			git commit --no-edit --quiet --no-verify
 			echo "Done."
 		fi
 
