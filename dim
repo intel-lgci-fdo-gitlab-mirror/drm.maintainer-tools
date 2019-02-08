@@ -795,6 +795,66 @@ function dim_rebuild_tip
 	commit_rerere_cache
 }
 
+function checkpatch_fixes_tag
+{
+	local sha1 fixes_lines cite rv fline
+
+	sha1=$1
+	rv=0
+	fixes_lines=$(git log -1 --format='%B' "$sha1" | grep -i '^[[:space:]]*Fixes:')
+	cite=$(dim_cite $sha1)
+
+	echo "$fixes_lines" | ( local rv; rv=0 ; while read -r fline; do
+		local fixes_sha1 fixes_subject orig_subject
+		if [[ -z "$fline" ]] ; then
+			continue
+		fi
+
+		[[ "$fline" =~ ^[[:space:]]*[Ff][Ii][Xx][Ee][Ss]:[[:space:]]*(.*)$ ]]
+		fline="${BASH_REMATCH[1]}"
+
+		if [[ ! "$fline" =~ ^[[:space:]]*([[:xdigit:]]{5,})[[:space:]]*(.*)$ ]]; then
+			echoerr "$cite: Malformed fixes line:"
+			echoerr "    $fline"
+			rv=1
+			continue
+		fi
+		fixes_sha1="${BASH_REMATCH[1]}"
+		fixes_subject="${BASH_REMATCH[2]}"
+
+		if ! git rev-parse --verify -q $fixes_sha1 > /dev/null ; then
+			echoerr "$cite: SHA1 in fixes line not found:"
+			echoerr "    $fline"
+			rv=1
+			continue
+		fi
+		if ! git merge-base --is-ancestor $fixes_sha1 $sha1 ; then
+			echoerr "$cite: Fixes: SHA1 in not pointing at an ancestor:"
+			echoerr "    $fline"
+			rv=1
+			continue
+		fi
+		if ! echo $fixes_sha1 | grep -q '[[:xdigit:]]\{12\}' ; then
+			echoerr "$cite: Fixes: SHA1 needs at least 12 digits:"
+			echoerr "    $fline"
+			rv=1
+			continue
+		fi
+		orig_subject=$(git show -s $fixes_sha1 --format="format:%s")
+		if [[ "$fixes_subject" != "(\"$orig_subject\")" ]] ; then
+			echoerr "$cite: Subject in fixes line doesn't match referenced commit:"
+			echoerr "    $fline"
+			rv=1
+			continue
+		fi
+
+	done ; exit $rv )
+
+	rv=$?
+
+	return $rv
+}
+
 # additional patch checks before pushing, e.g. for r-b tags
 function checkpatch_commit_push
 {
@@ -841,6 +901,10 @@ function checkpatch_commit_push
 	if ! git show -s $sha1 | grep -qi '\(reviewed\|acked\)\S*-by:' && \
 	   ! [[ "$committer" != "$author" ]]; then
 		echoerr "$cite: mandatory review missing."
+		rv=1
+	fi
+
+	if ! checkpatch_fixes_tag $sha1 ; then
 		rv=1
 	fi
 
