@@ -812,6 +812,13 @@ function checkpatch_commit_push
 	# outlook mangles mails into "Last, First"
 	author_outlook=$(git show -s $sha1 --format="format:%an" | sed -e 's/\([^ ]*\) \(.*\)/\2, \1/')
 
+
+	# check for fd.o mailman From: mangling
+	if git show -s $sha1 --format="format:%ae %ce"| grep -q '@lists\.freedesktop\.org' ; then
+		echoerr "$cite: mailman wrangled email address detected."
+		rv=1
+	fi
+
 	# check for author sign-off
 	if ! git show -s $sha1 | grep -qi "Signed-off-by:.*\\($author\\|$author_outlook\\)" ; then
 		echoerr "$cite: author Signed-off-by missing."
