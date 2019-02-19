@@ -1048,6 +1048,23 @@ function apply_patch #patch_file
 	return $rv
 }
 
+function check_merge_baseline
+{
+	local pull_sha1 baseline_sha1 upstream_sha1
+	pull_sha1=$1
+	baseline_sha1=$2
+	upstream_sha1=$3
+
+	# the merge base between the pull and upstream is supposed to be in our
+	# tree already
+	if ! git merge-base --is-ancestor $(git merge-base $pull_sha1 $upstream_sha1) $baseline_sha1 ; then
+		echoerr "Pull request contains commits from $upstream_sha1"
+		echoerr "Please backmerge first"
+
+		warn_or_fail "Issues in pull request detected"
+	fi
+}
+
 # ensure we're on branch $1, and apply patches. the rest of the arguments are
 # passed to git am.
 dim_alias_ab=apply-branch
@@ -1111,6 +1128,9 @@ function dim_apply_pull
 	if [[ -z "$(git rev-list HEAD..FETCH_HEAD)" ]] ; then
 		warn_or_fail "Nothing in the pull request"
 	fi
+
+	check_merge_baseline FETCH_HEAD $branch $(branch_to_remote drm-fixes)/drm-fixes
+	check_merge_baseline FETCH_HEAD $branch origin/master
 
 	checkpatch_commit_push_range 0 "HEAD..FETCH_HEAD"
 
