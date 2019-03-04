@@ -2236,7 +2236,7 @@ function dim_setup
 
 	if [[ ! -d "$DIM_PREFIX/$DIM_REPO" ]]; then
 		if ask_user "The DIM_REPO maintainer kernel repository '$DIM_PREFIX/$DIM_REPO' doesn't exist. Clone upstream?"; then
-			git clone "$linux_upstream_git" "$DIM_REPO"
+			git clone "$linux_upstream_git" "$DIM_PREFIX/$DIM_REPO"
 		fi
 	fi
 
