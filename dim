@@ -2234,27 +2234,27 @@ function dim_setup
 		fi
 	fi
 
-	if [[ ! -d "$DIM_PREFIX/$DIM_REPO" ]]; then
-		if ask_user "The DIM_REPO maintainer kernel repository '$DIM_PREFIX/$DIM_REPO' doesn't exist. Clone upstream?"; then
-			git clone "$linux_upstream_git" "$DIM_PREFIX/$DIM_REPO"
+	cd $DIM_PREFIX
+
+	if [[ ! -d "$DIM_REPO" ]]; then
+		if ask_user "The DIM_REPO maintainer kernel repository '$DIM_REPO' doesn't exist. Clone upstream?"; then
+			git clone "$linux_upstream_git" "$DIM_REPO"
 		fi
 	fi
 
-	if [[ ! -d "$(git_dir $DIM_PREFIX/$DIM_REPO)" ]]; then
-		echoerr "No kernel git checkout found in '$DIM_PREFIX/$DIM_REPO'."
-		echoerr "Please set up your DIM_REPO maintainer kernel repository at '$DIM_PREFIX/$DIM_REPO' with:"
+	if [[ ! -d "$(git_dir $DIM_REPO)" ]]; then
+		echoerr "No kernel git checkout found in '$DIM_REPO'."
+		echoerr "Please set up your DIM_REPO maintainer kernel repository at '$DIM_REPO' with:"
 		echoerr "    cd $DIM_PREFIX"
 		echoerr "    git clone $linux_upstream_git $DIM_REPO"
 		echoerr "or update your configuration (see dimrc.sample)."
 		exit 1
 	fi
 
-	if [[ ! -d "$(git_dir $DIM_PREFIX/maintainer-tools)" ]]; then
-		echoerr "No maintainer-tools git checkout found in '$DIM_PREFIX/maintainer-tools'."
+	if [[ ! -d "$(git_dir maintainer-tools)" ]]; then
+		echoerr "No maintainer-tools git checkout found in 'maintainer-tools'."
 		echoerr "dim update will not work. Please fix."
 	fi
-
-	cd $DIM_PREFIX
 
 	setup_aux_checkout rerere-cache $drm_tip_ssh drm-rerere
 
