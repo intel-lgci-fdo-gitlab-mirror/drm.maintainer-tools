@@ -2260,6 +2260,8 @@ function dim_setup
 
 	setup_aux_checkout drm-tip $drm_tip_ssh drm-tip
 
+	dim_update_branches
+
 	echo "dim setup successfully completed!"
 }
 
