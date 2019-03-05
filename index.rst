@@ -22,6 +22,7 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
+   getting-started
    repositories
    drm-tip
    drm
@@ -30,7 +31,6 @@ Contents:
    committer-guidelines
    maintainer-guidelines
    commit-access
-   getting-started
    dim
    qf
    code-of-conduct
