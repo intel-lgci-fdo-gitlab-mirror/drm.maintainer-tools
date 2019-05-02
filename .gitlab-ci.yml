@@ -28,6 +28,7 @@ check:
       - make check
 
 pages:
+    when: manual
     stage: deploy
     script:
       - make html
