@@ -1792,13 +1792,13 @@ function dim_sparse
 
 	for commit in "${commits[@]}"; do
 		touch --no-create $(git diff --name-only $commit~...$commit)
-		prev_sr="$(make C=1 -j$(nproc) drivers/gpu/drm/ 2>&1 1>/dev/null | sort)"
+		prev_sr="$(make C=1 -j$(nproc) drivers/gpu/drm/ 2>&1 1>/dev/null)"
 
 		git checkout --detach $commit >/dev/null 2>&1
-		sr="$(make C=1 -j$(nproc) drivers/gpu/drm/ 2>&1 1>/dev/null | sort)"
+		sr="$(make C=1 -j$(nproc) drivers/gpu/drm/ 2>&1 1>/dev/null)"
 
 		prev_remapped="$(echo "$prev_sr" | $remap_log <(git diff HEAD~ | $remap_log))"
-		diff_result="$(diff -u <(echo "$prev_remapped") <(echo "$sr") || true)"
+		diff_result="$(diff -u <(echo "$prev_remapped" | sort) <(echo "$sr" | sort) || true)"
 
 		echo "Commit: $(git log -n1 --format='%s' $commit)"
 		if [ -n "$diff_result" ]; then
