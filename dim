@@ -1790,6 +1790,7 @@ function dim_sparse
 	# make the initial reference build
 	commits=( $(git rev-list --reverse $range) )
 	git checkout --detach  ${commits[0]}~ > /dev/null 2>&1
+	make olddefconfig > /dev/null 2>&1
 	make -j8 drivers/gpu/drm/ > /dev/null 2>&1
 
 	for commit in "${commits[@]}"; do
@@ -1797,6 +1798,7 @@ function dim_sparse
 		prev_sr="$(make C=1 -j$(nproc) drivers/gpu/drm/ 2>&1 1>/dev/null)"
 
 		git checkout --detach $commit >/dev/null 2>&1
+		make olddefconfig > /dev/null 2>&1
 		sr="$(make C=1 -j$(nproc) drivers/gpu/drm/ 2>&1 1>/dev/null)"
 
 		prev_remapped="$(echo "$prev_sr" | $remap_log <(git diff HEAD~ | $remap_log))"
