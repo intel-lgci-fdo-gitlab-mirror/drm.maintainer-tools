@@ -536,14 +536,14 @@ function update_linux_next # branch next next-fixes fixes
 
 	# always update drm-intel-fixes
 	echo -n "Pushing $linux_fixes to for-linux-next-fixes... "
-	git_push $remote +$remote/$linux_fixes:for-linux-next-fixes # >& /dev/null
+	git_push $remote +$remote/$linux_fixes:for-linux-next-fixes
 	echo "Done."
 
 	if git merge-base --is-ancestor $remote/$linux_next_fixes $remote/$linux_fixes ; then
 		# -fixes has caught up to dinf, i.e. we're out of the merge
 		# window. Push the next queue.
 		echo -n "Out of merge window. Pushing $linux_next to for-linux-next... "
-		git_push $remote +$remote/$linux_next:for-linux-next >& /dev/null
+		git_push $remote +$remote/$linux_next:for-linux-next
 		echo "Done."
 	else
 		# dinf is ahead of -fixes, i.e. drm-next has already closed for
@@ -551,7 +551,7 @@ function update_linux_next # branch next next-fixes fixes
 		# for the current -next cycle. Push dinf
 
 		echo -n "Pushing $linux_next_fixes to for-linux-next... "
-		git_push $remote +$remote/$linux_next_fixes:for-linux-next >& /dev/null
+		git_push $remote +$remote/$linux_next_fixes:for-linux-next
 		echo "Done."
 	fi
 }
