@@ -76,8 +76,6 @@ dim=$(basename $0)
 dim_today=$(date +%Y-%m-%d)
 dim_timestamp="$(date --utc +%Yy-%mm-%dd-%Hh-%Mm-%Ss) UTC"
 
-dim_fdo_cookie="--push-option fdo.pushedWithDim=this-was-pushed-with-dim-and-not-manually"
-
 maintainer_tools_https=https://gitlab.freedesktop.org/drm/maintainer-tools.git
 
 # Recipients for all dim based pull requests.
@@ -531,14 +529,14 @@ function update_linux_next # branch next next-fixes fixes
 
 	# always update drm-intel-fixes
 	echo -n "Pushing $linux_fixes to for-linux-next-fixes... "
-	git push $dim_fdo_cookie $DRY_RUN $remote +$remote/$linux_fixes:for-linux-next-fixes # >& /dev/null
+	git push $DRY_RUN $remote +$remote/$linux_fixes:for-linux-next-fixes # >& /dev/null
 	echo "Done."
 
 	if git merge-base --is-ancestor $remote/$linux_next_fixes $remote/$linux_fixes ; then
 		# -fixes has caught up to dinf, i.e. we're out of the merge
 		# window. Push the next queue.
 		echo -n "Out of merge window. Pushing $linux_next to for-linux-next... "
-		git push $dim_fdo_cookie $DRY_RUN $remote +$remote/$linux_next:for-linux-next >& /dev/null
+		git push $DRY_RUN $remote +$remote/$linux_next:for-linux-next >& /dev/null
 		echo "Done."
 	else
 		# dinf is ahead of -fixes, i.e. drm-next has already closed for
@@ -546,7 +544,7 @@ function update_linux_next # branch next next-fixes fixes
 		# for the current -next cycle. Push dinf
 
 		echo -n "Pushing $linux_next_fixes to for-linux-next... "
-		git push $dim_fdo_cookie $DRY_RUN $remote +$remote/$linux_next_fixes:for-linux-next >& /dev/null
+		git push $DRY_RUN $remote +$remote/$linux_next_fixes:for-linux-next >& /dev/null
 		echo "Done."
 	fi
 }
@@ -657,7 +655,7 @@ function commit_rerere_cache
 	rm $commit_message
 
 	echo -n "Pushing rerere cache... "
-	git push $dim_fdo_cookie $DRY_RUN $remote HEAD >& /dev/null && echo "Done."
+	git push $DRY_RUN $remote HEAD >& /dev/null && echo "Done."
 }
 
 function fetch_all
@@ -792,7 +790,7 @@ function dim_rebuild_tip
 	remote=$(repo_to_remote drm-tip)
 
 	echo -n "Pushing $integration_branch... "
-	git push $dim_fdo_cookie $DRY_RUN $remote +HEAD >& /dev/null && echo "Done."
+	git push $DRY_RUN $remote +HEAD >& /dev/null && echo "Done."
 
 	commit_rerere_cache
 }
@@ -981,7 +979,7 @@ function dim_push_branch
 		fi
 	fi
 
-	git push $dim_fdo_cookie $DRY_RUN $remote $branch "$@"
+	git push $DRY_RUN $remote $branch "$@"
 
 	update_linux_next $branch drm-intel-next-queued drm-intel-next-fixes drm-intel-fixes
 	update_linux_next $branch drm-misc-next drm-misc-next-fixes drm-misc-fixes
@@ -1507,7 +1505,7 @@ function dim_create_branch
 
 	# git push gives confusing error messages for non-existing branches,
 	# even with --dry-run, hence the even quieter $DRY
-	$DRY git push $dim_fdo_cookie $remote +$branch --set-upstream
+	$DRY git push $remote +$branch --set-upstream
 
 	cd $DIM_PREFIX/drm-rerere
 	$DRY sed -i "s/^\() # DO NOT CHANGE THIS LINE\)$/\t\"$repo\t\t${branch//\//\\\/}\"\n\1/" $dim_integration_config
@@ -1544,7 +1542,7 @@ function dim_remove_branch
 
 	remote=$(repo_to_remote $repo)
 
-	git push $dim_fdo_cookie $DRY_RUN $remote --delete $branch
+	git push $DRY_RUN $remote --delete $branch
 	$DRY git fetch $remote --prune
 	cd $DIM_PREFIX/drm-rerere
 	$DRY sed -i "/^[[:space:]]*\"${repo}[[:space:]]\+${branch//\//\\\/}.*$/d" $dim_integration_config
@@ -1999,11 +1997,11 @@ function dim_update_next_continue
 
 	remote=$(repo_to_remote drm-intel)
 
-	git push $dim_fdo_cookie $DRY_RUN -f $remote drm-intel-next-queued:drm-intel-next
+	git push $DRY_RUN -f $remote drm-intel-next-queued:drm-intel-next
 	tag=$(tag_name "drm-intel-next")
 
 	tag_branch $tag drm-intel-next
-	git push $dim_fdo_cookie $DRY_RUN $remote $tag
+	git push $DRY_RUN $remote $tag
 }
 
 function dim_tag_branch
@@ -2038,7 +2036,7 @@ function dim_tag_branch
 
 	tag=$(tag_name "$branch")
 	tag_branch $tag $branch
-	git push $dim_fdo_cookie $DRY_RUN $remote $tag
+	git push $DRY_RUN $remote $tag
 }
 
 function dim_tag_next
@@ -2076,7 +2074,7 @@ function dim_pull_request
 		tag=$(tag_name "$branch")
 		gitk --first-parent "$branch" ^$upstream &
 		tag_branch $tag $branch
-		$DRY git push $dim_fdo_cookie $remote $tag
+		$DRY git push $remote $tag
 		prep_pull_mail $req_file $tag
 
 		repo=$(branch_to_repo $branch)
