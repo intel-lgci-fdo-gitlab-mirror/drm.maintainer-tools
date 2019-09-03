@@ -12,6 +12,11 @@ There's also a sample config file for ~/.dimrc::
 
     https://gitlab.freedesktop.org/drm/maintainer-tools/raw/master/dimrc.sample
 
+The recommended way to setup dim is to simply clone it::
+
+    $ cd $DIM_PREFIX # defaults to ~/.src, or whatever you've set in your .dimrc
+    $ git clone git@gitlab.freedesktop.org:drm/maintainer-tools.git
+
 Plus, there's bash completion in the same directory if you feel like using that.
 Run::
 
@@ -23,10 +28,9 @@ your .dimrc to match your setup and then run::
 
     $ dim setup
 
-This will also check out the latest maintainer-tools branches, so please replace
-the dim you just downloaded with a symlink after this step. And by the way, if
-you have improvements for dim, see `contributing
-<dim.html#contributing-bug-reports-and-discussion>`_.
+This expects that you have the maintainer-tools already checked out in
+$DIM_PREFIX/maintainer-tools. And by the way, if you have improvements for dim,
+see `contributing <dim.html#contributing-bug-reports-and-discussion>`_.
 
 If you have a freedesktop.org account and plan to push things on one of the
 drm-xxx repos, you should use the ssh://git.freedesktop.org/git/drm-xxx urls
