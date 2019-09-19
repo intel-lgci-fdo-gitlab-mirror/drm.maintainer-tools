@@ -92,7 +92,7 @@ drm-tip. Getting rid of that requires a few steps.
 2. Revert that commit and make sure there's no other cache resolutions around::
 
       $ cd $DIM_PREFIX/drm-rerere
-      $ git pull # to avoid with others
+      $ git pull # to avoid conflicts with others
       $ git revert $broken_resolution_sha1
       $ git clean -dfx
 
@@ -103,9 +103,9 @@ drm-tip. Getting rid of that requires a few steps.
 If the Conflict Reappears
 -------------------------
 
-In some odd cases git rerere fails to recognize the conflict, and doesn't store
-conflict resolution. This needs to be handled with a manual fixup patch, and the
-best way to go about this is:
+In some odd cases git rerere fails to recognize the conflict, and doesn't
+reapply the stored conflict resolution. This needs to be handled with a manual
+fixup patch, and the best way to go about this is:
 
 1. Try to resolve the conflict normally, but then running::
 
@@ -148,12 +148,13 @@ merge commit.
 
 1. Identify the merge that breaks the build.
 
-2. Rebuild drm-tip in interactive mode, and stop until the broken merge has been
+2. Rebuild drm-tip in interactive mode, and stop after the broken merge has been
    done::
 
       $ dim -i rebuild-tip
 
-   Stop the rebuilding of drm-tip by hitting ^C.
+   Interrupt the rebuilding of drm-tip by hitting ^C when it asks you to hit a
+   key to proceed.
 
 3. Resolve the conflict normally, but don't stage it or commit it in any
    fashion. Check that the resolution looks correct::
