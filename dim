@@ -1962,6 +1962,11 @@ function tag_branch
 	branch=$2
 	remote=$(branch_to_remote $branch)
 
+	if ! git merge-base --is-ancestor $branch $remote/$branch ; then
+		echoerr "Branch contains local commits. Aborting."
+		exit 1
+	fi
+
 	tag_summary $branch | $DRY git tag -F- $tag "$branch@{upstream}"
 	$DRY git tag -a $DIM_GPG_KEYID -f $tag
 	git_push $remote $tag
