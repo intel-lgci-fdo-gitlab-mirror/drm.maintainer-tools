@@ -880,7 +880,7 @@ function checkpatch_commit_push
 	committer=$(git show -s $sha1 --format="format:%cn")
 	# outlook mangles mails into "Last, First"
 	author_outlook=$(git show -s $sha1 --format="format:%an" | sed -e 's/\([^ ]*\) \(.*\)/\2, \1/')
-
+	author_translit=$(echo $author | iconv -t ASCII//TRANSLIT)
 
 	# check for fd.o mailman From: mangling
 	if git show -s $sha1 --format="format:%ae %ce"| grep -q '@lists\.freedesktop\.org' ; then
@@ -889,7 +889,7 @@ function checkpatch_commit_push
 	fi
 
 	# check for author sign-off
-	if ! git show -s $sha1 | grep -qi "Signed-off-by:.*\\($author\\|$author_outlook\\)" ; then
+	if ! git show -s $sha1 | grep -qi "Signed-off-by:.*\\($author\\|$author_outlook\\|$author_translit\\)" ; then
 		echoerr "$cite: author Signed-off-by missing."
 		rv=1
 	fi
