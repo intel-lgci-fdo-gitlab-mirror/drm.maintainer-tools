@@ -99,6 +99,8 @@ dim_pull_request_recipients=(
 # integration configuration
 dim_integration_config=nightly.conf
 
+dim_extract_tags_marker="# *** extracted tags ***"
+
 #
 # Only function and alias definitions until the command line argument parsing
 # and subcommand handling at the end.
@@ -908,6 +910,12 @@ function checkpatch_commit_push
 	if ! git show -s $sha1 | grep -qi '\(reviewed\|acked\)\S*-by:' && \
 	   ! [[ "$committer" != "$author" ]]; then
 		echoerr "$cite: mandatory review missing."
+		rv=1
+	fi
+
+	# check for leftover dim extract-tags marker
+	if git show -s $sha1 | grep -qF "$dim_extract_tags_marker" ; then
+		echoerr "$cite: leftover dim extract-tags marker."
 		rv=1
 	fi
 
@@ -1724,7 +1732,7 @@ function dim_extract_tags
 		return 0
 	fi
 
-	tags=$(printf -- "# *** extracted tags ***\n%s" "$tags")
+	tags=$(printf -- "$dim_extract_tags_marker\n%s" "$tags")
 
 	git filter-branch -f --msg-filter "cat ; echo \"$tags\"" $range
 }
