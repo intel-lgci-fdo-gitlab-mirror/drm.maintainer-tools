@@ -1122,7 +1122,7 @@ function dim_apply_pull
 	cat > $file
 
 	pull_branch=$(message_print_body "$file" |
-		sed -ne '/[gG]it repository at:$/,/for you to fetch/{p}' |
+		sed -ne '/^[^>].*[gG]it repository at:$/,/for you to fetch/{p}' |
 		sed -ne '3,$p' | sed -ne '0,/^$/p' | tr '\n' ' ')
 
 	from_line=$(grep '^From:' $file)
