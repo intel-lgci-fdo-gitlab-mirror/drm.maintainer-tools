@@ -1125,7 +1125,7 @@ function dim_apply_pull
 		sed -ne '/^[^>].*[gG]it repository at:$/,/for you to fetch/{p}' |
 		sed -ne '3,$p' | sed -ne '0,/^$/p' | tr '\n' ' ')
 
-	from_line=$(grep '^From:' $file)
+	from_line=$(grep '^From:' $file | tail -n 1)
 
 	if [[ -z "$pull_branch" ]] ; then
 		echoerr "no pull request found"
