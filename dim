@@ -1786,8 +1786,14 @@ function _restore_head_on_exit
 
 function dim_sparse
 {
-	local range rv sr prev_sr prev_remapped diff_result remap_log commits
+	local range rv sr prev_sr prev_remapped diff_result remap_log commits fast prev_rev
 
+	if [ "$1" == "--fast" ]; then
+		fast=1
+		shift
+	fi
+
+	prev_rev="HEAD~"
 	range=$(rangeish "${1:-}")
 	remap_log=$DIM_PREFIX/maintainer-tools/remap-log
 
@@ -1806,6 +1812,13 @@ function dim_sparse
 	make olddefconfig > /dev/null 2>&1
 	make -j8 drivers/gpu/drm/ > /dev/null 2>&1
 
+	if [ "$fast" == 1 ]; then
+		prev_rev="${commits[0]}~"
+		commits=( "${commits[-1]}" )
+
+		echo "Fast mode used, each commit won't be checked separately."
+	fi
+
 	for commit in "${commits[@]}"; do
 		touch --no-create $(git diff --name-only $commit~...$commit)
 		prev_sr="$(make C=1 -j$(nproc) drivers/gpu/drm/ 2>&1 1>/dev/null)"
@@ -1814,10 +1827,12 @@ function dim_sparse
 		make olddefconfig > /dev/null 2>&1
 		sr="$(make C=1 -j$(nproc) drivers/gpu/drm/ 2>&1 1>/dev/null)"
 
-		prev_remapped="$(echo "$prev_sr" | $remap_log <(git diff HEAD~ | $remap_log))"
+		prev_remapped="$(echo "$prev_sr" | $remap_log <(git diff $prev_rev | $remap_log))"
 		diff_result="$(diff -u <(echo "$prev_remapped" | sort) <(echo "$sr" | sort) || true)"
 
-		echo "Commit: $(git log -n1 --format='%s' $commit)"
+		if [ "$fast" != 1 ]; then
+			echo "Commit: $(git log -n1 --format='%s' $commit)"
+		fi
 		if [ -n "$diff_result" ]; then
 			echo "$diff_result" | grep -E '^[+-]' | grep -E -v '^[+-]{3}'
 		else

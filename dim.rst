@@ -79,12 +79,14 @@ filtering. Current profiles are "default", "branch", "drm-intel", and
 "drm-misc". The "branch" profile maps the current git branch to the appropriate
 profile, or if the branch is not known, to "default".
 
-sparse [*commit-ish* [.. *commit-ish*]]
----------------------------------------
-Run sparse on the files changed by the given commit range.
+sparse [--fast] [*commit-ish* [.. *commit-ish*]]
+------------------------------------------------
+Run sparse for each commit in the given commit range.
 
 If no commit-ish is passed, defaults to HEAD^..HEAD. If one commit-ish is passed
 instead of a range, the range commit-ish..HEAD is used.
+
+If --fast is passed we treat the whole range as a single change.
 
 checker
 -------
