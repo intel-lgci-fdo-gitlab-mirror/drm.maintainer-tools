@@ -2289,8 +2289,12 @@ function dim_setup
 	fi
 
 	if [[ ! -d "$(git_dir maintainer-tools)" ]]; then
-		echoerr "No maintainer-tools git checkout found in 'maintainer-tools'."
-		echoerr "dim update will not work. Please fix."
+		if ask_user "No maintainer-tools git checkout found in 'maintainer-tools'. Clone upstream?"; then
+			git clone "$maintainer_tools_https" "maintainer-tools"
+		else
+			echoerr "No maintainer-tools git checkout found in 'maintainer-tools'."
+			echoerr "dim update will not work. Please fix."
+		fi
 	fi
 
 	setup_aux_checkout rerere-cache $drm_tip_ssh drm-rerere
