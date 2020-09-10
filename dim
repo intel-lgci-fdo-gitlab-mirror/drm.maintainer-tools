@@ -76,6 +76,8 @@ dim=$(basename $0)
 dim_today=$(date +%Y-%m-%d)
 dim_timestamp="$(date --utc +%Yy-%mm-%dd-%Hh-%Mm-%Ss) UTC"
 
+dim_python=$(which python || which python3)
+
 dim_fdo_cookie="--push-option fdo.pushedWithDim=this-was-pushed-with-dim-and-not-manually"
 
 maintainer_tools_https=https://gitlab.freedesktop.org/drm/maintainer-tools.git
@@ -427,7 +429,7 @@ function check_dim_config
 # $1 = file
 message_get_id ()
 {
-	python <<EOF
+	$dim_python <<EOF
 from email.parser import Parser
 headers = Parser().parse(open('$1', 'r'))
 message_id = headers['message-id']
@@ -438,7 +440,7 @@ EOF
 
 message_print_body ()
 {
-	python2 <<EOF
+	$dim_python <<EOF
 import email
 
 def print_msg(file):
