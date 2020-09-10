@@ -432,7 +432,7 @@ from email.parser import Parser
 headers = Parser().parse(open('$1', 'r'))
 message_id = headers['message-id']
 if message_id is not None:
-    print(message_id.strip('<>'))
+    print(message_id.strip('<> '))
 EOF
 }
 
