@@ -1384,7 +1384,7 @@ function cherry_pick_branch
 	intel_remote=$(repo_to_remote drm-intel)
 
 	# Look for commits in dinq tagged as fixes.
-	for commit in $(git_list_fixes $intel_remote/$branch..$intel_remote/drm-intel-next-queued -- drivers/gpu/drm/i915); do
+	for commit in $(git_list_fixes $intel_remote/$branch..$intel_remote/drm-intel-next-queued $intel_remote/$branch..$intel_remote/drm-intel-gt-next -- drivers/gpu/drm/i915); do
 		echo -n "Considering $(dim_cite $commit)... "
 
 		# Look at history for already cherry-picked fixes.
