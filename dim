@@ -305,6 +305,11 @@ function branch_to_repo # branch
 	echo ""
 }
 
+function dim_version
+{
+	echo "0"
+}
+
 function dim_uptodate
 {
 	local using
@@ -414,6 +419,14 @@ function check_git_version
 
 	if ! echo -e "$min_version\n$(git version)" | sort -VC; then
 		echoerr "WARNING: recommended minimum $min_version, you have $(git version)"
+	fi
+}
+
+function check_dim_version
+{
+	if [[ -n "$DIM_MIN_VERSION" ]] && [[ "$(dim_version)" < "$DIM_MIN_VERSION" ]]; then
+		echoerr "ERROR: required minimum dim version $DIM_MIN_VERSION, you have $(dim_version)"
+		exit 1
 	fi
 }
 
@@ -2365,6 +2378,7 @@ function list_developer_commands
 		# help commands
 		"help"
 		"usage"
+		"version"
 		# include setup
 		"setup"
 	)
@@ -2622,6 +2636,7 @@ else
 	read_integration_config
 
 	check_for_updates
+	check_dim_version
 	check_git_version
 fi
 
