@@ -281,6 +281,10 @@ update-driver-date *prefix* *file*
 Update the the DRIVER_DATE and DRIVER_TIMESTAMP macros in *file* to match
 current date and time, and commit the change using given subject prefix.
 
+update-i915-driver-date
+-----------------------
+**update-driver-date** shorthand for i915.
+
 COMMANDS FOR MAINTAINERS
 ========================
 
@@ -333,14 +337,8 @@ pull-request-next-fixes [*upstream*]
 
 pull-request-next [*upstream*]
 ------------------------------
-This is similar to **pull-request**, but for feature pull requests, with
-*drm-intel-next* as the branch and *\$DRM_UPSTREAM/drm-next* as the default
-upstream.
-
-The difference to **pull-request** is that this command does not generate a
-tag; this must have been done previously using **update-next**. This also means
-that the pull request can be regenerated with the same commands if something
-goes wrong.
+**pull-request** shorthand for *drm-intel-next-queued* as the branch and
+*\$DRM_UPSTREAM/drm-next* as the default upstream.
 
 apply-pull *branch*
 -------------------
@@ -362,20 +360,6 @@ Rebases *branch* onto *upstream*, making a few sanity checks on the way. The
 using **pull-request**. Alternatively it can also be a tag, which if available
 should be preferred.
 
-update-next
------------
-Pushes out the latest dinq to drm-intel-next and tags it. For an overview a gitk
-view of the currently unmerged feature pile is opened.
-
-The tag will be signed using the key specified by \$DIM_GPG_KEYID, if set.
-
-update-next-continue
---------------------
-
-When **update-next** fails to push the special release commit (because it raced with
-another committer) rebase and push manually, and then continue using this
-command.
-
 tag-branch *branch* [*upstream*]
 --------------------------------
 Pushes a new tag for the specified branch after checking that the remote is 
@@ -384,13 +368,6 @@ up-to-date.
 The tag will be signed using the key specified by \$DIM_GPG_KEYID, if set.
 
 If upstream is provided, launch gitk to show the changes to be tagged.
-
-tag-next
---------
-**tag-branch** shorthand for drm-intel-next.
-
-Useful if drm-intel-next has been changed since the last run of the
-update-next command (e.g. to apply a hotfix before sending out the pull request).
 
 
 DIM HELP COMMANDS

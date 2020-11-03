@@ -2027,34 +2027,9 @@ function dim_update_driver_date
 	git commit $DRY_RUN -sm "$prefix: Update DRIVER_DATE to $driver_date"
 }
 
-function dim_update_next
+function dim_update_i915_driver_date
 {
-	assert_branch drm-intel-next-queued
-
-	git pull --ff-only
-
 	dim_update_driver_date "drm/i915" "drivers/gpu/drm/i915/i915_drv.h"
-
-	gitk --first-parent drm-intel-next-queued ^$(branch_to_remote drm-next)/drm-next &
-
-	# try to push dinq first in case someone raced
-	FORCE=1 dim_push_queued
-
-	dim_update_next_continue
-}
-
-function dim_update_next_continue
-{
-	local remote tag
-
-	assert_branch drm-intel-next-queued
-
-	remote=$(repo_to_remote drm-intel)
-
-	git_push -f $remote drm-intel-next-queued:drm-intel-next
-	tag=$(tag_name "drm-intel-next")
-
-	tag_branch $tag drm-intel-next
 }
 
 function dim_tag_branch
@@ -2091,11 +2066,6 @@ function dim_tag_branch
 	tag_branch $tag $branch
 }
 
-function dim_tag_next
-{
-	dim_tag_branch "drm-intel-next"
-}
-
 # dim_pull_request branch upstream
 function dim_pull_request
 {
@@ -2106,31 +2076,18 @@ function dim_pull_request
 	remote=$(branch_to_remote $branch)
 	req_file=$(mktemp)
 
-	if [ "$branch" != "drm-intel-next" ]; then
-		assert_branch $branch
-	else
-		cd $DIM_PREFIX/$DIM_REPO
-	fi
+	assert_branch $branch
 
 	git_fetch_helper ${upstream%%/*}
 	echo "Using $upstream as the upstream"
 
-	if [ "$branch" = "drm-intel-next" ]; then
-		# drm-intel-next pulls have been tagged using dim update-next
-		drm_intel_next_tags=$(git_unmerged_tags "$branch" "$upstream")
-		prep_pull_mail $req_file $drm_intel_next_tags
-		tag=$(git describe --all --exact "$branch@{upstream}")
+	checkpatch_commit_push_range 1 "$upstream..$branch"
+	tag=$(tag_name "$branch")
+	gitk --first-parent "$branch" ^$upstream &
+	tag_branch $tag $branch
+	prep_pull_mail $req_file $tag
 
-		repo="drm-intel"
-	else
-		checkpatch_commit_push_range 1 "$upstream..$branch"
-		tag=$(tag_name "$branch")
-		gitk --first-parent "$branch" ^$upstream &
-		tag_branch $tag $branch
-		prep_pull_mail $req_file $tag
-
-		repo=$(branch_to_repo $branch)
-	fi
+	repo=$(branch_to_repo $branch)
 
 	url_list=${drm_tip_repos[$repo]}
 	git_url=$(pick_protocol_url git $url_list)
@@ -2143,7 +2100,7 @@ function dim_pull_request
 function dim_pull_request_next
 {
 	upstream=${1:-$(branch_to_remote drm-next)/drm-next}
-	dim_pull_request drm-intel-next $upstream
+	dim_pull_request drm-intel-next-queued $upstream
 }
 
 function dim_pull_request_fixes

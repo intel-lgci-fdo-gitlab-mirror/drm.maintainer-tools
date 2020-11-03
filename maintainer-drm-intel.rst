@@ -21,19 +21,10 @@ Take over when the last drm-intel feature pull has been sent for an upcoming
 merge window, and drm-intel-next-queued starts targeting the next merge window
 after that. This happens around -rc5 of the current development kernel.
 
-Tag drm-intel-next-queued periodically, say every 1-2 weeks, depending on the
-rate of change. Use ``dim update-next``. Write a tag summary detailing the
-changes since the last tag. Send a testing request.
-
-Send drm-intel-next-queued pull requests periodically. Use ``dim
-pull-request-next``. Pull requests are based on the tags generated above. Don't
-send a pull request immediately after tagging, leave some time for
-testing. Typically you would send a pull request for each tag, but the tooling
-allows for accumulation of several tags into one pull request. Dave usually
-doesn't start pulling features until the pull requests for the previous release
-have been merged to Linus' tree, so it's normal to accumulate several tags
-before and during the merge window. Only send your first pull request after
--rc1.
+Start queuing changes for drm-next after the merge window (i.e. after
+another -rc1 is out). Send drm-intel-next-queued pull requests periodically. Use
+``dim pull-request-next``. Write a tag summary detailing the changes since the
+last tag.
 
 Do backmerges as needed, but also don't let drm-intel-next-queued fall too much
 behind from drm-next; use your discretion. Use ``dim backmerge``. Never rebase
