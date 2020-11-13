@@ -43,16 +43,16 @@ Yellow = Additional trees from/shared with other subsystems.
 Features
 --------
 
-Features are picked up and pushed to drm-intel-next-queued by committers and
+Features are picked up and pushed to drm-intel-next by committers and
 maintainers. See :ref:`committer-drm-intel` for details.
 
 Fixes
 -----
 
-Fixes are picked up and pushed to drm-intel-next-queued by committers and
-maintainers, just like any other patches. This is to ensure fixes are pushed in
-a timely manner. Fixes that are relevant for stable, current development
-kernels, or drm-next, will be cherry-picked by maintainers to drm-intel-fixes or
+Fixes are picked up and pushed to drm-intel-next by committers and maintainers,
+just like any other patches. This is to ensure fixes are pushed in a timely
+manner. Fixes that are relevant for stable, current development kernels, or
+drm-next, will be cherry-picked by maintainers to drm-intel-fixes or
 drm-intel-next-fixes.
 
 To make this work, patches should be labeled as fixes (see XXX), and extra care

@@ -106,8 +106,8 @@ large pool of committers. Consists mostly of ``drivers/gpu/drm/i915``.
 
 .. _the drm-intel repository: https://cgit.freedesktop.org/drm/drm-intel
 
-drm-intel-next-queued (aka "dinq")
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+drm-intel-next (aka "din")
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This is the branch where all new features, as well as any non-trivial or
 controversial fixes, are applied.
@@ -115,17 +115,15 @@ controversial fixes, are applied.
 This branch "hides" the merge window from the drm/i915 developers; patches are
 applied here regardless of the development phase of Linus' upstream kernel.
 
-drm-intel-next
-~~~~~~~~~~~~~~
-
-drm-intel-next-queued at some point in time.
+(This branch is effectively the same as drm-intel-next-queued, or "dinq", used
+to be.)
 
 drm-intel-next-fixes (aka "dinf")
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This branch contains drm/i915 specific fixes to drm-next after the drm/i915
-features have been merged there. Fixes are first applied to
-drm-intel-next-queued, and cherry-picked to drm-intel-next-fixes.
+features have been merged there. Fixes are first applied to drm-intel-next, and
+cherry-picked to drm-intel-next-fixes.
 
 Pull requests to Dave are sent as needed, with no particular schedule.
 
@@ -133,9 +131,9 @@ drm-intel-fixes (aka "-fixes")
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This branch contains fixes to Linus' tree after drm-next has been merged during
-the merge window. Fixes are first applied to drm-intel-next-queued, and
-cherry-picked to drm-intel-fixes. The fixes are then merged through drm-fixes.
-Valid from -rc1 to the kernel release.
+the merge window. Fixes are first applied to drm-intel-next, and cherry-picked
+to drm-intel-fixes. The fixes are then merged through drm-fixes.  Valid
+from -rc1 to the kernel release.
 
 Usually Linus releases each -rc on a Sunday, and drm-intel-fixes gets rebased on
 that the following Monday. Usually this is a fast-forward. The pull request to

@@ -21,7 +21,7 @@ The short list:
 
 * Only push patches changing `drivers/gpu/drm/i915`.
 
-* Only push patches to `drm-intel-next-queued` branch.
+* Only push patches to `drm-intel-next` branch.
 
 * Ensure certain details are covered, see separate list below.
 
@@ -235,8 +235,8 @@ If the Cc: or Fixes: was forgotten, you can still reply to the list with that,
 just like any other tags, and they should be picked up by whoever pushes the
 patch.
 
-The maintainers will cherry-pick labeled patches from drm-intel-next-queued to
-the appropriate branches.
+The maintainers will cherry-pick labeled patches from drm-intel-next to the
+appropriate branches.
 
 'Fixes:' tag is described in
 `Documentation/process/submitting-patches

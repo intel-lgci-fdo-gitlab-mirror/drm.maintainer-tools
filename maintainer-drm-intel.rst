@@ -14,22 +14,22 @@ fixes for one release. Thus for each branch, you take over from the person
 maintaining the branch before you, and leave it in a known state for the person
 after you.
 
-drm-intel-next-queued
----------------------
+drm-intel-next
+--------------
 
 Take over when the last drm-intel feature pull has been sent for an upcoming
-merge window, and drm-intel-next-queued starts targeting the next merge window
-after that. This happens around -rc5 of the current development kernel.
+merge window, and drm-intel-next starts targeting the next merge window after
+that. This happens around -rc5 of the current development kernel.
 
 Start queuing changes for drm-next after the merge window (i.e. after
-another -rc1 is out). Send drm-intel-next-queued pull requests periodically. Use
-``dim pull-request-next``. Write a tag summary detailing the changes since the
-last tag.
+another -rc1 is out). Send drm-intel-next pull requests periodically. Use ``dim
+pull-request-next``. Write a tag summary detailing the changes since the last
+tag.
 
-Do backmerges as needed, but also don't let drm-intel-next-queued fall too much
-behind from drm-next; use your discretion. Use ``dim backmerge``. Never rebase
-or force push. Only do backmerges from drm-next. Specifically, don't merge
-drm-misc branches or backmerge Linus' tree directly; they all need to go through
+Do backmerges as needed, but also don't let drm-intel-next fall too much behind
+from drm-next; use your discretion. Use ``dim backmerge``. Never rebase or force
+push. Only do backmerges from drm-next. Specifically, don't merge drm-misc
+branches or backmerge Linus' tree directly; they all need to go through
 drm-next. Request drm-misc maintainers to have your dependencies sent to
 drm-next, and request Dave to have Linus' tree backmerged to drm-next.
 
@@ -47,8 +47,8 @@ job to ensure deadlines are met, but to raise awareness. Avoid surprising
 people.
 
 When sending the last feature pull request, pass the torch to the next in
-rotation to maintain drm-intel-next-queued. Move on to drm-intel-next-fixes to
-follow through with the features you handled.
+rotation to maintain drm-intel-next. Move on to drm-intel-next-fixes to follow
+through with the features you handled.
 
 drm-intel-next-fixes
 --------------------
@@ -57,7 +57,7 @@ After the last drm-intel feature pull request has been merged to drm-next,
 somewhere around -rc6 or -rc7 time frame, rebase drm-intel-next-fixes on top of
 drm-next, and push. Use ``dim rebase``.
 
-Cherry pick fixes from drm-intel-next-queued periodically. Use ``dim
+Cherry pick fixes from drm-intel-next periodically. Use ``dim
 cherry-pick-next-fixes``. The cherry-picks are automated based on Fixes: and Cc:
 stable tags. Double check that they make sense. Use ``dim push-next-fixes`` to
 push. Stop cherry-picking during the merge window, and only pick the fixes that
@@ -107,7 +107,7 @@ next week.
 After the rebase, give CI time to run the plain upstream tag, to detect issues
 introduced by Linus' upstream.
 
-Before Wednesday, cherry pick fixes from drm-intel-next-queued. Use ``dim
+Before Wednesday, cherry pick fixes from drm-intel-next. Use ``dim
 cherry-pick-fixes``. The cherry-picks are automated based on Fixes: and Cc:
 stable tags. Double check that they make sense. Be more and more critical toward
 the higher -rc, nearing stable kernel rules for commits, and drop commits that
@@ -129,4 +129,4 @@ After vX.Y release, rebase drm-intel-fixes one last time on that. Use ``dim
 rebase drm-intel-fixes vX.Y``.
 
 It's time to take a break from maintaining branches, until you start over with
-drm-intel-next-queued.
+drm-intel-next.

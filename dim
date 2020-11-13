@@ -307,7 +307,7 @@ function branch_to_repo # branch
 
 function dim_version
 {
-	echo "0"
+	echo "1"
 }
 
 function dim_uptodate
@@ -1011,7 +1011,7 @@ function dim_push_branch
 
 	git_push $remote $branch "$@"
 
-	update_linux_next $branch drm-intel-next-queued drm-intel-next-fixes drm-intel-fixes
+	update_linux_next $branch drm-intel-next drm-intel-next-fixes drm-intel-fixes
 	update_linux_next $branch drm-misc-next drm-misc-next-fixes drm-misc-fixes
 	update_linux_next $branch drm-amd-next drm-amd-next-fixes drm-amd-fixes
 
@@ -1021,7 +1021,7 @@ function dim_push_branch
 dim_alias_pq=push-queued
 function dim_push_queued
 {
-	dim_push_branch drm-intel-next-queued "$@"
+	dim_push_branch drm-intel-next "$@"
 }
 
 dim_alias_pnf=push-next-fixes
@@ -1107,6 +1107,12 @@ function dim_apply_branch
 	shift
 	file=$(mktemp)
 	dir=$(mktemp -d)
+
+	# Transitional
+	if [[ "$branch" = "drm-intel-next-queued" ]]; then
+		echoerr "ERROR: Please use drm-intel-next instead of drm-intel-next-queued."
+		return 1
+	fi
 
 	assert_branch $branch
 	assert_repo_clean
@@ -1304,7 +1310,7 @@ function dim_add_link
 
 function dim_add_link_queued
 {
-	dim_add_link drm-intel-next-queued "$@"
+	dim_add_link drm-intel-next "$@"
 }
 
 function dim_add_link_fixes
@@ -1320,7 +1326,7 @@ function dim_add_link_next_fixes
 dim_alias_aq=apply-queued
 function dim_apply_queued
 {
-	dim_apply_branch drm-intel-next-queued "$@"
+	dim_apply_branch drm-intel-next "$@"
 }
 
 function dim_apply_fixes
@@ -1396,8 +1402,8 @@ function cherry_pick_branch
 
 	intel_remote=$(repo_to_remote drm-intel)
 
-	# Look for commits in dinq tagged as fixes.
-	for commit in $(git_list_fixes $intel_remote/$branch..$intel_remote/drm-intel-next-queued $intel_remote/$branch..$intel_remote/drm-intel-gt-next -- drivers/gpu/drm/i915); do
+	# Look for commits in din tagged as fixes.
+	for commit in $(git_list_fixes $intel_remote/$branch..$intel_remote/drm-intel-next $intel_remote/$branch..$intel_remote/drm-intel-gt-next -- drivers/gpu/drm/i915); do
 		echo -n "Considering $(dim_cite $commit)... "
 
 		# Look at history for already cherry-picked fixes.
@@ -1627,7 +1633,7 @@ function dim_checkout
 
 function dim_conq
 {
-	dim_checkout drm-intel-next-queued "$@"
+	dim_checkout drm-intel-next "$@"
 }
 
 function dim_cof
@@ -1649,7 +1655,7 @@ function check_maintainer
 	branch=$1
 	commit=$2
 
-        if [ "$branch" = "drm-intel-next-queued" ]; then
+        if [ "$branch" = "drm-intel-next" ]; then
 		if non_i915_files=$(git diff-tree --no-commit-id --name-only -r $commit | \
 			grep -v "^\(drivers/gpu/drm/i915/\|include/drm/i915\|include/uapi/drm/i915\|Documentation/gpu/i915\)") && [[ -n "$non_i915_files" ]]; then
 			echo -e "The following files are outside of i915 maintenance scope:\n"
@@ -1674,7 +1680,7 @@ function checkpatch_commit
 	# special branch profile maps branches to profiles
 	if [[ "$profile" = "branch" ]]; then
 		case "$(git_current_branch)" in
-			drm-intel-next-queued|drm-intel-next-fixes|drm-intel-fixes)
+			drm-intel-next|drm-intel-next-fixes|drm-intel-fixes)
 				profile=drm-intel
 				;;
 			drm-misc-next|drm-misc-next-fixes|drm-misc-fixes)
@@ -1754,7 +1760,7 @@ function dim_extract_tags
 
 function dim_extract_queued
 {
-	dim_extract_tags drm-intel-next-queued "$@"
+	dim_extract_tags drm-intel-next "$@"
 }
 
 function dim_extract_fixes
@@ -2100,7 +2106,7 @@ function dim_pull_request
 function dim_pull_request_next
 {
 	upstream=${1:-$(branch_to_remote drm-next)/drm-next}
-	dim_pull_request drm-intel-next-queued $upstream
+	dim_pull_request drm-intel-next $upstream
 }
 
 function dim_pull_request_fixes

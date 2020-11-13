@@ -33,16 +33,16 @@ sometimes fail, for example like this::
         Merging origin/drm-intel-fixes... Reset. Done.
         Merging drm-upstream/drm-fixes... Fast-forward. Done.
         Merging origin/drm-intel-next-fixes... Done.
-        Merging origin/drm-intel-next-queued... ++<<<<<<< HEAD
+        Merging origin/drm-intel-next... ++<<<<<<< HEAD
         ++=======
-        ++>>>>>>> origin/drm-intel-next-queued
-        Fail: conflict merging origin/drm-intel-next-queued
+        ++>>>>>>> origin/drm-intel-next
+        Fail: conflict merging origin/drm-intel-next
 
 Often it's very easy to resolve such conflicts, but maintainers can take over
 when it's tricky or something fails in the below procedure.
 
-1. First check that drm-intel-next-queued was indeed pushed correctly and that
-   your local and remote branches match.
+1. First check that drm-intel-next was indeed pushed correctly and that your
+   local and remote branches match.
 
 2. Then rebuild the integration branch just to confirm::
 

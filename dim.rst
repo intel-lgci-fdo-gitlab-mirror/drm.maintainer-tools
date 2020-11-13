@@ -139,7 +139,7 @@ conf
 conq
 ----
 **checkout** shorthands for *drm-intel-fixes*, *drm-intel-next-fixes*, and
-*drm-intel-next-queued* branches respectively.
+*drm-intel-next* branches respectively.
 
 apply-branch branch [*git am arguments*]
 ----------------------------------------
@@ -154,7 +154,7 @@ apply-next-fixes [*git am arguments*]
 apply-queued [*git am arguments*]
 ---------------------------------
 **apply-branch** shorthands for *drm-intel-fixes*, *drm-intel-next-fixes*, and
-*drm-intel-next-queued* branches respectively.
+*drm-intel-next* branches respectively.
 
 apply [*git am arguments*]
 --------------------------
@@ -179,7 +179,7 @@ extract-next-fixes [*git-rangeish*]
 extract-queued [*git-rangeish*]
 -------------------------------
 **extract-tags** shorthands for *drm-intel-fixes*, *drm-intel-next-fixes*, and
-*drm-intel-next-queued* branches respectively.
+*drm-intel-next* branches respectively.
 
 push-branch branch [*git push arguments*]
 -----------------------------------------
@@ -196,7 +196,7 @@ push-next-fixes [*git push arguments*]
 push-queued [*git push arguments*]
 ----------------------------------
 **push-branch** shorthands for *drm-intel-fixes*, *drm-intel-next-fixes*, and
-*drm-intel-next-queued* branches respectively.
+*drm-intel-next* branches respectively.
 
 push [*git push arguments*]
 ---------------------------
@@ -235,7 +235,7 @@ add-link-next-fixes
 add-link-queued
 ---------------
 **add-link** shorthands for *drm-intel-fixes*, *drm-intel-next-fixes*, and
-*drm-intel-next-queued* branches respectively.
+*drm-intel-next* branches respectively.
 
 add-missing-cc
 --------------
@@ -299,7 +299,7 @@ cherry-pick-fixes
 cherry-pick-next-fixes
 ----------------------
 Look for non-upstreamed fixes (commits tagged Cc: stable@vger.kernel.org or Cc:
-drm-intel-fixes@lists.freedesktop.org) in drm-intel-next-queued, and try to
+drm-intel-fixes@lists.freedesktop.org) in drm-intel-next, and try to
 cherry-pick them to drm-intel-fixes or drm-intel-next-fixes. These commands use
 dim cherry-pick internally to make sure bugfixes for fixes are cherry-picked
 too.
@@ -337,7 +337,7 @@ pull-request-next-fixes [*upstream*]
 
 pull-request-next [*upstream*]
 ------------------------------
-**pull-request** shorthand for *drm-intel-next-queued* as the branch and
+**pull-request** shorthand for *drm-intel-next* as the branch and
 *\$DRM_UPSTREAM/drm-next* as the default upstream.
 
 apply-pull *branch*
