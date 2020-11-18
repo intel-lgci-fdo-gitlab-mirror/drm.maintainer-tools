@@ -460,7 +460,7 @@ def print_msg(file):
     msg = email.message_from_file(file)
     for part in msg.walk():
         if part.get_content_type() == 'text/plain':
-            print(part.get_payload(decode=True).decode(part.get_content_charset(failobj='us-ascii')))
+            print(part.get_payload(decode=True).decode(part.get_content_charset(failobj='us-ascii'), 'replace'))
 
 print_msg(open('$1', 'r'))
 EOF
