@@ -443,9 +443,11 @@ function check_dim_config
 message_get_id ()
 {
 	$dim_python <<EOF
-from email.parser import Parser
-headers = Parser().parse(open('$1', 'r'))
-message_id = headers['message-id']
+import email
+
+f = open('$1', 'rb')
+msg = email.message_from_binary_file(f)
+message_id = msg['message-id']
 if message_id is not None:
     print(message_id.strip('<> \n'))
 EOF
@@ -457,12 +459,12 @@ message_print_body ()
 import email
 
 def print_msg(file):
-    msg = email.message_from_file(file)
+    msg = email.message_from_binary_file(file)
     for part in msg.walk():
         if part.get_content_type() == 'text/plain':
             print(part.get_payload(decode=True).decode(part.get_content_charset(failobj='us-ascii'), 'replace'))
 
-print_msg(open('$1', 'r'))
+print_msg(open('$1', 'rb'))
 EOF
 }
 
