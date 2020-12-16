@@ -76,7 +76,7 @@ dim=$(basename $0)
 dim_today=$(date +%Y-%m-%d)
 dim_timestamp="$(date --utc +%Yy-%mm-%dd-%Hh-%Mm-%Ss) UTC"
 
-dim_python=$(command -v python || command -v python3)
+dim_python=$(command -v python3)
 
 dim_fdo_cookie="--push-option fdo.pushedWithDim=this-was-pushed-with-dim-and-not-manually"
 
