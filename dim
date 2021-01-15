@@ -1762,7 +1762,7 @@ function dim_extract_tags
 
 	tags=$(printf -- "$dim_extract_tags_marker\n%s" "$tags" | escape_quotes)
 
-	git filter-branch -f --msg-filter "cat ; echo \"$tags\"" $range
+	FILTER_BRANCH_SQUELCH_WARNING=1 git filter-branch -f --msg-filter "cat ; echo \"$tags\"" $range
 }
 
 function dim_extract_queued
