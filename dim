@@ -1734,6 +1734,11 @@ function rangeish()
 	fi
 }
 
+function escape_quotes
+{
+	sed 's/"/\\"/g'
+}
+
 function dim_extract_tags
 {
 	local branch range file tags
@@ -1755,7 +1760,7 @@ function dim_extract_tags
 		return 0
 	fi
 
-	tags=$(printf -- "$dim_extract_tags_marker\n%s" "$tags")
+	tags=$(printf -- "$dim_extract_tags_marker\n%s" "$tags" | escape_quotes)
 
 	git filter-branch -f --msg-filter "cat ; echo \"$tags\"" $range
 }
