@@ -894,6 +894,7 @@ function checkpatch_commit_push
 
 	# use real names for people with many different email addresses
 	author=$(git show -s $sha1 --format="format:%an")
+	author_email=$(git show -s $sha1 --format="format:%ae")
 	committer=$(git show -s $sha1 --format="format:%cn")
 	# outlook mangles mails into "Last, First"
 	author_outlook=$(git show -s $sha1 --format="format:%an" | sed -e 's/\([^ ]*\) \(.*\)/\2, \1/')
@@ -906,7 +907,7 @@ function checkpatch_commit_push
 	fi
 
 	# check for author sign-off
-	if ! git show -s $sha1 | grep -qi "Signed-off-by:.*\\($author\\|$author_outlook\\|$author_translit\\)" ; then
+	if ! git show -s $sha1 | grep -qi "Signed-off-by:.*\\($author\\|$author_outlook\\|$author_translit\\|$author_email\\)" ; then
 		echoerr "$cite: author Signed-off-by missing."
 		rv=1
 	fi
