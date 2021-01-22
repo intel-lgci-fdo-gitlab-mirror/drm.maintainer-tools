@@ -532,16 +532,18 @@ function dim_range_diff
 	fi
 }
 
-# update for-linux-next and for-linux-next-fixes branches
-function update_linux_next # branch next next-fixes fixes
+# update for-linux-next* branches
+function update_linux_next # branch next next-fixes fixes [for-linux-next] [for-linux-next-fixes]
 {
-	local branch linux_next linux_next_fixes linux_fixes repo remote
+	local branch linux_next linux_next_fixes linux_fixes for_linux_next for_linux_next_fixes repo remote
 
 	cd $DIM_PREFIX/drm-tip
 	branch=$1
 	linux_next=$2
 	linux_next_fixes=$3
 	linux_fixes=$4
+	for_linux_next=${5:-for-linux-next}
+	for_linux_next_fixes=${6:-for-linux-next-fixes}
 
 	repo=$(branch_to_repo $branch)
 
@@ -553,24 +555,25 @@ function update_linux_next # branch next next-fixes fixes
 
 	git_fetch_helper $remote
 
-	# always update drm-intel-fixes
-	echo -n "Pushing $linux_fixes to for-linux-next-fixes... "
-	git_push $remote +$remote/$linux_fixes:for-linux-next-fixes
-	echo "Done."
+	if [ -n "$for_linux_next_fixes" ] ; then
+		echo -n "Pushing $linux_fixes to $for_linux_next_fixes... "
+		git_push $remote +$remote/$linux_fixes:$for_linux_next_fixes
+		echo "Done."
+	fi
 
 	if git merge-base --is-ancestor $remote/$linux_next_fixes $remote/$linux_fixes ; then
 		# -fixes has caught up to dinf, i.e. we're out of the merge
 		# window. Push the next queue.
-		echo -n "Out of merge window. Pushing $linux_next to for-linux-next... "
-		git_push $remote +$remote/$linux_next:for-linux-next
+		echo -n "Out of merge window. Pushing $linux_next to $for_linux_next... "
+		git_push $remote +$remote/$linux_next:$for_linux_next
 		echo "Done."
 	else
 		# dinf is ahead of -fixes, i.e. drm-next has already closed for
 		# the next merge window and we've started to gather new fixes
 		# for the current -next cycle. Push dinf
 
-		echo -n "Pushing $linux_next_fixes to for-linux-next... "
-		git_push $remote +$remote/$linux_next_fixes:for-linux-next
+		echo -n "Pushing $linux_next_fixes to $for_linux_next... "
+		git_push $remote +$remote/$linux_next_fixes:$for_linux_next
 		echo "Done."
 	fi
 }
@@ -1021,6 +1024,8 @@ function dim_push_branch
 	git_push $remote $branch "$@"
 
 	update_linux_next $branch drm-intel-next drm-intel-next-fixes drm-intel-fixes
+	update_linux_next $branch drm-intel-gt-next drm-intel-next-fixes drm-intel-fixes \
+		for-linux-next-gt "" # no for-linux-next-gt-fixes for now
 	update_linux_next $branch drm-misc-next drm-misc-next-fixes drm-misc-fixes
 	update_linux_next $branch drm-amd-next drm-amd-next-fixes drm-amd-fixes
 
