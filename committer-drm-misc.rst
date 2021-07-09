@@ -21,6 +21,9 @@ Merge Criteria
 
 Right now the only hard merge criteria are:
 
+* There must not be open issues or unresolved or conflicting feedback from
+  anyone. Clear them up first. Defer to maintainers as needed.
+
 * Patch is properly reviewed or at least Ack, i.e. don't just push your own
   stuff directly. This rule holds even more for bugfix patches - it would be
   embarrassing if the bugfix contains a small gotcha that review would have
