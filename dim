@@ -1246,7 +1246,7 @@ function dim_backmerge
 
 	validate_upstream_baseline $branch $upstream
 
-	git merge --rerere-autoupdate --no-commit $upstream >& /dev/null || true
+	git merge --rerere-autoupdate --no-commit --no-ff $upstream >& /dev/null || true
 
 	patch_file=$(git_dir)/MERGE_MSG
 
