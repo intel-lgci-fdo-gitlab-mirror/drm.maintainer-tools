@@ -989,7 +989,7 @@ function checkpatch_commit_push_range
 # push.
 function dim_push_branch
 {
-	local branch remote committer_email count
+	local branch remote committer_email commit_count merge_count
 
 	branch=${1:?$usage}
 	shift
@@ -1004,9 +1004,15 @@ function dim_push_branch
 
 	# Apart from maintainers pushing merges or rebases, most patches should
 	# be pushed in small batches.
-	count=$(git rev-list --count --first-parent "$branch@{u}..$branch")
-	if [[ $count -gt 10 ]]; then
-		if ! ask_user "Pushing $count commits. Are you sure?"; then
+	commit_count=$(git rev-list --count --no-merges --first-parent "$branch@{u}..$branch")
+	merge_count=$(git rev-list --count --merges --first-parent "$branch@{u}..$branch")
+	if [[ $merge_count -gt 0 ]]; then
+		if ! ask_user "Pushing $merge_count merges and $commit_count non-merge commits. Merges should only be pushed by maintainers. Are you sure?"; then
+			echoerr "NOTE: Branch not pushed."
+			return 1
+		fi
+	elif [[ $commit_count -gt 10 ]]; then
+		if ! ask_user "Pushing $commit_count commits. Commits should be only be pushed in relatively small batches. Are you sure?"; then
 			echoerr "NOTE: Branch not pushed."
 			return 1
 		fi
