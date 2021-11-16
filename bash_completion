@@ -2,7 +2,7 @@
 
 dim ()
 {
-	if [[ "x$1" = "xcd" ]]; then
+	if [[ "$1" = "cd" ]]; then
 		cd $(cat ~/.dim-last-path) || exit
 	else
 		command dim "$@"
