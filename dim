@@ -802,7 +802,10 @@ function dim_rebuild_tip
 
 			# because we filter out fast-forward merges there will
 			# always be something to commit
-			git commit --no-edit --quiet --no-verify
+			if ! git commit --no-edit --quiet --no-verify ; then
+				echoerr "Commit failed, missing topic branch?"
+				return 1
+			fi
 			echo "Done."
 		fi
 
