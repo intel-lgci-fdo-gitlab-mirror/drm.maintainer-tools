@@ -475,9 +475,13 @@ EXAMPLES
 
 Cross-subsystem topic branches
 ------------------------------
-So you want to send a pull request to another subsystem? Maintainers will likely
-get cranky if you ask them to pull a swath of unrelated drm patches, so we'll
-use a topic branch based upon Linus' tree with only the relevant patches.
+So you want to send a pull request to another subsystem? First, you don't want,
+it's much simpler to get Acks for merging through a single tree and then maybe
+later on backmerge. But if it cannot be avoided, read on.
+
+Maintainers will likely get cranky if you ask them to pull a swath of unrelated
+drm patches, so we'll use a topic branch based upon Linus' tree with only the
+relevant patches.
 
 First select a suitable *baseline* for your topic branch. For topic
 branches shared within the gpu/drm subsystem, base it on the latest
