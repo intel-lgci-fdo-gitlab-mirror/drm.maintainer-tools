@@ -89,7 +89,7 @@ dim_pull_request_recipients=(
 	-c "Joonas Lahtinen <joonas.lahtinen@linux.intel.com>"
 	-c "Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>"
 	-c "Rodrigo Vivi <rodrigo.vivi@intel.com>"
-	-c "Sean Paul <sean@poorly.run>"
+	-c "Thomas Zimmermann <tzimmermann@suse.de>"
 	-c "Maarten Lankhorst <maarten.lankhorst@linux.intel.com>"
 	-c "Maxime Ripard <mripard@kernel.org>"
 	-c "dri-devel@lists.freedesktop.org"
