@@ -1113,6 +1113,18 @@ function check_merge_baseline
 	fi
 }
 
+# ensure the patch has prefixes (-p1), since otherwise it can confuse the git am
+# 3-way merge logic. check the default source (a/) and destination (b/) prefixes.
+function check_diff_prefix
+{
+	local rv
+	patch="$1"
+
+	rv=$(grep -q -E "^diff --git a\/.+ b\/.+$" $patch)
+
+	return $rv
+}
+
 # ensure we're on branch $1, and apply patches. the rest of the arguments are
 # passed to git am.
 dim_alias_ab=apply-branch
@@ -1139,6 +1151,11 @@ function dim_apply_branch
 	git mailsplit -b -o$dir $file > /dev/null
 
 	for patch in "$dir"/*; do
+
+		if ! check_diff_prefix "$patch"; then
+			warn_or_fail "Patch does not contain prefixes in its diff and can confuse git-am when applying"
+		fi
+
 		if ! apply_patch $patch "$@"; then
 			rv=1
 		fi
