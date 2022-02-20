@@ -2410,7 +2410,7 @@ function dim_cat_to_fixup # [branch]
 	repo=$(branch_to_repo $branch)
 	fixup_file=$(find_fixup_file $repo $branch)
 
-	cat > $fixup_file
+	cat >> $fixup_file
 	echo "Applied fixup for $branch"
 }
 
