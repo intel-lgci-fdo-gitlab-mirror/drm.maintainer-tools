@@ -559,7 +559,7 @@ function update_linux_next # branch next next-fixes fixes [for-linux-next] [for-
 	if [ -n "$for_linux_next_fixes" ] ; then
 		echo -n "Pushing $linux_fixes to $for_linux_next_fixes... "
 		git_push $remote +$remote/$linux_fixes:$for_linux_next_fixes
-		echo "Done."
+		echo "$DONE_OR_SKIP"
 	fi
 
 	if git merge-base --is-ancestor $remote/$linux_next_fixes $remote/$linux_fixes ; then
@@ -567,7 +567,7 @@ function update_linux_next # branch next next-fixes fixes [for-linux-next] [for-
 		# window. Push the next queue.
 		echo -n "Out of merge window. Pushing $linux_next to $for_linux_next... "
 		git_push $remote +$remote/$linux_next:$for_linux_next
-		echo "Done."
+		echo "$DONE_OR_SKIP"
 	else
 		# dinf is ahead of -fixes, i.e. drm-next has already closed for
 		# the next merge window and we've started to gather new fixes
@@ -575,7 +575,7 @@ function update_linux_next # branch next next-fixes fixes [for-linux-next] [for-
 
 		echo -n "Pushing $linux_next_fixes to $for_linux_next... "
 		git_push $remote +$remote/$linux_next_fixes:$for_linux_next
-		echo "Done."
+		echo "$DONE_OR_SKIP"
 	fi
 }
 
@@ -685,7 +685,7 @@ function commit_rerere_cache
 	rm $commit_message
 
 	echo -n "Pushing rerere cache... "
-	git_push $remote HEAD >& /dev/null && echo "Done."
+	git_push $remote HEAD >& /dev/null && echo "$DONE_OR_SKIP"
 }
 
 function fetch_all
@@ -827,7 +827,7 @@ function dim_rebuild_tip # local_branch
 	remote=$(repo_to_remote drm-tip)
 
 	echo -n "Pushing $integration_branch... "
-	git_push $remote +HEAD >& /dev/null && echo "Done."
+	git_push $remote +HEAD >& /dev/null && echo "$DONE_OR_SKIP"
 
 	commit_rerere_cache
 }
@@ -2563,6 +2563,7 @@ function dim_usage
 # Command line options. Global short uppercase variables.
 #
 
+DONE_OR_SKIP="Done."
 DRY_RUN=
 INTERACTIVE=
 DRY=
@@ -2574,6 +2575,7 @@ while getopts hdfis opt; do
 		d)
 			DRY_RUN=--dry-run
 			DRY="echo"
+			DONE_OR_SKIP="Skip."
 			;;
 		f)
 			FORCE=1
