@@ -202,9 +202,11 @@ push [*git push arguments*]
 ---------------------------
 **push-branch** shorthand for the current branch.
 
-rebuild-tip
------------
-Rebuild and push the integration tree.
+rebuild-tip [local_branch]
+--------------------------
+Rebuild and push the integration tree. In dry-run mode/-d the branch is
+rebuilt without pushing and it's possible to use one local branch
+as argument to check if merging that branch creates conflicts.
 
 ADVANCED COMMANDS FOR COMMITTERS AND MAINTAINERS
 ================================================

@@ -719,9 +719,10 @@ function find_fixup_file # repo branch
 	echo "$file_path"
 }
 
-function dim_rebuild_tip
+function dim_rebuild_tip # local_branch
 {
-	local integration_branch specfile first rerere repo remote
+	local integration_branch specfile first rerere repo remote local_branch
+	local_branch=$1
 
 	integration_branch=drm-tip
 	specfile=$(mktemp)
@@ -760,7 +761,10 @@ function dim_rebuild_tip
 		remote=$(repo_to_remote $repo)
 		sha1=$remote/$branch
 
-		if [[ "$repo" = "$remote" ]]; then
+		if [[ $DRY_RUN ]] && [[ "$local_branch" = "$branch" ]]; then
+			echo -n "Merging (local) $branch... "
+			sha1=$(git rev-parse $branch)
+		elif [[ "$repo" = "$remote" ]]; then
 			echo -n "Merging $repo/$branch... "
 		else
 			echo -n "Merging $repo/$branch (local remote $remote)... "
