@@ -2354,7 +2354,7 @@ function assert_branch
 function assert_repo_clean
 {
 	if [[ -n "$(git status --porcelain --untracked-files=no)" ]]; then
-		echo "Repository not clean, aborting."
+		echo "Working tree $PWD not clean, aborting."
 		exit 1
 	fi
 }
