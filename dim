@@ -1117,10 +1117,17 @@ function check_merge_baseline
 # 3-way merge logic. check the default source (a/) and destination (b/) prefixes.
 function check_diff_prefix
 {
-	local rv
+	local rv patch msg patch_recoded
 	patch="$1"
 
 	rv=$(grep -q -E "^diff --git a\/.+ b\/.+$" $patch)
+	if [ -z "$rv" ]; then
+		msg=$(mktemp --tmpdir dim-msg.XXXXXX)
+		patch_recoded=$(mktemp --tmpdir dim-patch.XXXXXX)
+		git mailinfo "$msg" "$patch_recoded" < $patch >/dev/null
+		rv=$(grep -q -E "^diff --git a\/.+ b\/.+$" $patch_recoded)
+		rm "$msg" "$patch_recoded"
+	fi
 
 	return $rv
 }
