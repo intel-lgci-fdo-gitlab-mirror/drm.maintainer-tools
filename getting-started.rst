@@ -71,6 +71,17 @@ rebasing) push out the new tree with::
 This will also rebuild a new drm-tip integration tree. For historical reasons
 there's shortcut for the drm-intel specific branches for most of these commands.
 
+If a commit that is already present in a branch has to be cherry-picked (e.g: a
+fix for drm-misc-fixes that is already in drm-misc-next), the dim tool must used
+as well instead of the git cherry-pick command. This can be done with:
+
+    $ dim cherry-pick <commit>
+
+This will not only cherry-pick the commit but also add some metadata such as the
+cherry-picked commit SHA-1 hash. Also checks if there were any following commits
+in that branch that referenced the cherry-picked commit. This is useful to avoid
+missing any follow-up fixes for the commit being cherry-picked.
+
 Please note that if there is no specific command available from dim then you
 can always use your every day tooling to get things done.
 For example, if a wrong patch was applied or you need to update commit message
