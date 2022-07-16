@@ -795,7 +795,7 @@ function dim_rebuild_tip # local_branch
 
 			if [ -f $fixup_file ] ; then
 				echo -n "Applying manual fixup patch for $integration_branch merge... "
-				patch -p1 -i $fixup_file
+				git apply --index $fixup_file
 			fi
 			if ! check_conflicts "$repo/$branch" ; then
 				echoerr "See the section \"Resolving Conflicts when Rebuilding drm-tip\""
