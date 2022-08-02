@@ -308,7 +308,7 @@ function branch_to_repo # branch
 
 function dim_version
 {
-	echo "1"
+	echo "2"
 }
 
 function dim_uptodate
