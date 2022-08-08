@@ -1481,10 +1481,15 @@ function cherry_pick_branch
 			if [[ "$(git merge-base $branch $fixes)" = "$fixes" ]]; then
 				needed=1
 			fi
+
+			fix_of_fix=$(git log --grep="cherry picked from commit $fixes" --after=6months --format=format:%h $intel_remote/drm-intel-next-fixes -1)
+			if [[ -z "$fix_of_fix" ]]; then
+				fix_of_fix=$(git log --grep="cherry picked from commit $fixes" --after=6months --format=format:%h $intel_remote/drm-intel-fixes -1)
+			fi
 		done
 
 		# Note: Cc: stable will overrule Fixes:
-		if [[ -n "$have_fixes" && -z "$needed" ]]; then
+		if [[ -n "$have_fixes" && -z "$needed" && -z "$fix_of_fix" ]]; then
 			echo "Fixes a commit not in $branch. OK."
 			continue
 		fi
@@ -1495,6 +1500,14 @@ function cherry_pick_branch
 			echo "FAILED: $(dim_cite $commit)"
 			(dim_cite $commit) >> $fail_log
 			git cherry-pick --abort
+		else
+			if [[ "$fix_of_fix" ]]; then
+				short_fixes_hash=$(git log -1 --format=format:%h $fixes 2>/dev/null || true)
+				git log -1 --pretty=%B | \
+					sed -e :a -e '/^\n*$/{$d;N;ba' -e '}' | \
+					sed "s/$short_fixes_hash/$fix_of_fix/g" | \
+					git commit --amend -F-
+			fi
 		fi
 	done
 
