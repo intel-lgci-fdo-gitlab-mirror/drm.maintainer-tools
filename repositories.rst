@@ -9,6 +9,8 @@ list of maintainers, mailing lists, etc. please refer to MAINTAINERS_.
 
 .. _MAINTAINERS: https://cgit.freedesktop.org/drm/drm-tip/plain/MAINTAINERS
 
+.. contents::
+
 The Upstream Linux Kernel Repository
 ------------------------------------
 
