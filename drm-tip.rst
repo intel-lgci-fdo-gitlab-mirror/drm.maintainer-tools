@@ -173,3 +173,63 @@ merge commit.
 Anytime you add or change a manual merge fixup please inform the maintainers of
 both involved trees so that they are aware of the situation and can consider
 resolving the conflict permantly with a backmerge or pull.
+
+.. _topic/core-for-CI:
+
+Hotfixes in topic/core-for-CI
+=============================
+
+While the topic/core-for-CI branch lives in :ref:`drm-intel-repository`, it's
+primarily relevant for drm-tip. It's merged to drm-tip in `nightly.conf`_ after
+the feature and fixes branches, and mostly contains hotfixes to unblock the
+`Intel CI`_ pending proper fixes. A typical example is a patch or a cherry-pick
+from another subsystem to an issue showing up in -rc1, while waiting for the fix
+to show up in the DRM subsystem via regular merges.
+
+.. _Intel CI: https://intel-gfx-ci.01.org/
+
+Access
+------
+
+Anyone with drm-intel commit access has access to rebase, add, and remove
+commits. Please follow the directions below.
+
+Rebasing
+--------
+
+topic/core-for-CI is a rebasing and force pushed branch. Please rebase it on top
+of Linus' release or -rc tags. Rebasing on top of drm-next should be a rare,
+justified exception. The primary goal is to fix issues originating from Linus'
+tree. Issues that would need drm-next or other DRM subsystem tree as baseline
+should be fixed in the offending DRM subsystem tree.
+
+Only rebase the branch if you really know what you're doing. When in doubt, ask
+the maintainers. You'll need to be able to handle any conflicts in non-drm code
+while rebasing.
+
+Simply drop fixes that are already available in the new baseline.
+
+Force pushing a rebased topic/core-for-CI requires passing the ``--force``
+parameter to git::
+
+  $ dim push-branch topic/core-for-CI --force
+
+Adding and Removing Commits
+---------------------------
+
+Preferrably send a patch or a revert with subject prefix "[topic/core-for-CI]"
+to the intel-gfx mailing list to get the CI results on the change. However, in
+some cases, a direct push may be required to get CI back online ASAP. It's a
+judgement call.
+
+Only add or remove commits if you really know what you're doing. When in doubt,
+ask the maintainers.
+
+Apply new commits on top with regular push. The commit message needs to explain
+why the patch has been applied to topic/core-for-CI. If it's a cherry-pick from
+another subsystem, please reference the commit with ``git cherry-pick -x``
+option. If it's a patch from another subsystem, please reference the patch on
+the mailing list with ``Link:`` tag.
+
+Instead of applying reverts, just remove the commit. This implies ``git rebase
+-i`` on the current baseline; see directions above.

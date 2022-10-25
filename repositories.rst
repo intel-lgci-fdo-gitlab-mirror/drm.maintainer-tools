@@ -154,6 +154,17 @@ This is the fastest path to getting fixes to Linus' tree. It is generally for
 the regressions, cc:stable, black screens, GPU hangs only, and should pretty
 much follow the stable rules.
 
+topic/core-for-CI
+~~~~~~~~~~~~~~~~~
+
+This branch contains hotfixes merged last on drm-tip to quickly address issues
+originating from outside of the DRM subsystem repositories. Typically local
+fixes to issues brought in from a -rc1 kernel, to ensure CI health. They may
+also be temporary cherry-picks from other subsystems until the commits hit the
+DRM subsystem via normal channels.
+
+See :ref:`topic/core-for-CI` for details.
+
 The DRM Testing and Integration Repository
 ------------------------------------------
 
