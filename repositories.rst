@@ -177,7 +177,10 @@ kernel defconfig files for build testing.
 
 .. _nightly.conf: https://cgit.freedesktop.org/drm/drm-tip/plain/nightly.conf?h=rerere-cache
 
-maintainer-tools
-~~~~~~~~~~~~~~~~
+The Maintainer Tools Repository
+-------------------------------
 
-This branch contains all the tools and documentation you're reading about.
+This repository contains all the tools and documentation you're reading
+about. See the `project home page`_ for more details.
+
+.. _project home page: https://gitlab.freedesktop.org/drm/maintainer-tools/
