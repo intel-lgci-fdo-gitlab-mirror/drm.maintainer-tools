@@ -32,8 +32,8 @@ new release candidate (-rc) kernel each week.
 The Upstream DRM Subsystem Repository
 -------------------------------------
 
-See `drm upstream`_ for repository details. Maintained by Dave Airlie of Red
-Hat. Consists mostly of ``drivers/gpu/drm`` and ``include/drm``.
+See :ref:`drm` and `drm upstream`_ for repository details. Maintained by Dave
+Airlie of Red Hat. Consists mostly of ``drivers/gpu/drm`` and ``include/drm``.
 
 .. _drm upstream: https://cgit.freedesktop.org/drm/drm
 
