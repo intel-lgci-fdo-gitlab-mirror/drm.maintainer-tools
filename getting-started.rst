@@ -1,8 +1,8 @@
 .. _getting-started:
 
-=================
- Getting Started
-=================
+===============
+Getting Started
+===============
 
 For getting started grab the latest dim (drm-intel-maintainer) script from::
 

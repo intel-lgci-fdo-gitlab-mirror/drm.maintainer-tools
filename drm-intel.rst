@@ -1,8 +1,8 @@
 .. _drm-intel:
 
-===========
- drm-intel
-===========
+=========
+drm-intel
+=========
 
 --------------------------------------------------------------
 drm-intel patch and upstream merge flow and timeline explained

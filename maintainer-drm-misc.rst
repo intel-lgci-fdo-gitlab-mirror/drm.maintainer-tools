@@ -1,8 +1,8 @@
 .. _maintainer-drm-misc:
 
-================================
- drm-misc Maintainer Guidelines
-================================
+==============================
+drm-misc Maintainer Guidelines
+==============================
 
 This document describes the detailed maintainer tasks for drm-misc.
 

@@ -1,8 +1,8 @@
 .. _committer-guidelines:
 
-======================
- Committer Guidelines
-======================
+====================
+Committer Guidelines
+====================
 
 This document gathers together committer guidelines.
 

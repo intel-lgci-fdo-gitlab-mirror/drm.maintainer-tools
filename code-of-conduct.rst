@@ -1,8 +1,8 @@
 .. _code-of-conduct:
 
-=================
- Code of Conduct
-=================
+===============
+Code of Conduct
+===============
 
 Please be aware the freedesktop.org Code of Conduct applies to projects it
 hosts, including the drm subsystem, igt, maintainer tools, etc:

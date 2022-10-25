@@ -1,8 +1,8 @@
 .. _license:
 
-=========
- License
-=========
+=======
+License
+=======
 
 Copyright © 2012-2015 Intel Corporation
 

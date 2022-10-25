@@ -1,8 +1,8 @@
 .. _maintainers:
 
-=============
- Maintainers
-=============
+===========
+Maintainers
+===========
 
 The maintainer tools and documentation is maintained by:
 

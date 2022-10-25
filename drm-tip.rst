@@ -1,8 +1,8 @@
 .. _drm-tip:
 
-=========
- drm-tip
-=========
+=======
+drm-tip
+=======
 
 The drm-tip branch (in the drm-tip repository) is the common DRM subsystem
 testing and integration tree (or "pile" to complete the reverse acronym). It's a

@@ -1,8 +1,8 @@
 .. _maintainer-drm-intel:
 
-=================================
- drm-intel Maintainer Guidelines
-=================================
+===============================
+drm-intel Maintainer Guidelines
+===============================
 
 This document describes the detailed maintainer tasks for drm-intel.
 

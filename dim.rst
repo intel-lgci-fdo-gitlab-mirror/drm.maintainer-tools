@@ -1,6 +1,6 @@
-=====
- dim
-=====
+===
+dim
+===
 
 --------------------------------
 drm inglorious maintainer script

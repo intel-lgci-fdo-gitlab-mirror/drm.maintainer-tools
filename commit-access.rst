@@ -1,6 +1,6 @@
-===============
- Commit Access
-===============
+=============
+Commit Access
+=============
 
 The drm-misc and drm-intel repositories operate in a maintainer/committer model
 with a large pool committers who can push patches in accordance with the stated

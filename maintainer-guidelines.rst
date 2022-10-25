@@ -1,8 +1,8 @@
 .. _maintainer-guidelines:
 
-=======================
- Maintainer Guidelines
-=======================
+=====================
+Maintainer Guidelines
+=====================
 
 This document gathers together maintainer guidelines.
 

@@ -1,8 +1,8 @@
 .. _repositories:
 
-===========================
- Repositories and Branches
-===========================
+=========================
+Repositories and Branches
+=========================
 
 All the relevant repositories and branches are described below. For the current
 list of maintainers, mailing lists, etc. please refer to MAINTAINERS_.

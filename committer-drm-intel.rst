@@ -1,8 +1,8 @@
 .. _committer-drm-intel:
 
-================================
- drm-intel Committer Guidelines
-================================
+==============================
+drm-intel Committer Guidelines
+==============================
 
 This document describes the detailed merge criteria and committer guidelines for
 drm-intel. The same criteria and guidelines apply equally to both committers and

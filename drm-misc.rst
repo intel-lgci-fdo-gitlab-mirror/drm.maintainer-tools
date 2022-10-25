@@ -1,8 +1,8 @@
 .. _drm-misc:
 
-=========
- drm-misc
-=========
+========
+drm-misc
+========
 
 -------------------------------------------------------------
 drm-misc patch and upstream merge flow and timeline explained

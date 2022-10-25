@@ -1,8 +1,8 @@
 .. _contributing:
 
-==========================
- Contributing and Contact
-==========================
+========================
+Contributing and Contact
+========================
 
 Please use the `dim-tools@lists.freedesktop.org`_ mailing list for
 contributions, questions, and discussion about the tooling and documentation.

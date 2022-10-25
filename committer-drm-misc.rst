@@ -1,8 +1,8 @@
 .. _committer-drm-misc:
 
-===============================
- drm-misc Committer Guidelines
-===============================
+=============================
+drm-misc Committer Guidelines
+=============================
 
 This document describes the detailed merge criteria and committer guidelines for
 drm-misc. The same criteria and guidelines apply equally to both committers and
