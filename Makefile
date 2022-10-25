@@ -117,3 +117,6 @@ doctest:
 .PHONY: doccheck
 doccheck:
 	$(SPHINXBUILD) -EWnq -b html $(ALLSPHINXOPTS) $(BUILDDIR)/doccheck
+
+livehtml:
+	sphinx-autobuild -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
