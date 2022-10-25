@@ -203,11 +203,13 @@ justified exception. The primary goal is to fix issues originating from Linus'
 tree. Issues that would need drm-next or other DRM subsystem tree as baseline
 should be fixed in the offending DRM subsystem tree.
 
-Only rebase the branch if you really know what you're doing. When in doubt, ask
-the maintainers. You'll need to be able to handle any conflicts in non-drm code
-while rebasing.
+Only rebase the branch if you really know what you're doing. You'll need to be
+able to handle any conflicts in non-drm code while rebasing.
 
-Simply drop fixes that are already available in the new baseline.
+Always ask for maintainer ack before rebasing. IRC ack is sufficient.
+
+Simply drop fixes that are already available in the new baseline. Close the
+associated gitlab issue when removing commits.
 
 Force pushing a rebased topic/core-for-CI requires passing the ``--force``
 parameter to git::
@@ -225,11 +227,22 @@ judgement call.
 Only add or remove commits if you really know what you're doing. When in doubt,
 ask the maintainers.
 
-Apply new commits on top with regular push. The commit message needs to explain
-why the patch has been applied to topic/core-for-CI. If it's a cherry-pick from
+Always ask for maintainer/committer ack before adding/removing commits. IRC ack
+is sufficient. Record the ``Acked-by:`` in commits being added.
+
+Apply new commits on top with regular push. The commit message must explain why
+the patch has been applied to topic/core-for-CI. If it's a cherry-pick from
 another subsystem, please reference the commit with ``git cherry-pick -x``
 option. If it's a patch from another subsystem, please reference the patch on
 the mailing list with ``Link:`` tag.
 
+New commits always need an associated gitlab issue for tracking purposes. The
+goal is to have as few commits in topic/core-for-CI as possible, and we need to
+be able to track the progress in making that happen. Reference the issue with
+``References:`` tag. Add the ``core-for-CI`` label to the issue. (Note: Do not
+use ``Closes:`` because the logic here is backwards; the issue is having the
+commit in the branch in the first place.)
+
 Instead of applying reverts, just remove the commit. This implies ``git rebase
--i`` on the current baseline; see directions above.
+-i`` on the current baseline; see directions above. Close the associated gitlab
+issue when removing commits.
