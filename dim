@@ -2328,6 +2328,12 @@ function dim_setup
 
 	setup_aux_checkout rerere-cache $drm_tip_ssh drm-rerere
 
+	# now that drm-rerere is setup, read the config again during fetch the
+	# additional branches from integration manifest will be read
+	echo -n "Reloading $dim_integration_config... "
+	read_integration_config
+	echo "Done."
+
 	setup_aux_checkout drm-tip $drm_tip_ssh drm-tip
 
 	dim_update_branches
