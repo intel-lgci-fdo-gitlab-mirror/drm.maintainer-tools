@@ -503,7 +503,7 @@ function dim_retip
 	if repo_to_remote drm-tip &> /dev/null ; then
 		new_upstream=$(repo_to_remote drm-tip)/drm-tip
 	else
-		new_upstream=$(git branch -r | grep '\/drm-tip$')
+		new_upstream=$(git branch -r | grep '/drm-tip$')
 	fi
 	upstream=$(git_find_tip "$branch")
 
@@ -1124,12 +1124,12 @@ function check_diff_prefix
 	local rv patch msg patch_recoded
 	patch="$1"
 
-	rv=$(grep -q -E "^diff --git a\/.+ b\/.+$" $patch)
+	rv=$(grep -q -E "^diff --git a/.+ b/.+$" $patch)
 	if [ -z "$rv" ]; then
 		msg=$(mktemp --tmpdir dim-msg.XXXXXX)
 		patch_recoded=$(mktemp --tmpdir dim-patch.XXXXXX)
 		git mailinfo "$msg" "$patch_recoded" < $patch >/dev/null
-		rv=$(grep -q -E "^diff --git a\/.+ b\/.+$" $patch_recoded)
+		rv=$(grep -q -E "^diff --git a/.+ b/.+$" $patch_recoded)
 		rm "$msg" "$patch_recoded"
 	fi
 
