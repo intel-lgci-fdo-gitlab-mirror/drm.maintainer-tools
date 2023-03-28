@@ -667,7 +667,7 @@ function commit_rerere_cache
 			git rm $file &> /dev/null || true
 		fi
 	done
-	find rr-cache/ -mtime -1 -type f -not -name "thisimage*" -print0 | xargs -0 git add > /dev/null || true
+	find rr-cache/ -mtime -1 -type f -not -name "thisimage*" -print0 | xargs -0 git add &> /dev/null || true
 	git rm rr-cache/rr-cache &> /dev/null || true
 
 	commit_message=$(mktemp)
