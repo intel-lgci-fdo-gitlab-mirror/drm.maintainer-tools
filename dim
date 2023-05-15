@@ -1771,7 +1771,7 @@ function checkpatch_commit
 	checkpatch_options="-q --emacs --strict --show-types $profile_options -"
 
 	git --no-pager log --oneline -1 $commit
-	if ! git show --pretty=email $commit |\
+	if ! git show --no-use-mailmap --pretty=email $commit |\
 			scripts/checkpatch.pl $checkpatch_options; then
 		rv=1
 	fi
