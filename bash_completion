@@ -3,7 +3,11 @@
 dim ()
 {
 	if [[ "$1" = "cd" ]]; then
-		cd $(cat ~/.dim-last-path) || return 1
+		if [ -e "~/.dim-last-path" ]; then
+			cd $(cat ~/.dim-last-path) || return 1
+		else
+			return 1
+		fi
 	else
 		command dim "$@"
 	fi
