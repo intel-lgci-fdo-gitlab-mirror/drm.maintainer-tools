@@ -36,12 +36,18 @@ set -e
 #
 
 DIM_CACHE_DIR=${XDG_CACHE_HOME:-$HOME/.cache}/dim
+DIM_CONF_DIR=${XDG_CONFIG_HOME:-$HOME/.config}/dim
 
 # dim configuration file
-DIM_CONFIG=${DIM_CONFIG:-$HOME/.dimrc}
-if [ -r $DIM_CONFIG ]; then
+if [[ -n $DIM_CONFIG ]] && [ -r $DIM_CONFIG ]; then
 	# shellcheck source=/dev/null
 	. $DIM_CONFIG
+elif [ -r $DIM_CONF_DIR/dimrc ]; then
+	# shellcheck source=/dev/null
+	. $DIM_CONF_DIR/dimrc
+else
+	# shellcheck source=/dev/null
+	. $HOME/.dimrc
 fi
 
 # prefix for repo directories
