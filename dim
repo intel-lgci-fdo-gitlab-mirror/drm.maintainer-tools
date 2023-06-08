@@ -408,7 +408,8 @@ function check_for_updates
 {
 	local stamp stampfile
 
-	stampfile=$HOME/.dim-update-check-timestamp
+	stampfile=$DIM_CACHE_DIR/update-check-timestamp
+	mkdir -p $(dirname $stampfile)
 
 	# daily check for updates based on file timestamp
 	stamp=$(stat --printf=%Y $stampfile 2>/dev/null || echo -n 0)
