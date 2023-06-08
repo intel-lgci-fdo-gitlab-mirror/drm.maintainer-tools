@@ -1,6 +1,8 @@
 #! /bin/bash
 
-dim_last_path_file=~/.dim-last-path
+DIM_CACHE_DIR=${XDG_CACHE_HOME:-$HOME/.cache}/dim
+
+dim_last_path_file=$DIM_CACHE_DIR/last-path
 
 dim ()
 {

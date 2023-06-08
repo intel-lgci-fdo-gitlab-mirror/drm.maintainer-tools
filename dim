@@ -35,6 +35,8 @@ set -e
 # environment or configuration file. See dimrc.sample for an example.
 #
 
+DIM_CACHE_DIR=${XDG_CACHE_HOME:-$HOME/.cache}/dim
+
 # dim configuration file
 DIM_CONFIG=${DIM_CONFIG:-$HOME/.dimrc}
 if [ -r $DIM_CONFIG ]; then
@@ -102,7 +104,7 @@ dim_pull_request_recipients=(
 # integration configuration
 dim_integration_config=nightly.conf
 
-dim_last_path_file=~/.dim-last-path
+dim_last_path_file=$DIM_CACHE_DIR/last-path
 
 dim_extract_tags_marker="# *** extracted tags ***"
 
@@ -1660,6 +1662,7 @@ function dim_cd
 		path=$DIM_PREFIX/$DIM_REPO
 	fi
 
+	mkdir -p $(dirname $dim_last_path_file)
 	echo $path > $dim_last_path_file
 	cd $path
 }
