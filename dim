@@ -102,6 +102,8 @@ dim_pull_request_recipients=(
 # integration configuration
 dim_integration_config=nightly.conf
 
+dim_last_path_file=~/.dim-last-path
+
 dim_extract_tags_marker="# *** extracted tags ***"
 
 #
@@ -1557,7 +1559,7 @@ function dim_magic_patch
 	local conflict_files
 
 	if [[ "$1" = "-a" ]]; then
-		cd $(cat ~/.dim-last-path)
+		cd $(cat $dim_last_path_file)
 	fi
 
 	conflict_files=$(patch -p1 | grep "saving rejects" | sed -e "s/.*saving rejects to file \(.*\)/\1/")
@@ -1658,7 +1660,7 @@ function dim_cd
 		path=$DIM_PREFIX/$DIM_REPO
 	fi
 
-	echo $path > ~/.dim-last-path
+	echo $path > $dim_last_path_file
 	cd $path
 }
 

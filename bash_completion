@@ -1,10 +1,12 @@
 #! /bin/bash
 
+dim_last_path_file=~/.dim-last-path
+
 dim ()
 {
 	if [[ "$1" = "cd" ]]; then
-		if [ -e "~/.dim-last-path" ]; then
-			cd $(cat ~/.dim-last-path) || return 1
+		if [ -e "$dim_last_path_file" ]; then
+			cd $(cat $dim_last_path_file) || return 1
 		else
 			return 1
 		fi
