@@ -45,7 +45,7 @@ if [[ -n $DIM_CONFIG ]] && [ -r $DIM_CONFIG ]; then
 elif [ -r $DIM_CONF_DIR/dimrc ]; then
 	# shellcheck source=/dev/null
 	. $DIM_CONF_DIR/dimrc
-else
+elif [ -r $HOME/.dimrc ]; then
 	# shellcheck source=/dev/null
 	. $HOME/.dimrc
 fi
