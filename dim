@@ -1083,7 +1083,7 @@ function apply_patch #patch_file
 	message_id=$(message_get_id $patch)
 	committer_email=$(git_committer_email)
 
-	patch_from=$(grep "From:" "$patch" | head -1)
+	patch_from=$(grep "^From:" "$patch" | head -1)
 	if [[ "$patch_from" != *"$committer_email"* ]] ; then
 		sob=-s
 	fi
