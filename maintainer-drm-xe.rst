@@ -1,0 +1,10 @@
+.. _maintainer-drm-xe:
+
+============================
+drm-xe Maintainer Guidelines
+============================
+
+The drm-xe maintainer tasks are initially intended to closely follow the
+:ref:`drm-intel Maintaine Guidelines <maintainer-drm-intel>`. The
+tasks are identical except from operating on the drm-xe repository and
+the drm-xe branches.

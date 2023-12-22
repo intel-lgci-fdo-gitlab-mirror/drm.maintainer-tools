@@ -154,6 +154,53 @@ This is the fastest path to getting fixes to Linus' tree. It is generally for
 the regressions, cc:stable, black screens, GPU hangs only, and should pretty
 much follow the stable rules.
 
+The Upstream xe Driver Repository
+-----------------------------------
+
+See  :ref:`drm-xe` and `the drm-xe repository`_ for repository
+details. Maintained by Oded Gabbay, Thomas Hellström and Lucas De Marchi, with a
+large pool of committers. Consists of ``drivers/gpu/drm/xe``,
+``include/drm/xe_*.h`` and ``include/uapi/drm/xe_drm.h``.
+
+.. _the drm-xe repository: https://gitlab.freedesktop.org/drm/xe/kernel
+
+drm-xe-next
+~~~~~~~~~~~
+
+This is the branch where all drm/xe patches, both new features and fixes,
+are applied.
+
+This branch "hides" the merge window from the drm/xe developers; patches are
+applied here regardless of the development phase of Linus' upstream kernel. Pull
+requests to drm-next are sent as needed between -rc1 of the current kernel and
+the drm feature deadline (-rc5/-rc6 of the current kernel).
+
+drm-xe-next-fixes
+~~~~~~~~~~~~~~~~~
+
+This branch contains drm/xe specific fixes to drm-next after the drm/xe
+features have been merged there. Fixes are first applied to drm-xe-next, and
+cherry-picked to drm-xe-next-fixes by maintainers. Valid from drm feature
+deadline (-rc5/-rc6 of the current kernel) to -rc1 of the next kernel.
+
+Pull requests to drm-next are sent as needed, with no particular schedule.
+
+drm-xe-fixes
+~~~~~~~~~~~~
+
+This branch contains fixes to Linus' tree after drm-next has been merged during
+the merge window. The fixes are then merged through drm-fixes.
+Valid from -rc1 to the kernel release.
+
+Usually Linus releases each -rc on a Sunday, and drm-xe-fixes gets rebased on
+that the following Monday. Usually this is a fast-forward. The pull request to
+drm-fixes for new fixes is typically sent on the following Thursday. This is
+repeated until final release of the kernel.
+
+This is the fastest path to getting fixes to Linus' tree. It is generally for
+the regressions, cc:stable, black screens, GPU hangs only, and should pretty
+much follow the stable rules.
+
 topic/core-for-CI
 ~~~~~~~~~~~~~~~~~
 

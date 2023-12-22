@@ -11,3 +11,4 @@ This document gathers together maintainer guidelines.
 
    maintainer-drm-misc
    maintainer-drm-intel
+   maintainer-drm-xe
