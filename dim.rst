@@ -120,6 +120,13 @@ Available options:
                         Assume "yes" to all prompts or default values so
                         it can be executed non-attended
 
+--reference <directory>
+                        Use another kernel checkout to borrow the git objects
+                        from while cloning so it reduces the network transfer
+                        amount.  The final repo is then dissociated from the
+                        passed reference.  See --reference and --dissociate in
+                        GIT-CLONE(1).
+
 update-branches
 ---------------
 Updates all maintainer branches. Useful to synchronize all branches when other
