@@ -1486,16 +1486,16 @@ function git_list_fixes
 
 function cherry_pick_branch
 {
-	local branch log fail_log intel_remote needed have_fixes
+	local branch log fail_log remote needed have_fixes
 
 	branch=${1:?$usage}
 	log=$(mktemp)
 	fail_log=$(mktemp)
 
-	intel_remote=$(repo_to_remote drm-intel)
+	remote=$(branch_to_remote $branch)
 
 	# Look for commits in din tagged as fixes.
-	for commit in $(git_list_fixes $intel_remote/$branch..$intel_remote/drm-intel-next $intel_remote/$branch..$intel_remote/drm-intel-gt-next -- drivers/gpu/drm/i915); do
+	for commit in $(git_list_fixes $remote/$branch..$remote/drm-intel-next $remote/$branch..$remote/drm-intel-gt-next -- drivers/gpu/drm/i915); do
 		echo -n "Considering $(dim_cite $commit)... "
 
 		# Look at history for already cherry-picked fixes.
@@ -1528,9 +1528,9 @@ function cherry_pick_branch
 				needed=1
 			fi
 
-			fix_of_fix=$(git log --grep="cherry picked from commit $fixes" --after=6months --format=format:%h $intel_remote/drm-intel-next-fixes -1)
+			fix_of_fix=$(git log --grep="cherry picked from commit $fixes" --after=6months --format=format:%h $remote/drm-intel-next-fixes -1)
 			if [[ -z "$fix_of_fix" ]]; then
-				fix_of_fix=$(git log --grep="cherry picked from commit $fixes" --after=6months --format=format:%h $intel_remote/drm-intel-fixes -1)
+				fix_of_fix=$(git log --grep="cherry picked from commit $fixes" --after=6months --format=format:%h $remote/drm-intel-fixes -1)
 			fi
 		done
 
