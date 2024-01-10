@@ -146,7 +146,7 @@ function read_integration_config
 	for conf in "${drm_tip_config[@]}"; do
 		local repo branch override
 		read -r repo branch override <<< $conf
-		if [[ "$repo" = "drm-intel" || "$repo" = "drm-misc" ]]; then
+		if [[ $repo = drm-* ]] || [[ $branch = topic/* ]]; then
 			dim_branches="$dim_branches $branch"
 		fi
 	done
