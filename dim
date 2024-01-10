@@ -2252,7 +2252,7 @@ function dim_list_branches
 dim_alias_ub=update-branches
 function dim_update_branches
 {
-	local repo remote intel_remote
+	local repo remote
 
 	cd $DIM_PREFIX/$DIM_REPO
 
