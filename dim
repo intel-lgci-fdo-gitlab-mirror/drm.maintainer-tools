@@ -2012,6 +2012,7 @@ function prep_pull_mail
 	prep_pull_mail_signature >> $file
 }
 
+dim_alias_create_worktree=create-workdir
 function dim_create_workdir
 {
 	local branch branches
