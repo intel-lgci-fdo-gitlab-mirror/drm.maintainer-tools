@@ -1484,31 +1484,47 @@ function git_list_fixes
 	    "$@"
 }
 
-function cherry_pick_branch
+function dim_cherry_pick_branch
 {
-	local branch log fail_log remote needed have_fixes
+	local branch log fail_log remote needed have_fixes branch_args cherry_pick_from_branches b
 
 	branch=${1:?$usage}
-	log=$(mktemp)
 	fail_log=$(mktemp)
 
 	remote=$(branch_to_remote $branch)
 
-	# Look for commits in din tagged as fixes.
-	for commit in $(git_list_fixes $remote/$branch..$remote/drm-intel-next $remote/$branch..$remote/drm-intel-gt-next -- drivers/gpu/drm/i915); do
+	assert_branch $branch
+
+	case $branch in
+		drm-intel-next-fixes|drm-intel-fixes)
+			branch_args="$remote/$branch..$remote/drm-intel-next $remote/$branch..$remote/drm-intel-gt-next -- drivers/gpu/drm/i915"
+			cherry_pick_from_branches="drm-intel-next drm-intel-gt-next"
+			;;
+		drm-xe-next-fixes|drm-xe-fixes)
+			branch_args="$remote/$branch..$remote/drm-xe-next -- drivers/gpu/drm/xe"
+			cherry_pick_from_branches="drm-xe-next"
+			;;
+		*)
+			echoerr "Branch $branch not yet supported for the -fixes workflow"
+			exit 1
+	esac
+
+	# Look for commits *-next branches tagged as fixes.
+	for commit in $(git_list_fixes $branch_args); do
 		echo -n "Considering $(dim_cite $commit)... "
 
+		log=
 		# Look at history for already cherry-picked fixes.
 		# Note: use *local* branches to account for unpushed commits.
-		git log drm-intel-fixes --format=format:%h --after=6months \
-		    --grep="cherry picked .* $commit" > $log
-		if [ "$(cat $log)" = "" ]; then
-			git log drm-intel-next-fixes --format=format:%h --after=6months \
-			    --grep="cherry picked .* $commit" > $log
-		fi
+		for b in $cherry_pick_from_branches; do
+			log="$(git log --format=%h --after=6months --grep="cherry picked .* $commit" $b)"
+			if [ -n "$log" ]; then
+				break
+			fi
+		done
 
-		if [ "$(cat $log)" != "" ]; then
-			echo "Already backported as $(tr "\n" " " < $log). OK."
+		if [ -n "$log" ]; then
+			echo "Already backported as $log. OK."
 			continue
 		fi
 
@@ -1528,10 +1544,12 @@ function cherry_pick_branch
 				needed=1
 			fi
 
-			fix_of_fix=$(git log --grep="cherry picked from commit $fixes" --after=6months --format=format:%h $remote/drm-intel-next-fixes -1)
-			if [[ -z "$fix_of_fix" ]]; then
-				fix_of_fix=$(git log --grep="cherry picked from commit $fixes" --after=6months --format=format:%h $remote/drm-intel-fixes -1)
-			fi
+			for b in $cherry_pick_from_branches; do
+				fix_of_fix=$(git log --grep="cherry picked from commit $fixes" --after=6months --format=format:%h $remote/$b -1)
+				if [ -n "$fix_of_fix" ]; then
+					break
+				fi
+			done
 		done
 
 		# Note: Cc: stable will overrule Fixes:
@@ -1563,19 +1581,17 @@ function cherry_pick_branch
 		cat $fail_log
 	fi
 
-	rm -f $log $fail_log
+	rm -f $fail_log
 }
 
 function dim_cherry_pick_fixes
 {
-	assert_branch drm-intel-fixes
-	cherry_pick_branch drm-intel-fixes "$@"
+	dim_cherry_pick_branch drm-intel-fixes "$@"
 }
 
 function dim_cherry_pick_next_fixes
 {
-	assert_branch drm-intel-next-fixes
-	cherry_pick_branch drm-intel-next-fixes "$@"
+	dim_cherry_pick_branch drm-intel-next-fixes "$@"
 }
 
 dim_alias_ar=apply-resolved

@@ -308,16 +308,20 @@ cherry-pick *commit-ish*
 Improved git cherry-pick version which also scans drm-tip for additional
 cherry-pick candidates. In dry-run mode/-d only the patch list is generated.
 
+cherry-pick-branch *fixes-branch*
+---------------------------------
+Look for non-upstreamed fixes (commits tagged Cc: stable@vger.kernel.org or
+with a "Fixes:" trailer) in the \*-next branches corresponding to the
+*fixes-branch* argument and try to cherry-pick them. These commands use dim
+cherry-pick internally to make sure bugfixes for fixes are cherry-picked too.
+
 cherry-pick-fixes
 -----------------
+Shortcut to cherry-pick fixes to the drm-intel-fixes branch
 
 cherry-pick-next-fixes
 ----------------------
-Look for non-upstreamed fixes (commits tagged Cc: stable@vger.kernel.org or Cc:
-drm-intel-fixes@lists.freedesktop.org) in drm-intel-next, and try to
-cherry-pick them to drm-intel-fixes or drm-intel-next-fixes. These commands use
-dim cherry-pick internally to make sure bugfixes for fixes are cherry-picked
-too.
+Shortcut to cherry-pick fixes to the drm-intel-next-fixes branch
 
 status
 ------
