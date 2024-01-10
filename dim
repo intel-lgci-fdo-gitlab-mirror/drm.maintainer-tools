@@ -214,6 +214,20 @@ function ask_user
 # The below functions map between these.
 #
 
+function url_to_repo # url [url ...]
+{
+	local url
+
+	url=$1
+
+	for repo in "${!drm_tip_repos[@]}"; do
+		if [[ ${drm_tip_repos[$repo]} == *"$url"* ]]; then
+			echo $repo
+			break
+		fi
+	done
+}
+
 function url_to_remote # url [url ...]
 {
 	local url remote
@@ -232,10 +246,17 @@ function url_to_remote # url [url ...]
 	done
 
 	echoerr "No git remote for any of the URLs $* found in $(pwd)"
-
 	url=$1
-	remote=${url%.git}
-	remote=${remote##*/}
+
+	# default remote to the repo name, but fallback for when bootstrapping
+	# the environment: we may still not have drm-rerere to get the repo
+	# name. In that case, rely on the url
+	remote=$(url_to_repo "$url")
+	if [ -z "$remote" ]; then
+		remote=${url%.git}
+		remote=${remote##*/}
+	fi
+
 	if [ $ASK_USER_ASSUME_YES -ne 1 ]; then
 		read -r -i "$remote" -e -p "Enter a name to auto-add this remote, leave blank to abort: " remote
 	fi
