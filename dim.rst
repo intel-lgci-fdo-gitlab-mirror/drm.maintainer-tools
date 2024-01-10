@@ -110,9 +110,15 @@ forward in its entirety.
 COMMANDS FOR COMMITTERS AND MAINTAINERS
 =======================================
 
-setup *prefix*
---------------
+setup [options]
+---------------
 Setup git maintainer branches in the given prefix.
+
+Available options:
+
+-y|--yes
+                        Assume "yes" to all prompts or default values so
+                        it can be executed non-attended
 
 update-branches
 ---------------

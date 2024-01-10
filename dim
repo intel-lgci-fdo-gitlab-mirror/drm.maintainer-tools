@@ -175,9 +175,14 @@ function pause
 	echo
 }
 
+ASK_USER_ASSUME_YES=
 function ask_user
 {
 	local prompt="$* (y/N) "
+
+	if [ $ASK_USER_ASSUME_YES -eq 1 ]; then
+		return 0
+	fi
 
 	read -n 1 -rsp "$prompt"
 	echo
@@ -227,7 +232,9 @@ function url_to_remote # url [url ...]
 	url=$1
 	remote=${url%.git}
 	remote=${remote##*/}
-	read -r -i "$remote" -e -p "Enter a name to auto-add this remote, leave blank to abort: " remote
+	if [ $ASK_USER_ASSUME_YES -ne 1 ]; then
+		read -r -i "$remote" -e -p "Enter a name to auto-add this remote, leave blank to abort: " remote
+	fi
 	if [[ -z "$remote" ]]; then
 		echoerr "Please set it up yourself using:"
 		echoerr "    $ git remote add <name> $url"
@@ -2310,9 +2317,31 @@ function setup_aux_checkout # name url directory
 	cd - > /dev/null
 }
 
-function dim_setup
+function parse_opt_dim_setup # options
+{
+	local OPTS arg
+
+	OPTS=$(getopt --option y --long yes -n 'dim setup' -- "$@")
+
+	eval set -- "$OPTS"
+
+	while true; do
+		case "$1" in
+		-y|--yes)
+			ASK_USER_ASSUME_YES=1
+			shift
+			;;
+		--)
+			shift; break ;;
+		esac
+	done
+}
+
+function dim_setup # options
 {
 	local remote drm_tip_ssh linux_upstream_git
+
+	parse_opt_dim_setup "$@"
 
 	drm_tip_ssh=ssh://git.freedesktop.org/git/drm-tip
 	linux_upstream_git=git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
