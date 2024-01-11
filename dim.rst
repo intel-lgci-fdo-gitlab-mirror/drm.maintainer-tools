@@ -303,8 +303,8 @@ update-i915-driver-date
 COMMANDS FOR MAINTAINERS
 ========================
 
-cherry-pick *commit-ish* [*git cherry-pick arguments*]
-------------------------------------------------------
+cherry-pick *commit-ish*
+------------------------
 Improved git cherry-pick version which also scans drm-tip for additional
 cherry-pick candidates. In dry-run mode/-d only the patch list is generated.
 
