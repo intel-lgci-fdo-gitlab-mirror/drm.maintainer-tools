@@ -173,6 +173,17 @@ apply [*git am arguments*]
 --------------------------
 **apply-branch** shorthand for the current branch.
 
+b4-shazam-branch branch [*b4 shazam arguments*][*message-id*]
+-------------------------------------------------------------
+
+Apply the patch series indicated by either the message-id as positional
+argument, or from the raw message piped to stdin, using **b4(5)**.
+
+b4-shazam [*b4 shazam arguments*][*message-id*]
+-----------------------------------------------
+
+**b4-shazam-branch** shorthand for the current branch.
+
 commit-add-tag *string* [...]
 -----------------------------
 Append each argument at the end of the commit message of HEAD.
@@ -463,6 +474,10 @@ Mail user agent. Must support the following subset of **mutt(1)** command line
 options: \$DIM_MUA [-s subject] [-i file] [-c cc-addr] to-addr [...]
 
 This is only needed for sending out pull requests.
+
+DIM_B4
+------
+**b4(5)** binary to use. Defaults to ``b4``.
 
 DIM_MAKE_OPTIONS
 ----------------

@@ -64,6 +64,9 @@ DIM_REPO=${DIM_REPO:-${DIM_DRM_INTEL:-src}}
 # usage: $DIM_MUA [-s subject] [-i file] [-c cc-addr] to-addr [...]
 DIM_MUA=${DIM_MUA:-mutt}
 
+# b4 binary
+DIM_B4=${DIM_B4:-b4}
+
 # make options (not used for C=1)
 DIM_MAKE_OPTIONS=${DIM_MAKE_OPTIONS:--j20}
 
@@ -91,6 +94,8 @@ dim_timestamp="$(date --utc +%Yy-%mm-%dd-%Hh-%Mm-%Ss) UTC"
 dim_python=$(command -v python3)
 
 dim_fdo_cookie="--push-option fdo.pushedWithDim=this-was-pushed-with-dim-and-not-manually"
+
+dim_fdo_patchwork_linkmask="https://patchwork.freedesktop.org/patch/msgid/%s"
 
 maintainer_tools_https=https://gitlab.freedesktop.org/drm/maintainer-tools.git
 
@@ -1469,6 +1474,65 @@ dim_alias_am=apply
 function dim_apply
 {
 	dim_apply_branch $(git_current_branch) "$@"
+}
+
+# require b4 v0.13+ for the --config option and better b4.trailers-ignore-from
+# support to ignore trailers from CI and kernel build bot mails
+function assert_b4
+{
+	local b4_cur b4_req
+
+	if ! hash $DIM_B4 2>/dev/null; then
+		echoerr "$DIM_B4 not found"
+		return 1
+	fi
+
+	b4_cur="$($DIM_B4 --version)"
+	b4_req="0.13"
+
+	if [[ "$(echo -e "$b4_req\n$b4_cur" | sort -V | head -n1)" != "$b4_req" ]]; then
+		echoerr "b4 v0.13 or later is required"
+		return 1
+	fi
+
+	return 0
+}
+
+# b4 shazam to branch $1, the rest of the arguments are passed to b4
+function dim_b4_shazam_branch
+{
+	local branch old_head rv
+
+	branch=${1:?$usage}
+	shift
+
+	assert_branch $branch
+	assert_repo_clean
+	assert_b4
+
+	old_head=$(git rev-parse HEAD)
+
+	# Point Link: trailer at fdo and ignore trailers from CI and bots
+	$DIM_B4 --config b4.linkmask="$dim_fdo_patchwork_linkmask" \
+		--config b4.trailers-ignore-from="patchwork@emeril.freedesktop.org,lkp@intel.com" \
+		shazam --add-link --apply-cover-trailers --add-my-sob "$@"
+
+	# Checkpatch and more
+	for commit in $(git rev-list --reverse $old_head..HEAD); do
+		if ! checkpatch_commit $commit branch; then
+			rv=1
+		fi
+		if ! check_maintainer $branch $commit; then
+			rv=1
+		fi
+	done
+
+	return $rv
+}
+
+function dim_b4_shazam
+{
+	dim_b4_shazam_branch $(git_current_branch) "$@"
 }
 
 function commit_list_references
