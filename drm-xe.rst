@@ -53,6 +53,17 @@ To make this work, patches should be labeled as fixes using the tags printed by
 "dim fixes <SHA1 of fixed commit>", and extra care should be put into making fixes
 the first patches in series, not depending on preparatory work or cleanup.
 
+topic/xe-for-CI
+---------------
+
+The topic/xe-for-CI branch is intended to only hold changes to drm-xe touching
+PCI-IDs and firmware version definitions required to get hardware not enabled
+in drm-xe-next running in public CI. The patches in this branch must
+not in any other way affect behaviour and features in drm-xe-next for
+*any* hardware. The topic/xe-for-CI branch may be rebased on
+drm-xe-next as needed and force-pushed in the same way as
+:ref:`topic/core-for-CI`
+
 Merge Timeline
 ==============
 
