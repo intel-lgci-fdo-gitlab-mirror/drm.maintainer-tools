@@ -179,7 +179,7 @@ function pause
 	echo
 }
 
-ASK_USER_ASSUME_YES=
+ASK_USER_ASSUME_YES=0
 function ask_user
 {
 	local prompt="$* (y/N) "
