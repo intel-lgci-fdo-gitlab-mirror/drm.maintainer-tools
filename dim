@@ -188,7 +188,7 @@ function ask_user
 		return 0
 	fi
 
-	read -n 1 -rsp "$prompt"
+	read -n 1 -rp "$prompt"
 	echo
 	if [[ $REPLY =~ ^[Yy]$ ]]; then
 		return 0
