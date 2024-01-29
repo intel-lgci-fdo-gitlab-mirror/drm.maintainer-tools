@@ -1488,7 +1488,7 @@ function git_list_fixes
 
 function dim_cherry_pick_branch
 {
-	local branch log fail_log remote needed have_fixes branch_args cherry_pick_from_branches b
+	local branch log fail_log remote needed have_fixes branch_args cherry_pick_from_branches fixes_branches b
 
 	branch=${1:?$usage}
 	fail_log=$(mktemp)
@@ -1501,10 +1501,12 @@ function dim_cherry_pick_branch
 		drm-intel-next-fixes|drm-intel-fixes)
 			branch_args="$remote/$branch..$remote/drm-intel-next $remote/$branch..$remote/drm-intel-gt-next -- drivers/gpu/drm/i915"
 			cherry_pick_from_branches="drm-intel-next drm-intel-gt-next"
+			fixes_branches="drm-intel-fixes drm-intel-next-fixes"
 			;;
 		drm-xe-next-fixes|drm-xe-fixes)
 			branch_args="$remote/$branch..$remote/drm-xe-next -- drivers/gpu/drm/xe"
 			cherry_pick_from_branches="drm-xe-next"
+			fixes_branches="drm-xe-fixes drm-xe-next-fixes"
 			;;
 		*)
 			echoerr "Branch $branch not yet supported for the -fixes workflow"
@@ -1518,8 +1520,8 @@ function dim_cherry_pick_branch
 		log=
 		# Look at history for already cherry-picked fixes.
 		# Note: use *local* branches to account for unpushed commits.
-		for b in $cherry_pick_from_branches; do
-			log="$(git log --format=%h --after=6months --grep="cherry picked .* $commit" $b)"
+		for b in $fixes_branches; do
+			log="$(git log --format=%h --after=6months --grep="cherry picked .* $commit" $b | tr '\n' ' ')"
 			if [ -n "$log" ]; then
 				break
 			fi
