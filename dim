@@ -2509,7 +2509,7 @@ function assert_repo_clean
 # Note: used by bash completion
 function dim_list_commands
 {
-	declare -F | grep -o " dim_[a-zA-Z_]*" | sed 's/^ dim_//;s/_/-/g'
+	declare -F | grep -o " dim_[a-zA-Z0-9_]*" | sed 's/^ dim_//;s/_/-/g'
 }
 
 # Note: used by bash completion
