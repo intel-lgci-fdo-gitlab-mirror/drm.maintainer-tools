@@ -44,7 +44,7 @@ SC_EXCLUDE := \
 	-e SC2207
 
 shellcheck:
-	shellcheck $(SC_EXCLUDE) dim bash_completion qf
+	shellcheck $(SC_EXCLUDE) dim bash_completion
 
 mancheck:
 	@for cmd in $$(./dim list-commands); do \
@@ -52,13 +52,7 @@ mancheck:
 			echo "$@: $$cmd not documented"; \
 		fi \
 	done
-	@for cmd in $$(./qf list-commands); do \
-		if ! grep -q "^$$cmd" qf.rst; then \
-			echo "$@: $$cmd not documented"; \
-		fi \
-	done
 	$(RST2MAN) --strict --no-raw dim.rst >/dev/null
-	$(RST2MAN) --strict --no-raw qf.rst >/dev/null
 
 check: shellcheck mancheck doccheck
 

@@ -125,30 +125,3 @@ _dim ()
 	return 0
 }
 complete -F _dim dim
-
-_qf ()
-{
-	local cur cmds
-
-	cmds="setup checkout co rebase refresh clean-patches export export-visualize ev"
-	cmds="$cmds push fetch pull stage wiggle-push resolved wp apply patch-amend pa"
-	cmds="$cmds list-unused-patches baseline git g gitk k help"
-
-
-	COMPREPLY=()   # Array variable storing the possible completions.
-	cur=${COMP_WORDS[COMP_CWORD]}
-
-	if [[ $COMP_CWORD == "1" ]] ; then
-		COMPREPLY=( $( compgen -W "$cmds" -- $cur ) )
-		return 0
-	fi
-
-	case "${COMP_WORDS[1]}" in
-		pull)
-			COMPREPLY=( $( compgen -W "--rebase" -- $cur ) )
-			;;
-	esac
-
-	return 0
-}
-complete -F _qf qf

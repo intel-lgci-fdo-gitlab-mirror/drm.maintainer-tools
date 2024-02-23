@@ -34,7 +34,6 @@ Contents:
    maintainer-guidelines
    commit-access
    dim
-   qf
    code-of-conduct
    CONTRIBUTING
    MAINTAINERS
