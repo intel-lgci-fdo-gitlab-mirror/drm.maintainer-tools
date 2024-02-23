@@ -79,9 +79,6 @@ DIM_TEMPLATE_HELLO=${DIM_TEMPLATE_HELLO:-$HOME/.dim.template.hello}
 # signature pull request template
 DIM_TEMPLATE_SIGNATURE=${DIM_TEMPLATE_SIGNATURE:-$HOME/.dim.template.signature}
 
-# GPG key id for signing tags. If unset, don't sign.
-DIM_GPG_KEYID=${DIM_GPG_KEYID:+-u $DIM_GPG_KEYID}
-
 #
 # Internal configuration. Global dim_ prefixed variables.
 #
@@ -2227,7 +2224,7 @@ function tag_summary # branch
 
 function tag_branch
 {
-	local remote tag branch
+	local remote tag branch key_arg=""
 	tag=$1
 	branch=$2
 	remote=$(branch_to_remote $branch)
@@ -2238,7 +2235,17 @@ function tag_branch
 	fi
 
 	tag_summary $branch | $DRY git tag -F- $tag "$branch@{upstream}"
-	$DRY git tag -a $DIM_GPG_KEYID -f $tag
+
+	if [ "$DIM_GPG_KEYID" == "git" ]; then
+		key_arg="-s"
+	elif [ -n "$DIM_GPG_KEYID" ]; then
+		key_arg="-s -u $DIM_GPG_KEYID"
+	else
+		key_arg="-a"
+	fi
+
+	$DRY git tag $key_arg -f $tag
+
 	if [ -n "$DRY" ]; then
 		tag=$(git rev-parse "$branch@{upstream}"):refs/tags/$tag
 	fi
