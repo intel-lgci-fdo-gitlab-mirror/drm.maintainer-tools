@@ -109,6 +109,7 @@ dim_pull_request_recipients=(
 	-c "Lucas De Marchi <lucas.demarchi@intel.com>"
 	-c "dri-devel@lists.freedesktop.org"
 	-c "intel-gfx@lists.freedesktop.org"
+	-c "intel-xe@lists.freedesktop.org"
 	-c "dim-tools@lists.freedesktop.org"
 	"Dave Airlie <airlied@gmail.com>"
 	"Daniel Vetter <daniel.vetter@ffwll.ch>"
