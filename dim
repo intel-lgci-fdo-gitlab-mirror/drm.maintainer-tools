@@ -2229,7 +2229,7 @@ function dim_pull_request
 	repo=$(branch_to_repo $branch)
 
 	url_list=${drm_tip_repos[$repo]}
-	git_url=$(pick_protocol_url git $url_list)
+	git_url=$(pick_protocol_url https $url_list)
 
 	git request-pull $upstream $git_url $tag >> $req_file
 	$DRY $DIM_MUA -s "[PULL] $branch" \
