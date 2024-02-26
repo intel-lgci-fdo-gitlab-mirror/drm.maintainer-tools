@@ -38,9 +38,9 @@ Right now the only hard merge criteria are:
   merge patches through a dedicated topic tree. The dim_ tooling has full
   support for them, if needed.
 
-* Any non-linear actions (backmerges, merging topic branches and sending out
-  pull requests) are only done by the official drm-misc maintainers (see
-  MAINTAINERS, or ask #dri-devel), and not by committers. See the
+* Any non-linear actions (backmerges, cherry-picks, merging topic branches and
+  sending out pull requests) are only done by the official drm-misc maintainers
+  (see MAINTAINERS, or ask #dri-devel), and not by committers. See the
   `examples section in dim <dim.html#examples>`_ for more info
 
 * All the x86, arm and arm64 DRM drivers need to still compile. To simplify this
