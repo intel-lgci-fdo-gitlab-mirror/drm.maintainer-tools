@@ -130,7 +130,8 @@ dim_extract_tags_marker="# *** extracted tags ***"
 function read_integration_config
 {
 	# clear everything first to allow configuration reload
-	unset drm_tip_repos drm_tip_config
+	unset drm_tip_repos drm_old_urls drm_tip_config
+	declare -g -A drm_old_urls
 	declare -g -A drm_tip_repos
 	declare -g -a drm_tip_config
 
@@ -231,9 +232,21 @@ function url_to_repo # url
 	done
 }
 
-function url_to_remote # url [url ...]
+function url_to_remote_from_git # url
 {
 	local url remote
+
+	url="$1"
+
+	remote=$(git remote -v | grep -m 1 "$url/\? (" | cut -f 1)
+
+	echo "$remote"
+	return 0
+}
+
+function url_to_remote # url [url ...]
+{
+	local url remote old_url repo
 
 	if [[ "$#" = "0" ]]; then
 		echoerr "url_to_remote without URLs"
@@ -241,8 +254,24 @@ function url_to_remote # url [url ...]
 	fi
 
 	for url; do
-		remote=$(git remote -v | grep -m 1 "$url/\? (" | cut -f 1)
+		remote=$(url_to_remote_from_git "$url")
 		if [[ -n "$remote" ]]; then
+			echo "$remote"
+			return 0
+		fi
+	done
+
+	repo=$(url_to_repo "$url")
+	for old_url in ${drm_old_urls[$repo]} ; do
+		remote=$(url_to_remote_from_git "$old_url")
+		if [[ -n "$remote" ]]; then
+			if ! ask_user "Update $remote to new $url?"; then
+				echoerr "Old branch setup found but not updated, aborting"
+				return 1
+			fi
+
+			git remote set-url $remote $url
+
 			echo "$remote"
 			return 0
 		fi
@@ -254,7 +283,7 @@ function url_to_remote # url [url ...]
 	# default remote to the repo name, but fallback for when bootstrapping
 	# the environment: we may still not have drm-rerere to get the repo
 	# name. In that case, rely on the url
-	remote=$(url_to_repo "$url")
+	remote=$repo
 	if [ -z "$remote" ]; then
 		remote=${url%.git}
 		remote=${remote##*/}
