@@ -2356,9 +2356,10 @@ function dim_pull_request # branch upstream [tag]
 	url_list=${drm_tip_repos[$repo]}
 	git_url=$(pick_protocol_url https $url_list)
 
-	$DRY git request-pull $upstream $git_url $tag >> $req_file
+	$DRY git -c diff.algorithm=histogram request-pull \
+		$upstream $git_url $tag >> $req_file
 	$DRY $DIM_MUA -s "[PULL] $branch" \
-	     -i $req_file "${dim_pull_request_recipients[@]}"
+		-i $req_file "${dim_pull_request_recipients[@]}"
 }
 
 function dim_pull_request_next
