@@ -1002,13 +1002,31 @@ function checkpatch_fixes_tag
 	return $rv
 }
 
+function checkpatch_maintainer #sha1
+{
+	local sha1 rv
+
+	sha1=$1
+
+	options="--no-git-fallback -m --nol --norolestats"
+	git show $sha1 | scripts/get_maintainer.pl $options | ( local rv; rv=1; while read -r maint; do
+		if git log --format="%(trailers:key=Signed-off-by,key=Reviewed-by,key=Acked-by)" -1 $sha1 | grep -qi "$maint"; then
+			rv=0
+		fi
+	done ; exit $rv)
+
+	rv=$?
+	return $rv
+}
+
 # additional patch checks before pushing, e.g. for r-b tags
 function checkpatch_commit_push
 {
-	local sha1 managed_branch rv author committer author_outlook cite
+	local sha1 repo managed_branch rv author committer author_outlook cite
 
 	sha1=$1
-	managed_branch=$2
+	repo=$2
+	managed_branch=$3
 	rv=0
 
 	cite=$(dim_cite $sha1)
@@ -1058,6 +1076,16 @@ function checkpatch_commit_push
 		rv=1
 	fi
 
+	options="--no-email --no-l --scm"
+	maint_url=$(git show --no-use-mailmap --pretty=email $sha1 |
+		./scripts/get_maintainer.pl $options | head -n 1 | cut -d " " -f2)
+	patch_repo=$(url_to_repo $maint_url)
+	if [[ -z "$patch_repo" || "$repo" != "$patch_repo" ]]; then
+		if ! checkpatch_maintainer $sha1 ; then
+			warn_or_fail "$cite: Mandatory Maintainer Acked-by missing."
+		fi
+	fi
+
 	if ! checkpatch_fixes_tag $sha1 ; then
 		rv=1
 	fi
@@ -1087,18 +1115,19 @@ function checkmerge_commit_push
 
 function checkpatch_commit_push_range
 {
-	local rv managed_branch
+	local rv managed_branch repo
 
 	managed_branch=$1
-	shift
+	repo=$2
+	shift 2
 	rv=0
 
 	for sha1 in $(git rev-list "$@" --no-merges) ; do
-		checkpatch_commit_push $sha1 $managed_branch || rv=1
+		checkpatch_commit_push $sha1 $repo $managed_branch || rv=1
 	done
 
 	for sha1 in $(git rev-list "$@" --merges) ; do
-		checkmerge_commit_push $sha1 $managed_branch || rv=1
+		checkmerge_commit_push $sha1 $repo $managed_branch || rv=1
 	done
 
 	if [ $rv == "1" ] ; then
@@ -1110,7 +1139,7 @@ function checkpatch_commit_push_range
 # push.
 function dim_push_branch
 {
-	local branch remote committer_email commit_count merge_count
+	local branch remote repo committer_email commit_count merge_count
 
 	branch=${1:?$usage}
 	shift
@@ -1118,10 +1147,11 @@ function dim_push_branch
 	assert_branch $branch
 
 	remote=$(branch_to_remote $branch)
+	repo=$(branch_to_repo $branch)
 
 	committer_email=$(git_committer_email)
 
-	checkpatch_commit_push_range 1 "$branch@{u}..$branch" --first-parent --committer="$committer_email"
+	checkpatch_commit_push_range 1 $repo "$branch@{u}..$branch" --first-parent --committer="$committer_email"
 
 	# Apart from maintainers pushing merges or rebases, most patches should
 	# be pushed in small batches.
@@ -1288,7 +1318,7 @@ function dim_apply_branch
 
 function dim_apply_pull
 {
-	local branch file message_id pull_branch rv merge_msg_file from_line
+	local branch file message_id repo pull_branch rv merge_msg_file from_line
 
 	branch=${1:?$usage}
 	file=$(mktemp)
@@ -1324,7 +1354,8 @@ function dim_apply_pull
 	check_merge_baseline FETCH_HEAD $branch $(branch_to_remote drm-fixes)/drm-fixes
 	check_merge_baseline FETCH_HEAD $branch origin/master
 
-	checkpatch_commit_push_range 0 "HEAD..FETCH_HEAD"
+	repo=$(branch_to_repo $branch)
+	checkpatch_commit_push_range 0 $repo "HEAD..FETCH_HEAD"
 
 	if ! $DRY git pull --no-rebase --no-ff $pull_branch ; then
 		if ! check_conflicts "$pull_branch" ; then
@@ -2342,7 +2373,8 @@ function dim_pull_request # branch upstream [tag]
 	git_fetch_helper ${upstream%%/*}
 	echo "Using $upstream as the upstream"
 
-	checkpatch_commit_push_range 1 "$upstream..${tag:-$branch}"
+	repo=$(branch_to_repo $branch)
+	checkpatch_commit_push_range 1 $repo "$upstream..${tag:-$branch}"
 
 	if [ -z "$tag" ]; then
 		tag=$(tag_name "$branch")
@@ -2355,7 +2387,6 @@ function dim_pull_request # branch upstream [tag]
 
 	prep_pull_mail $req_file $tag
 
-	repo=$(branch_to_repo $branch)
 	url_list=${drm_tip_repos[$repo]}
 	git_url=$(pick_protocol_url https $url_list)
 
