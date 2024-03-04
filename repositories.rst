@@ -67,7 +67,7 @@ See :ref:`drm-misc` and `the drm-misc repository`_ for repository
 details. Maintained by Maarten Lankhorst, Maxime Ripard, and Thomas Zimmermann, with a
 large pool of committers.
 
-.. _the drm-misc repository: https://cgit.freedesktop.org/drm/drm-misc
+.. _the drm-misc repository: https://gitlab.freedesktop.org/drm/misc/kernel
 
 drm-misc-next
 ~~~~~~~~~~~~~
