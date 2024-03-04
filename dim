@@ -2490,7 +2490,7 @@ function dim_setup # options
 
 	parse_opt_dim_setup "$@"
 
-	drm_tip_ssh=ssh://git.freedesktop.org/git/drm-tip
+	drm_tip_ssh=ssh://git@gitlab.freedesktop.org/drm/tip.git
 	linux_upstream_git=git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
 
 	if [[ ! -d "$DIM_PREFIX" ]]; then
@@ -2740,7 +2740,7 @@ function dim_help
 	if [ ! -e "$manpage" ]; then
 		manpage=$(dirname $(readlink -f $0))/dim.rst
 		if [ ! -e "$manpage" ]; then
-			echo "Can't find the man page. See http://cgit.freedesktop.org/drm-tip/tree/dim.rst?h=maintainer-tools"
+			echo "Can't find the man page. See https://gitlab.freedesktop.org/drm/maintainer-tools/-/blob/master/dim.rst"
 			exit 1
 		fi
 	fi

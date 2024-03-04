@@ -18,7 +18,7 @@ The drm-rerere branch contains the `nightly.conf`_ configuration file that
 describes the branches that get merged to drm-tip, as well as shared conflict
 resolution for merging the branches on drm-tip rebuild.
 
-.. _nightly.conf: https://cgit.freedesktop.org/drm/drm-tip/plain/nightly.conf?h=rerere-cache
+.. _nightly.conf: https://gitlab.freedesktop.org/drm/tip/-/blob/rerere-cache/nightly.conf
 
 Resolving Conflicts when Rebuilding drm-tip
 ===========================================

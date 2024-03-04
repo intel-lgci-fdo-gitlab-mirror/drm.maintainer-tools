@@ -7,7 +7,7 @@ Repositories and Branches
 All the relevant repositories and branches are described below. For the current
 list of maintainers, mailing lists, etc. please refer to MAINTAINERS_.
 
-.. _MAINTAINERS: https://cgit.freedesktop.org/drm/drm-tip/plain/MAINTAINERS
+.. _MAINTAINERS: https://gitlab.freedesktop.org/drm/tip/-/blob/drm-tip/MAINTAINERS
 
 .. contents::
 
@@ -217,15 +217,15 @@ The DRM Testing and Integration Repository
 
 See :ref:`drm-tip` and `the drm-tip repository`_ for repository details.
 
-.. _the drm-tip repository: https://cgit.freedesktop.org/drm/drm-tip
+.. _the drm-tip repository: https://gitlab.freedesktop.org/drm/tip
 
 drm-tip
 ~~~~~~~
 
 This is the overall integration tree for drm, and lives in
-``git://anongit.freedesktop.org/drm-tip``. Every time one of the above branches
-is updated drm-tip gets rebuilt. If there's a conflict see section on `resolving
-conflicts when rebuilding drm-tip
+``https://gitlab.freedesktop.org/drm/tip.git``. Every time one of the above
+branches is updated drm-tip gets rebuilt. If there's a conflict see section on
+`resolving conflicts when rebuilding drm-tip
 <drm-tip.html#resolving-conflicts-when-rebuilding-drm-tip>`_.
 
 drm-rerere
@@ -235,7 +235,7 @@ This branch contains the `nightly.conf`_ configuration file and the shared ``git
 rerere`` conflict resolutions for dim to generate drm-tip, as well as some
 kernel defconfig files for build testing.
 
-.. _nightly.conf: https://cgit.freedesktop.org/drm/drm-tip/plain/nightly.conf?h=rerere-cache
+.. _nightly.conf: https://gitlab.freedesktop.org/drm/tip/-/blob/rerere-cache/nightly.conf
 
 The Maintainer Tools Repository
 -------------------------------
