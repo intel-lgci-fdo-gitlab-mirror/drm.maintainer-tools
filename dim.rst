@@ -343,12 +343,12 @@ is in need of a pull request. Commiters that want to check the status of their
 current branch should use normal **git status** commands.
 
 
-pull-request *branch* *upstream*
---------------------------------
-Fetch the *upstream* remote to make sure it's up-to-date, create and push a date
-based tag for the *branch*, generate a pull request template with the specified
-*upstream*, and finally start \$DIM_MUA with the template with subject and
-recipients already set.
+pull-request *branch* *upstream* [*tag*]
+----------------------------------------
+Fetch the *upstream* remote to make sure it's up-to-date, create and push a
+date-based tag for the *branch* if no tag was specified as argument, generate a
+pull request template with the specified *upstream*, and finally start
+\$DIM_MUA with the template with subject and recipients already set.
 
 Since the tag for the *branch* is date based, the pull request can be
 regenerated with the same commands if something goes wrong.
