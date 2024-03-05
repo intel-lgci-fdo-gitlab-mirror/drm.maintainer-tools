@@ -17,3 +17,6 @@
 
 # Command to run after dim apply
 #DIM_POST_APPLY_ACTION=
+
+# Preferred protocol when adding remotes
+#DIM_PREFERRED_PROTOCOL=[ssh|https]

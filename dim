@@ -79,6 +79,9 @@ DIM_TEMPLATE_HELLO=${DIM_TEMPLATE_HELLO:-$HOME/.dim.template.hello}
 # signature pull request template
 DIM_TEMPLATE_SIGNATURE=${DIM_TEMPLATE_SIGNATURE:-$HOME/.dim.template.signature}
 
+# preferred protocol when adding remotes
+DIM_PREFERRED_PROTOCOL=${DIM_PREFERRED_PROTOCOL:-}
+
 #
 # Internal configuration. Global dim_ prefixed variables.
 #
@@ -269,6 +272,10 @@ function url_to_remote # url [url ...]
 	for old_url in ${drm_old_urls[$repo]} ; do
 		remote=$(url_to_remote_from_git "$old_url")
 		if [[ -n "$remote" ]]; then
+			if [[ -n "$DIM_PREFERRED_PROTOCOL" ]]; then
+				url=$(pick_protocol_url "$DIM_PREFERRED_PROTOCOL" ${url_list})
+			fi
+
 			if ! ask_user "Update $remote to new $url?"; then
 				echoerr "Old branch setup found but not updated, aborting"
 				return 1
@@ -297,9 +304,14 @@ function url_to_remote # url [url ...]
 		repo="drm-tip"
 	else
 		remote="$repo"
+		# possibly amend the passed in URLs if any matched a repo
+		url_list=${drm_tip_repos[$repo]}
 	fi
 
 	echoerr "Adding remote for ${repo} repo from URLs: $url_list"
+	if [[ -n "$DIM_PREFERRED_PROTOCOL" ]]; then
+		url=$(pick_protocol_url "$DIM_PREFERRED_PROTOCOL" $url_list)
+	fi
 
 	if [ $ASK_USER_ASSUME_YES -ne 1 ]; then
 		read -r -i "$remote" -e -p "Enter a name to auto-add this remote, leave blank to abort: " remote
@@ -2493,11 +2505,17 @@ function parse_opt_dim_setup # options
 
 function dim_setup # options
 {
-	local remote drm_tip_ssh url_list
+	local remote drm_tip_ssh url_list url
 
 	parse_opt_dim_setup "$@"
 
 	url_list=("git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git" "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git")
+	if [[ -n "$DIM_PREFERRED_PROTOCOL" ]]; then
+		# shellcheck disable=SC2068
+		url=$(pick_protocol_url "$DIM_PREFERRED_PROTOCOL" ${url_list[@]})
+	else
+		url=${url_list[0]}
+	fi
 
 	if [[ ! -d "$DIM_PREFIX" ]]; then
 		if ask_user "The DIM_PREFIX repository directory '$DIM_PREFIX' doesn't exist. Create?"; then
@@ -2515,7 +2533,7 @@ function dim_setup # options
 	if [[ ! -d "$DIM_REPO" ]]; then
 		if ask_user "The DIM_REPO maintainer kernel repository '$DIM_REPO' doesn't exist. Clone upstream?"; then
 			git clone --reference-if-able "$DIM_KERNEL_REFERENCE" --dissociate \
-				"${url_list[0]}" "$DIM_REPO"
+				"$url" "$DIM_REPO"
 		fi
 	fi
 
@@ -2523,7 +2541,7 @@ function dim_setup # options
 		echoerr "No kernel git checkout found in '$DIM_REPO'."
 		echoerr "Please set up your DIM_REPO maintainer kernel repository at '$DIM_REPO' with:"
 		echoerr "    cd $DIM_PREFIX"
-		echoerr "    git clone ${url_list[0]} $DIM_REPO"
+		echoerr "    git clone $url $DIM_REPO"
 		echoerr "or update your configuration (see dimrc.sample)."
 		exit 1
 	fi

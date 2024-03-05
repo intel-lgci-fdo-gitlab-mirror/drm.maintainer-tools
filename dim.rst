@@ -496,6 +496,11 @@ DIM_GPG_KEYID
 GPG key ID to use for signing tags. If set, tags will be signed. If unset, the
 default, tags will not be signed.
 
+DIM_PREFERRED_PROTOCOL
+----------------------
+Preferred protocol when adding remotes: ssh or https. If not set, each tree may
+use a different protocol according to maintainer's preference.
+
 dim_alias_<alias>
 -----------------
 Make **<alias>** an alias for the subcommand defined as the value. For example,
