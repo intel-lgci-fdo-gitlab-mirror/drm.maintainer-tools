@@ -12,9 +12,17 @@ There's also a sample config file for ~/.dimrc::
 
     https://gitlab.freedesktop.org/drm/maintainer-tools/raw/master/dimrc.sample
 
+For the setup part, some of the important settings are:
+
+    - ``DIM_PREFIX``: workspace directory, defaults to ``$HOME/linux``
+    - ``DIM_PREFERRED_PROTOCOL``: preferred protocol to use for cloning git
+      repositories; if not set, use the preferred protocol by each tree, which
+      may require login credentials in the remote repo.
+
 The recommended way to setup dim is to simply clone it::
 
-    $ cd $DIM_PREFIX # defaults to ~/.src, or whatever you've set in your .dimrc
+    $ . ~/.dimrc
+    $ cd $DIM_PREFIX
     $ git clone git@gitlab.freedesktop.org:drm/maintainer-tools.git
 
 Plus, there's bash completion in the same directory if you feel like using that.
@@ -34,10 +42,8 @@ see `contributing <dim.html#contributing-bug-reports-and-discussion>`_.
 
 If you have a freedesktop.org account and plan to push things on one of the
 drm-xxx repos, you should use the ssh://git.freedesktop.org/git/drm-xxx urls
-when adding a remote. Note that dim will ask you to add missing remotes
-automatically, and by default uses the ssh:// url format. To make these urls
-without login names work, you should add a new entry in ~/.ssh/config, if that's
-not yet configured::
+when adding a remote. To make these urls without login names work, you should
+add a new entry in ~/.ssh/config, if that's not yet configured::
 
     $ printf '\nHost git.freedesktop.org\n\tUser <username>' >> ~/.ssh/config
 
