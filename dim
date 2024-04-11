@@ -2164,15 +2164,10 @@ function dim_create_workdir
 
 		echo Creating separate workdir for $branch
 
-		if git help worktree &> /dev/null; then
-			# native worktree support was added in git 2.5
-			cd $DIM_REPO
-			$DRY git worktree prune
-			$DRY git worktree add $DIM_PREFIX/$branch $branch
-			cd $DIM_PREFIX
-		else
-			$DRY git-new-workdir $DIM_REPO $branch $branch
-		fi
+		cd $DIM_REPO
+		$DRY git worktree prune
+		$DRY git worktree add $DIM_PREFIX/$branch $branch
+		cd $DIM_PREFIX
 	done
 }
 
@@ -2445,22 +2440,13 @@ function setup_aux_checkout # name url directory
 	echo "Setting up $dir ..."
 
 	if [ ! -d $dir ]; then
-		if git help worktree &> /dev/null ; then
-			cd $DIM_PREFIX/$DIM_REPO
-			remote=$(url_to_remote $url)
-			if ! git_branch_exists $name ; then
-				git_fetch_helper $remote
-				git branch --track $name $remote/$name
-			fi
-			git worktree add $DIM_PREFIX/$dir $name
-		else
-			git clone --reference=$DIM_PREFIX/$DIM_REPO/.git $url $dir
-			cd $dir
-			git config remote.origin.url $url
-			echo "$(git_dir $DIM_PREFIX/$DIM_REPO)/objects" > $(git_dir)/objects/info/alternates
-			git repack -a -d -l
-			remote=origin
+		cd $DIM_PREFIX/$DIM_REPO
+		remote=$(url_to_remote $url)
+		if ! git_branch_exists $name ; then
+			git_fetch_helper $remote
+			git branch --track $name $remote/$name
 		fi
+		git worktree add $DIM_PREFIX/$dir $name
 	else
 		cd $dir
 		remote=$(url_to_remote $url)
