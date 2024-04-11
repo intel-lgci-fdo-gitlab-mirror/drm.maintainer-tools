@@ -94,6 +94,13 @@ _dim ()
 				COMPREPLY=( $( compgen -W "$(git tag --list "${words[2]}-*")" -- $cur ) )
 			fi
 			;;
+		tag-branch)
+			if [[ $args == 2 ]]; then
+				COMPREPLY=( $( compgen -W "$nightly_branches" -- $cur ) )
+			elif [[ $args == 3 ]]; then
+				COMPREPLY=( $( compgen -W "$upstream_branches" -- $cur ) )
+			fi
+			;;
 		pull-request-next|pull-request-fixes|pull-request-next-fixes)
 			if [[ $args == 2 ]]; then
 				COMPREPLY=( $( compgen -W "$upstream_branches" -- $cur ) )
