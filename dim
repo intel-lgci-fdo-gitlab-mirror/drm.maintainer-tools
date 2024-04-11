@@ -2443,7 +2443,7 @@ function bootstrap_drm_rerere
 {
 	local name dir remote url_list
 
-	url_list="ssh://git@gitlab.freedesktop.org/drm/tip.git"
+	url_list="ssh://git@gitlab.freedesktop.org/drm/tip.git https://gitlab.freedesktop.org/drm/tip.git"
 	name="rerere-cache"
 	dir="drm-rerere"
 
@@ -2493,11 +2493,11 @@ function parse_opt_dim_setup # options
 
 function dim_setup # options
 {
-	local remote drm_tip_ssh linux_upstream_git
+	local remote drm_tip_ssh url_list
 
 	parse_opt_dim_setup "$@"
 
-	linux_upstream_git=git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+	url_list=("git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git" "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git")
 
 	if [[ ! -d "$DIM_PREFIX" ]]; then
 		if ask_user "The DIM_PREFIX repository directory '$DIM_PREFIX' doesn't exist. Create?"; then
@@ -2515,7 +2515,7 @@ function dim_setup # options
 	if [[ ! -d "$DIM_REPO" ]]; then
 		if ask_user "The DIM_REPO maintainer kernel repository '$DIM_REPO' doesn't exist. Clone upstream?"; then
 			git clone --reference-if-able "$DIM_KERNEL_REFERENCE" --dissociate \
-				"$linux_upstream_git" "$DIM_REPO"
+				"${url_list[0]}" "$DIM_REPO"
 		fi
 	fi
 
@@ -2523,7 +2523,7 @@ function dim_setup # options
 		echoerr "No kernel git checkout found in '$DIM_REPO'."
 		echoerr "Please set up your DIM_REPO maintainer kernel repository at '$DIM_REPO' with:"
 		echoerr "    cd $DIM_PREFIX"
-		echoerr "    git clone $linux_upstream_git $DIM_REPO"
+		echoerr "    git clone ${url_list[0]} $DIM_REPO"
 		echoerr "or update your configuration (see dimrc.sample)."
 		exit 1
 	fi
