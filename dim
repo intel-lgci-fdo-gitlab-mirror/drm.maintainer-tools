@@ -248,7 +248,7 @@ function url_to_remote_from_git # url
 
 function url_to_remote # url [url ...]
 {
-	local url remote old_url repo
+	local url remote old_url repo url_list
 
 	if [[ "$#" = "0" ]]; then
 		echoerr "url_to_remote without URLs"
@@ -264,6 +264,8 @@ function url_to_remote # url [url ...]
 	done
 
 	repo=$(url_to_repo "$url")
+	url_list="$*"
+	url=$1
 	for old_url in ${drm_old_urls[$repo]} ; do
 		remote=$(url_to_remote_from_git "$old_url")
 		if [[ -n "$remote" ]]; then
@@ -279,17 +281,25 @@ function url_to_remote # url [url ...]
 		fi
 	done
 
-	echoerr "No git remote for any of the URLs $* found in $(pwd)"
-	url=$1
-
-	# default remote to the repo name, but fallback for when bootstrapping
+	# When bootstrapping the repo, there's no manifest yet. Hence there's
+	# no "repo", no "remote". Repo to cause this is known: drm-tip.
+	# Hardcode  there's no repo above since default remote to the repo name, but fallback for when bootstrapping
 	# the environment: we may still not have drm-rerere to get the repo
 	# name. In that case, rely on the url
-	remote=$repo
-	if [ -z "$remote" ]; then
-		remote=${url%.git}
-		remote=${remote##*/}
+	if [[ -z "$repo" ]]; then
+		# let's assert we are indeed dealing with drm-tip
+		# special case drm-tip
+		if [[ $url != *drm/tip.git ]]; then
+			echoerr "Unknown repo for urls $url_list"
+			return 1
+		fi
+		remote="drm-tip"
+		repo="drm-tip"
+	else
+		remote="$repo"
 	fi
+
+	echoerr "Adding remote for ${repo} repo from URLs: $*"
 
 	if [ $ASK_USER_ASSUME_YES -ne 1 ]; then
 		read -r -i "$remote" -e -p "Enter a name to auto-add this remote, leave blank to abort: " remote
