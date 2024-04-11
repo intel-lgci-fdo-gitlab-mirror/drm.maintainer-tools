@@ -2528,7 +2528,7 @@ function dim_setup # options
 		exit 1
 	fi
 
-	if [[ ! -d "$(git_dir maintainer-tools)" ]]; then
+	if [[ ! -d "$(git_dir maintainer-tools 2>/dev/null)" ]]; then
 		if ask_user "No maintainer-tools git checkout found in 'maintainer-tools'. Clone upstream?"; then
 			git clone "$maintainer_tools_https" "maintainer-tools"
 		else
