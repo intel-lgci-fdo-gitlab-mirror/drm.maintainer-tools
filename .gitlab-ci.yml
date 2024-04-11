@@ -1,40 +1,58 @@
-image: $CI_REGISTRY/$CI_PROJECT_PATH/dim-fedora:latest
+.templates_sha: &templates_sha 9568e38927f9e9c48d4f586f84a071c3a4bdcd39
+
+include:
+  - project: 'freedesktop/ci-templates'
+    ref: *templates_sha
+    file: '/templates/fedora.yml'
 
 stages:
   - containers
   - build
   - deploy
 
+variables:
+  FDO_UPSTREAM_REPO: drm/maintainer-tools
+
+.maintainer-tools.fedora:40:
+  variables:
+    FDO_DISTRIBUTION_VERSION: 40
+    FDO_DISTRIBUTION_TAG: '2024-04-11.2'
+
+###### containers
+
 container-build:
-    stage: containers
-    image: docker:stable
-    only:
-        changes:
-            - Dockerfile.fedora
-            - .gitlab-ci.yml
-    services:
-        - docker:dind
-    variables:
-        DOCKER_HOST: tcp://docker:2375
-        DOCKER_DRIVER: overlay2
-    script:
-        - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
-        - docker build -t $CI_REGISTRY/$CI_PROJECT_PATH/dim-fedora -f Dockerfile.fedora .
-        - docker push $CI_REGISTRY/$CI_PROJECT_PATH/dim-fedora
+  extends:
+    - .fdo.container-build@fedora
+    - .maintainer-tools.fedora:40
+  stage: containers
+  variables:
+    FDO_DISTRIBUTION_PACKAGES: 'ShellCheck python3-docutils python3-sphinx make python3-sphinx_rtd_theme graphviz'
+
+###### build
 
 check:
-    stage: build
-    script:
-      - make check
+  extends:
+    - .fdo.distribution-image@fedora
+    - .maintainer-tools.fedora:40
+  stage: build
+  script:
+    - echo "Distro - $FDO_DISTRIBUTION_NAME"
+    - make check
+
+###### deploy
 
 pages:
-    stage: deploy
-    script:
-      - make html
-      - cp -r _build/html public
-    artifacts:
-        paths:
-          - public
-    only:
-        refs:
-          - master
+  extends:
+    - .fdo.distribution-image@fedora
+    - .maintainer-tools.fedora:40
+  stage: deploy
+  script:
+    - echo "Distro - $FDO_DISTRIBUTION_NAME"
+    - make html
+    - cp -r _build/html public
+  artifacts:
+    paths:
+      - public
+  only:
+    refs:
+      - master
