@@ -1032,7 +1032,7 @@ function checkpatch_commit_push
 	fi
 
 	# check for Link tag
-	if [[ "$managed_branch" = "1" ]] && ! git show -s $sha1 | grep -qi 'Link:'  ; then
+	if [[ $LINK_MISSING_I_KNOW -ne 1 ]] && [[ "$managed_branch" = "1" ]] && ! git show -s $sha1 | grep -qi 'Link:'  ; then
 		echoerr "$cite: Link tag missing."
 		rv=1
 	fi
@@ -2806,9 +2806,10 @@ DRY_RUN=
 INTERACTIVE=
 DRY=
 FORCE=
+LINK_MISSING_I_KNOW=
 HELP=
 
-while getopts hdfis opt; do
+while getopts hdfils opt; do
 	case "$opt" in
 		d)
 			DRY_RUN=--dry-run
@@ -2823,6 +2824,11 @@ while getopts hdfis opt; do
 			;;
 		h)
 			HELP=1
+			;;
+		l)
+			if ask_user "This option to ignore missed links should only be used by maintainers on rare situations. Are you sure?"; then
+				LINK_MISSING_I_KNOW=1
+			fi
 			;;
 		s)
 			# FIXME: transitional, do unconditionally at the top
