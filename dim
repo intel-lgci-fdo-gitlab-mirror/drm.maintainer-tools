@@ -2251,6 +2251,8 @@ function tag_branch
 		exit 1
 	fi
 
+	tag_summary $branch | $DRY git tag -F- $tag "$branch@{upstream}"
+
 	if [ "$DIM_GPG_KEYID" == "git" ]; then
 		key_arg="-s"
 	elif [ -n "$DIM_GPG_KEYID" ]; then
@@ -2259,7 +2261,7 @@ function tag_branch
 		key_arg="-a"
 	fi
 
-	tag_summary $branch | $DRY git tag -e -F- $key_arg $tag "$branch@{upstream}"
+	$DRY git tag $key_arg -f $tag
 
 	if [ -n "$DRY" ]; then
 		tag=$(git rev-parse "$branch@{upstream}"):refs/tags/$tag
