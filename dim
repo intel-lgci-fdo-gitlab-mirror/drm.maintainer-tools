@@ -2241,7 +2241,7 @@ function tag_summary # branch
 
 function tag_branch
 {
-	local remote tag branch key_arg=""
+	local remote tag branch key_arg="" summary_file
 	tag=$1
 	branch=$2
 	remote=$(branch_to_remote $branch)
@@ -2251,8 +2251,6 @@ function tag_branch
 		exit 1
 	fi
 
-	tag_summary $branch | $DRY git tag -F- $tag "$branch@{upstream}"
-
 	if [ "$DIM_GPG_KEYID" == "git" ]; then
 		key_arg="-s"
 	elif [ -n "$DIM_GPG_KEYID" ]; then
@@ -2261,7 +2259,10 @@ function tag_branch
 		key_arg="-a"
 	fi
 
-	$DRY git tag $key_arg -f $tag
+	summary_file=$(mktemp)
+	tag_summary $branch > "$summary_file"
+	$DRY git tag -e -F "$summary_file" $key_arg $tag "$branch@{upstream}"
+	rm "$summary_file"
 
 	if [ -n "$DRY" ]; then
 		tag=$(git rev-parse "$branch@{upstream}"):refs/tags/$tag
