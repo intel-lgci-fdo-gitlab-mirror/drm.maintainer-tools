@@ -44,8 +44,22 @@ come back to the project.
 Maintainers and committers should encourage contributors to request commit
 rights, especially junior contributors tend to underestimate their skills.
 
-drm-intel
----------
+drm-intel and drm-xe
+--------------------
+
+The process is similar for both of these repositories/drivers:
+
+- The xe driver, hosted at:
+
+  - Code and issues: https://gitlab.freedesktop.org/drm/xe/kernel
+  - Mailing list: https://lists.freedesktop.org/mailman/listinfo/intel-xe
+  - IRC channel: #xe on https://www.oftc.net/
+
+- The i915 driver, hosted at:
+
+  - Code and issues: https://gitlab.freedesktop.org/drm/i915/kernel
+  - Mailing list: https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+  - IRC channel: #intel-gfx on https://www.oftc.net/
 
 Criteria
 ~~~~~~~~
@@ -53,24 +67,23 @@ Criteria
 Commit rights will be granted to anyone who requests them and fulfills the
 following criteria:
 
-- Has contributed at least 25 patches to i915 driver that have already been
-  merged upstream. Most of the patches must be non-trivial, not just simple
-  spelling or style fixes or code movement.
+- Has contributed at least 25 patches to the chosen driver that have already
+  been merged upstream. Most of the patches must be non-trivial, not just
+  simple spelling or style fixes or code movement.
 
-- Has reviewed at least 25 patches from other developers to i915 driver that
-  have already been merged upstream. Again, most of the reviewed patches must be
-  non-trivial.
+- Has reviewed at least 25 patches from other developers to the chosen driver
+  that have already been merged upstream. Again, most of the reviewed patches
+  must be non-trivial.
 
 - Are actively participating in discussions about their work and areas of
-  expertise on the project communication channels (the intel-gfx mailing list,
-  #intel-gfx freenode IRC channel, and freedesktop.org bugzilla).
+  expertise on the project communication channels listed above.
 
-- Has been active in the past year (at least some commits or reviews on i915
-  driver).
+- Has been active in the past year (at least some commits or reviews on the
+  chosen driver).
 
 - Will be regularly contributing further patches. This includes regular
   contributors to other parts of the open source graphics stack who only do the
-  occasional patch within i915 itself.
+  occasional patch within the driver itself.
 
 - Agrees to use their commit rights in accordance with the documented merge
   criteria, tools, processes, and :ref:`code-of-conduct`.
@@ -84,13 +97,9 @@ it needs acks from domain experts or maintainers before pushing.
 Access Request
 ~~~~~~~~~~~~~~
 
-Apply for an account (and any other account change requests, including commit
-rights if you already have an account) through
-
-https://www.freedesktop.org/wiki/AccountRequests/
-
-Maintainer acks are required to confirm commit rights. Please ping the
-maintainers if your request is stuck.
+Make sure you meet the criteria, then please file an issue on the chosen
+driver's issue tracker listed above, using the label "Commit access request".
+Please ping the maintainers if your request is stuck.
 
 Maintainers may rate limit adding new committers to ensure there's enough
 bandwidth to properly support ramp-up on the tools and processes. In this case,
@@ -104,54 +113,3 @@ reinstated when they come back to the project.
 
 Maintainers and committers should encourage contributors to request commit
 rights.
-
-drm-xe
----------
-
-Criteria
-~~~~~~~~
-
-Commit rights will be granted to anyone who requests them and fulfills the
-following criteria:
-
-- Has contributed at least 25 patches to the xe driver that have
-  already been merged upstream. Most of the patches must be
-  non-trivial, not just simple spelling or style fixes or code
-  movement.
-
-- Has reviewed at least 25 patches from other developers to the xe
-  driver that have already been merged upstream. Again, most of the
-  reviewed patches must be non-trivial.
-
-- Are actively participating in discussions about their work and areas of
-  expertise on the project communication channels (the intel-xe mailing list,
-  #xe freenode IRC channel, and gitlab.freedesktop.org/drm/xe/kernel
-  issue tracker).
-
-- Has been active in the past year (at least some commits or reviews
-  on the xe driver).
-
-- Will be regularly contributing further patches. This includes regular
-  contributors to other parts of the open source graphics stack who only do the
-  occasional patch within xe itself.
-
-- Agrees to use their commit rights in accordance with the documented merge
-  criteria, tools, processes, and :ref:`code-of-conduct`.
-
-- For the initial list of developers with commit rights, it was also given to
-  i915 developers who have been involved with the xe development regardless
-  of matching the criteria above.
-
-The above criteria are in place to encourage and require committers to
-be actively and broadly engaged upstream, and that they are acquainted
-and comfortable with the open collaboration model we have. To ensure
-the committers have enough experience to gauge reasonably well how
-much review a patch needs, and whether it needs acks from domain
-experts or maintainers before pushing.
-
-Access Request
-~~~~~~~~~~~~~~
-
-Make sure you meet the criteria, then please file an issue with the
-https://gitlab.freedesktop.org/drm/xe/kernel/-/issues, using the label
-"Commit access request"
