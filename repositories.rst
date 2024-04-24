@@ -107,7 +107,7 @@ details. Maintained by Jani Nikula, Joonas Lahtinen and Rodrigo Vivi, with a
 large pool of committers. Consists mostly of ``drivers/gpu/drm/i915`` and
 ``include/drm/i915_*.h``.
 
-.. _the drm-intel repository: https://cgit.freedesktop.org/drm/drm-intel
+.. _the drm-intel repository: https://gitlab.freedesktop.org/drm/i915/kernel
 
 drm-intel-next (aka "din") and drm-intel-gt-next (aka "dign")
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
