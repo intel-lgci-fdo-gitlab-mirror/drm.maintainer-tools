@@ -1584,8 +1584,6 @@ function dim_cherry_pick
 
 	commit=$(git rev-parse ${1:?$usage})
 
-	git_fetch_helper $remote
-
 	commit_list_references $commit
 
 	$DRY git cherry-pick -s -x -e $commit
