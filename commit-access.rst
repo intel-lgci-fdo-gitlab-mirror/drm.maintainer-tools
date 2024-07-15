@@ -31,9 +31,8 @@ below criteria:
 - Agrees to use their commit rights in accordance with the documented merge
   criteria, tools, processes, and :ref:`code-of-conduct`.
 
-Apply for an account (and any other account change requests) through
-
-https://www.freedesktop.org/wiki/AccountRequests/
+Apply for an account (and any other account change requests) by
+`creating an issue <https://gitlab.freedesktop.org/drm/misc/kernel/-/issues/new?issue[title]=Request%20for%20Commit%20Rights&issuable_template=commit_access>`_.
 
 and please ping the maintainers if your request is stuck.
 
