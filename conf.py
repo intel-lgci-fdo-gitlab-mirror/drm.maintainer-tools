@@ -26,3 +26,14 @@ root_doc = 'index'
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = 'alabaster'
+
+# Theme options are theme-specific and customize the look and feel of a theme
+# further.
+#
+# https://alabaster.readthedocs.io/en/latest/customization.html
+html_theme_options = {
+    'description': 'Tool and Workflow Documentation',
+    'extra_nav_links': {
+        'Project Home Page': 'https://gitlab.freedesktop.org/drm/maintainer-tools',
+    }
+}
