@@ -26,11 +26,7 @@ Contents:
    Introduction <self>
    getting-started
    repositories
-   drm-tip
-   drm
-   drm-misc
-   drm-intel
-   drm-xe
+   repositories/index
    committer-guidelines
    maintainer-guidelines
    commit-access
