@@ -24,7 +24,6 @@ Contents:
    :maxdepth: 2
 
    Introduction <self>
-   getting-started
    repositories/index
    committer/index
    maintainer/index

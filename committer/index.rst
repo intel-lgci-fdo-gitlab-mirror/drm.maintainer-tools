@@ -10,6 +10,7 @@ This document gathers together committer guidelines.
    :maxdepth: 2
 
    commit-access
+   getting-started
    committer-drm-misc
    committer-drm-intel
    conflict-resolution
