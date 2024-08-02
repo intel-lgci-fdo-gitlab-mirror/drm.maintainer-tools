@@ -4,6 +4,10 @@
 drm-intel
 =========
 
+The upstream i915 driver repository. Maintained by Jani Nikula, Joonas Lahtinen,
+Rodrigo Vivi, and Tvrtko Ursulin, with a large pool of committers. Consists
+mostly of ``drivers/gpu/drm/i915`` and ``include/drm/intel``.
+
 --------------------------------------------------------------
 drm-intel patch and upstream merge flow and timeline explained
 --------------------------------------------------------------
@@ -24,10 +28,55 @@ This document is an eternal draft and simply tries to explain the reality of how
 drm-intel is maintained. If you observe a difference between these rules and
 reality, it is your assumed responsibility to update the rules.
 
-The Relevant Repositories and Branches
-======================================
+Repository and Branches
+=======================
 
-See :ref:`repositories`.
+https://gitlab.freedesktop.org/drm/i915/kernel
+
+drm-intel-next (aka "din") and drm-intel-gt-next (aka "dign")
+-------------------------------------------------------------
+
+These are the branches where all drm/i915 patches, both new features and fixes,
+are applied.
+
+drm-intel-gt-next is for gem/gt code, and drm-intel-next is for everything else,
+including i915 driver core and display.
+
+These branches "hide" the merge window from the drm/i915 developers; patches are
+applied here regardless of the development phase of Linus' upstream kernel. Pull
+requests to drm-next are sent as needed between -rc1 of the current kernel and
+the drm feature deadline (-rc5/-rc6 of the current kernel).
+
+Note that drm-intel-next may be cross-merged directly to drm-intel-gt-next, but
+not vice versa. Syncing drm-intel-gt-next changes back to drm-intel-next must
+happen via a pull request to drm-next and a backmerge to drm-intel-next.
+
+drm-intel-next-fixes (aka "dinf")
+---------------------------------
+
+This branch contains drm/i915 specific fixes to drm-next after the drm/i915
+features have been merged there. Fixes are first applied to drm-intel-next, and
+cherry-picked to drm-intel-next-fixes by maintainers. Valid from drm feature
+deadline (-rc5/-rc6 of the current kernel) to -rc1 of the next kernel.
+
+Pull requests to drm-next are sent as needed, with no particular schedule.
+
+drm-intel-fixes (aka "-fixes")
+------------------------------
+
+This branch contains fixes to Linus' tree after drm-next has been merged during
+the merge window. Fixes are first applied to drm-intel-next, and cherry-picked
+to drm-intel-fixes by maintainers. The fixes are then merged through drm-fixes.
+Valid from -rc1 to the kernel release.
+
+Usually Linus releases each -rc on a Sunday, and drm-intel-fixes gets rebased on
+that the following Monday. Usually this is a fast-forward. The pull request to
+drm-fixes for new fixes is typically sent on the following Thursday. This is
+repeated until final release of the kernel.
+
+This is the fastest path to getting fixes to Linus' tree. It is generally for
+the regressions, cc:stable, black screens, GPU hangs only, and should pretty
+much follow the stable rules.
 
 Patch and Merge Flow
 ====================

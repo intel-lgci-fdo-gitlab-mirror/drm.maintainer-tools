@@ -20,6 +20,29 @@ resolution for merging the branches on drm-tip rebuild.
 
 .. _nightly.conf: https://gitlab.freedesktop.org/drm/tip/-/blob/rerere-cache/nightly.conf
 
+Repository and Branches
+=======================
+
+https://gitlab.freedesktop.org/drm/tip
+
+drm-tip
+-------
+
+This is the overall integration tree for drm, and lives in
+``https://gitlab.freedesktop.org/drm/tip.git``. Every time one of the above
+branches is updated drm-tip gets rebuilt. If there's a conflict see section on
+`resolving conflicts when rebuilding drm-tip
+<drm-tip.html#resolving-conflicts-when-rebuilding-drm-tip>`_.
+
+drm-rerere
+----------
+
+This branch contains the `nightly.conf`_ configuration file and the shared ``git
+rerere`` conflict resolutions for dim to generate drm-tip, as well as some
+kernel defconfig files for build testing.
+
+.. _nightly.conf: https://gitlab.freedesktop.org/drm/tip/-/blob/rerere-cache/nightly.conf
+
 Resolving Conflicts when Rebuilding drm-tip
 ===========================================
 
@@ -179,7 +202,7 @@ resolving the conflict permantly with a backmerge or pull.
 Hotfixes in topic/core-for-CI
 =============================
 
-While the topic/core-for-CI branch lives in :ref:`drm-intel-repository`, it's
+While the topic/core-for-CI branch lives in :ref:`drm-intel`, it's
 primarily relevant for drm-tip. It's merged to drm-tip in `nightly.conf`_ after
 the feature and fixes branches, and mostly contains hotfixes to unblock the
 `Intel CI`_ pending proper fixes. A typical example is a patch or a cherry-pick

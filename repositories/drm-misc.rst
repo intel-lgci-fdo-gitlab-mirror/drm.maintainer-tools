@@ -4,6 +4,9 @@
 drm-misc
 ========
 
+The DRM misc repository. Maintained by Maarten Lankhorst, Maxime Ripard, and
+Thomas Zimmermann, with a large pool of committers.
+
 -------------------------------------------------------------
 drm-misc patch and upstream merge flow and timeline explained
 -------------------------------------------------------------
@@ -29,10 +32,38 @@ First you need a `freedesktop.org account with the drm-misc group permission
 <https://www.freedesktop.org/wiki/AccountRequests/>`_. Then you need to setup the
 branches and tooling, see :ref:`getting-started`.
 
-Branches
-========
+Repository and Branches
+=======================
 
-See :ref:`drm-misc-repository`.
+https://gitlab.freedesktop.org/drm/misc/kernel
+
+drm-misc-next
+-------------
+
+This is the main feature branch where most of the patches land. This branch is
+always open to "hide" the merge window from developers. To avoid upsetting
+linux-next and causing mayhem in the merge window, in general no pull requests
+are sent to upstream after rc6 of the current kernel release. Outside of that
+feature freeze period, pull requests are sent to upstream roughly every 1-2
+weeks, to avoid too much coordination pains.
+
+If you're unsure, apply your patch here, it can always be cherry-picked to one
+of the -fixes branches later on. But in contrast to the drm-intel flow
+cherry-picking is not the default.
+
+drm-misc-next-fixes
+-------------------
+
+During the time between rc6 of kernel version X and rc1 of X+1, drm-misc-next
+will be targeting kernel version X+2 and drm-misc-fixes still targets kernel
+version X.  This branch is for fixes to bugs introduced in the drm-misc-next
+pull request that was sent for X+1, which aren't present in the drm-misc-fixes
+branch.
+
+drm-misc-fixes
+--------------
+
+This is for bugfixes which target the current -rc cycle.
 
 Merge Timeline
 ==============

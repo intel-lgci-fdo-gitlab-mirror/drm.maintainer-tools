@@ -25,7 +25,6 @@ Contents:
 
    Introduction <self>
    getting-started
-   repositories
    repositories/index
    committer-guidelines
    maintainer-guidelines
