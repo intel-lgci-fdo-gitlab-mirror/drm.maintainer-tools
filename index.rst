@@ -2,16 +2,16 @@ DRM Maintainer Tools
 ====================
 
 This documentation covers the tools and workflows for maintaining and
-contributing to the Linux kernel DRM subsystem's drm-misc, drm-intel
-and drm-xe repositories. The intended audience is primarily the
-maintainers and committers of said repositories, but the workflow
-documentation may be useful for anyone interested in the kernel
-graphics subsystem development.
+contributing to the Linux kernel DRM subsystem's :ref:`drm`, :ref:`drm-misc`,
+:ref:`drm-intel` and :ref:`drm-xe` repositories. The intended audience is
+primarily the maintainers and committers of said repositories, but the workflow
+documentation is useful for anyone interested in the kernel graphics subsystem
+development.
 
-The drm-misc, drm-intel and drm-xe repos are maintained using the same
-tools and very similar workflows. All feed to the same testing and
-integration tree, the drm-tip. The documentation here is mostly
-shared, highlighting the differences in workflows where applicable.
+The above mentioned repositories are maintained using the same tools and very
+similar workflows. All feed to the same testing and integration tree, the
+:ref:`drm-tip`. The documentation here is mostly shared, highlighting the
+differences in workflows where applicable.
 
 Please see :ref:`contributing` as well as the `project home page`_ for more
 information on how to collaborate on the documentation and tools.
