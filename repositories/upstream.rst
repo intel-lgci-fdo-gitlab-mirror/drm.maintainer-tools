@@ -6,6 +6,10 @@ Upstream
 
 Maintained by Linus Torvalds.
 
+See `kernel.org`_ for current mainline and stable releases.
+
+.. _kernel.org: https://kernel.org/
+
 Repository and Branches
 =======================
 
@@ -15,7 +19,7 @@ master
 ------
 
 Linus' master, the upstream, or mainline. This is where all features from all
-subsystems, including DRM and i915, are merged.
+subsystems, including DRM, are merged.
 
 The upstream follows a single branch, time-based development model, with a new
 kernel release occurring roughly every 10 weeks. New features are merged from
