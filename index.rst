@@ -27,7 +27,7 @@ Contents:
    getting-started
    repositories/index
    committer/index
-   maintainer-guidelines
+   maintainer/index
    commit-access
    dim man page <dim>
    code-of-conduct
