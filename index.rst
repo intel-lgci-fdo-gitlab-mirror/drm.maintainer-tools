@@ -23,6 +23,7 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
+   Introduction <self>
    getting-started
    repositories
    drm-tip
@@ -33,7 +34,7 @@ Contents:
    committer-guidelines
    maintainer-guidelines
    commit-access
-   dim
+   dim man page <dim>
    code-of-conduct
    CONTRIBUTING
    MAINTAINERS
