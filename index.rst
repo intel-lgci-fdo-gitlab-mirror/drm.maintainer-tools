@@ -28,7 +28,6 @@ Contents:
    repositories/index
    committer/index
    maintainer/index
-   commit-access
    dim man page <dim>
    code-of-conduct
    CONTRIBUTING
