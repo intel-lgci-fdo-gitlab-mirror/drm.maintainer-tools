@@ -14,7 +14,7 @@ Where Do I Apply My Patch?
 Consult this handy flowchart to determine the best branch for your patch. If in
 doubt, apply to drm-misc-next or ask your favorite maintainer on IRC.
 
-.. image:: drm-misc-commit-flow.svg
+.. graphviz:: drm-misc-commit-flow.dot
 
 Merge Criteria
 ==============

@@ -26,9 +26,6 @@ CFLAGS = -O2 -g -Wextra
 .PHONY: all
 all: remap-log
 
-%.svg: %.dot
-	dot -T svg -o $@ $<
-
 remap-log: remap-log.c
 	$(CC) $(CFLAGS) -o $@ $<
 
@@ -58,7 +55,7 @@ check: shellcheck mancheck doccheck
 
 .PHONY: clean
 clean:
-	rm -rf drm-intel-flow.svg drm-misc-commit-flow.svg $(BUILDDIR)
+	rm -rf $(BUILDDIR)
 
 .PHONY: help
 help:
@@ -72,10 +69,6 @@ help:
 	@echo "  mancheck   to check man pages using rst2html"
 	@echo "  shellcheck to check shell scripts using shellcheck"
 	@echo "  check      to run all *check targets"
-
-# FIXME: This works for the first build, but not for updates. Look into using
-# Sphinx extensions for both the graphviz and wavedrom parts.
-html dirhtml singlehtml linkcheck doctest doccheck: drm-intel-flow.svg drm-misc-commit-flow.svg
 
 .PHONY: html
 html:
