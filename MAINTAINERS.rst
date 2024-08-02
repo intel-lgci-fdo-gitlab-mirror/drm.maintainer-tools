@@ -11,4 +11,4 @@ The maintainer tools and documentation is maintained by:
 
 See also the full and current list of `project members`_.
 
-.. _project members: https://gitlab.freedesktop.org/drm/maintainer-tools/project_members
+.. _project members: https://gitlab.freedesktop.org/drm/maintainer-tools/-/project_members
