@@ -35,7 +35,7 @@ Branches
 See :ref:`drm-misc-repository`.
 
 Merge Timeline
-~~~~~~~~~~~~~~
+==============
 
 This chart describes the merge timelines for various branches in terms of one
 kernel release cycle. Worth noting is that we're working on two or three kernel

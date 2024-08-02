@@ -5,7 +5,7 @@ drm
 ===
 
 Introduction
-------------
+============
 
 drm is the overall graphics integration tree, and as such works slightly
 differently than feature trees managed with dim_:
@@ -24,7 +24,7 @@ differently than feature trees managed with dim_:
 .. _dim: dim.html
 
 Backmerges
-----------
+==========
 
 All backmerges for `-next` trees should first land in `drm-next`, with an
 explicit merge commit.  This includes pull requests from driver trees based on
@@ -37,7 +37,7 @@ fast-forward is all that's needed.
 Only backmerge tagged releases.
 
 Pull Request Review
--------------------
+===================
 
 Special care should be taken to review commits which:
 
@@ -57,7 +57,7 @@ Special care should be taken to review commits which:
 FIXME: Script as much as possible of the above.
 
 Opens
------
+=====
 
 - Lots of the above needs to be discussed.
 
