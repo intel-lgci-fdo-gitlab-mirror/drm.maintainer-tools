@@ -7,19 +7,13 @@
 # The man pages and mancheck depend on rst2html, but the rest of the pages don't
 # need to be limited to rst2html.
 
-# You can set these variables from the command line.
-SPHINXOPTS    =
+# You can set these variables from the command line, and also
+# from the environment for the first two.
+SPHINXOPTS   ?=
 SPHINXBUILD  ?= $(shell command -v sphinx-build-3 || command -v sphinx-build)
 RST2MAN      ?= $(shell command -v rst2man-3 || command -v rst2man)
-PAPER         =
+SOURCEDIR     = .
 BUILDDIR      = _build
-
-# Internal variables.
-PAPEROPT_a4     = -D latex_paper_size=a4
-PAPEROPT_letter = -D latex_paper_size=letter
-ALLSPHINXOPTS   = -d $(BUILDDIR)/doctrees $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) .
-# the i18n builder cannot share the environment and doctrees with the others
-I18NSPHINXOPTS  = $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) .
 
 CFLAGS = -O2 -g -Wextra
 
@@ -57,53 +51,16 @@ check: shellcheck mancheck doccheck
 clean:
 	rm -rf $(BUILDDIR)
 
-.PHONY: help
-help:
-	@echo "Please use \`make <target>' where <target> is one of"
-	@echo "  html       to make standalone HTML files"
-	@echo "  dirhtml    to make HTML files named index.html in directories"
-	@echo "  singlehtml to make a single large HTML file"
-	@echo "  linkcheck  to check all external links for integrity"
-	@echo "  doctest    to run all doctests embedded in the documentation (if enabled)"
-	@echo "  doccheck   to check standalone HTML build"
-	@echo "  mancheck   to check man pages using rst2html"
-	@echo "  shellcheck to check shell scripts using shellcheck"
-	@echo "  check      to run all *check targets"
-
-.PHONY: html
-html:
-	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
-	@echo
-	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
-
-.PHONY: dirhtml
-dirhtml:
-	$(SPHINXBUILD) -b dirhtml $(ALLSPHINXOPTS) $(BUILDDIR)/dirhtml
-	@echo
-	@echo "Build finished. The HTML pages are in $(BUILDDIR)/dirhtml."
-
-.PHONY: singlehtml
-singlehtml:
-	$(SPHINXBUILD) -b singlehtml $(ALLSPHINXOPTS) $(BUILDDIR)/singlehtml
-	@echo
-	@echo "Build finished. The HTML page is in $(BUILDDIR)/singlehtml."
-
-.PHONY: linkcheck
-linkcheck:
-	$(SPHINXBUILD) -b linkcheck $(ALLSPHINXOPTS) $(BUILDDIR)/linkcheck
-	@echo
-	@echo "Link check complete; look for any errors in the above output " \
-	      "or in $(BUILDDIR)/linkcheck/output.txt."
-
-.PHONY: doctest
-doctest:
-	$(SPHINXBUILD) -b doctest $(ALLSPHINXOPTS) $(BUILDDIR)/doctest
-	@echo "Testing of doctests in the sources finished, look at the " \
-	      "results in $(BUILDDIR)/doctest/output.txt."
-
 .PHONY: doccheck
 doccheck:
-	$(SPHINXBUILD) -EWnq -b html $(ALLSPHINXOPTS) $(BUILDDIR)/doccheck
+	$(SPHINXBUILD) -M html "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) -EWnq $(O)
 
 livehtml:
-	sphinx-autobuild -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
+	sphinx-autobuild -b html "$(SOURCEDIR)" "$(BUILDDIR)/html"
+
+# Catch-all target: route all unknown targets to Sphinx using the new
+# "make mode" option.  $(O) is meant as a shortcut for $(SPHINXOPTS).
+# Also spell out some targets explicitly to get tab completion.
+.PHONY: html linkcheck
+.DEFAULT html linkcheck: Makefile
+	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
