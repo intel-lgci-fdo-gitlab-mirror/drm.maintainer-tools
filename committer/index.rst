@@ -13,3 +13,4 @@ This document gathers together committer guidelines.
    committer-drm-misc
    committer-drm-intel
    conflict-resolution
+   core-for-CI
