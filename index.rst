@@ -26,7 +26,7 @@ Contents:
    Introduction <self>
    getting-started
    repositories/index
-   committer-guidelines
+   committer/index
    maintainer-guidelines
    commit-access
    dim man page <dim>
