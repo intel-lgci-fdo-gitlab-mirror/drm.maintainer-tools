@@ -12,3 +12,4 @@ This document gathers together committer guidelines.
    commit-access
    committer-drm-misc
    committer-drm-intel
+   conflict-resolution
