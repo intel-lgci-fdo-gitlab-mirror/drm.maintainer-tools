@@ -7,6 +7,11 @@ drm
 The upstream DRM subsystem repository. Maintained by Dave Airlie and Sima
 Vetter. Consists mostly of ``drivers/gpu/drm`` and ``include/drm``.
 
+See the `DRM DRIVERS`_ MAINTAINERS entry for current information on maintainers,
+mailing lists, bug reporting, etc.
+
+.. _DRM DRIVERS: https://docs.kernel.org/process/maintainers.html#drm-drivers
+
 Introduction
 ============
 

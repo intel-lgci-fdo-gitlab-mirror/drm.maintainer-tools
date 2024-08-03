@@ -9,6 +9,14 @@ Marchi, and Rodrigo Vivi, with a large pool of committers. Consists of
 ``drivers/gpu/drm/xe``, ``include/drm/intel``, and
 ``include/uapi/drm/xe_drm.h``.
 
+See the `INTEL DRM XE DRIVER`_ and `INTEL DRM DISPLAY FOR XE AND I915 DRIVERS`_
+MAINTAINERS entries for current information on maintainers, mailing lists, bug
+reporting, etc.
+
+.. _INTEL DRM XE DRIVER: https://docs.kernel.org/process/maintainers.html#intel-drm-xe-driver-lunar-lake-and-newer
+
+.. _INTEL DRM DISPLAY FOR XE AND I915 DRIVERS: https://docs.kernel.org/process/maintainers.html#intel-drm-display-for-xe-and-i915-drivers
+
 -----------------------------------------------------------
 drm-xe patch and upstream merge flow and timeline explained
 -----------------------------------------------------------

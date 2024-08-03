@@ -7,6 +7,12 @@ drm-misc
 The DRM misc repository. Maintained by Maarten Lankhorst, Maxime Ripard, and
 Thomas Zimmermann, with a large pool of committers.
 
+See the main `DRM DRIVERS AND MISC GPU PATCHES`_ MAINTAINERS entry, as well as
+all the other MAINTAINERS entries that reference the drm-misc repository, for
+current information on maintainers, mailing lists, bug reporting, etc.
+
+.. _DRM DRIVERS AND MISC GPU PATCHES: https://docs.kernel.org/process/maintainers.html#drm-drivers-and-misc-gpu-patches
+
 -------------------------------------------------------------
 drm-misc patch and upstream merge flow and timeline explained
 -------------------------------------------------------------

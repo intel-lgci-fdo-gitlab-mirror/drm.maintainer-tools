@@ -8,6 +8,14 @@ The upstream i915 driver repository. Maintained by Jani Nikula, Joonas Lahtinen,
 Rodrigo Vivi, and Tvrtko Ursulin, with a large pool of committers. Consists
 mostly of ``drivers/gpu/drm/i915`` and ``include/drm/intel``.
 
+See the `INTEL DRM I915 DRIVER`_ and `INTEL DRM DISPLAY FOR XE AND I915
+DRIVERS`_ MAINTAINERS entries for current information on maintainers, mailing
+lists, bug reporting, etc.
+
+.. _INTEL DRM I915 DRIVER: https://docs.kernel.org/process/maintainers.html#intel-drm-i915-driver-meteor-lake-dg2-and-older-excluding-poulsbo-moorestown-and-derivative
+
+.. _INTEL DRM DISPLAY FOR XE AND I915 DRIVERS: https://docs.kernel.org/process/maintainers.html#intel-drm-display-for-xe-and-i915-drivers
+
 --------------------------------------------------------------
 drm-intel patch and upstream merge flow and timeline explained
 --------------------------------------------------------------
