@@ -17,20 +17,6 @@ reporting, etc.
 
 .. _INTEL DRM DISPLAY FOR XE AND I915 DRIVERS: https://docs.kernel.org/process/maintainers.html#intel-drm-display-for-xe-and-i915-drivers
 
------------------------------------------------------------
-drm-xe patch and upstream merge flow and timeline explained
------------------------------------------------------------
-
-:Copyright: 2015-2023 Intel Corporation
-:Author: Jani Nikula <jani.nikula@intel.com>
-:Author: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-
-Introduction
-============
-
-This document describes the flow and timeline of drm/xe patches to various
-upstream trees.
-
 Repository and Branches
 =======================
 
@@ -44,30 +30,31 @@ are applied.
 
 This branch "hides" the merge window from the drm/xe developers; patches are
 applied here regardless of the development phase of Linus' upstream kernel. Pull
-requests to drm-next are sent as needed between -rc1 of the current kernel and
-the drm feature deadline (-rc5/-rc6 of the current kernel).
+requests to :ref:`drm-next` are sent as needed between -rc1 of the current
+kernel and the :ref:`drm` feature deadline (-rc5/-rc6 of the current kernel).
 
 drm-xe-next-fixes
 -----------------
 
-This branch contains drm/xe specific fixes to drm-next after the drm/xe
+This branch contains drm/xe specific fixes to :ref:`drm-next` after the drm/xe
 features have been merged there. Fixes are first applied to drm-xe-next, and
-cherry-picked to drm-xe-next-fixes by maintainers. Valid from drm feature
+cherry-picked to drm-xe-next-fixes by maintainers. Valid from :ref:`drm` feature
 deadline (-rc5/-rc6 of the current kernel) to -rc1 of the next kernel.
 
-Pull requests to drm-next are sent as needed, with no particular schedule.
+Pull requests to :ref:`drm-next` are sent as needed, with no particular
+schedule.
 
 drm-xe-fixes
 ------------
 
-This branch contains fixes to Linus' tree after drm-next has been merged during
-the merge window. The fixes are then merged through drm-fixes.
+This branch contains fixes to Linus' tree after :ref:`drm-next` has been merged
+during the merge window. The fixes are then merged through :ref:`drm-fixes`.
 Valid from -rc1 to the kernel release.
 
 Usually Linus releases each -rc on a Sunday, and drm-xe-fixes gets rebased on
 that the following Monday. Usually this is a fast-forward. The pull request to
-drm-fixes for new fixes is typically sent on the following Thursday. This is
-repeated until final release of the kernel.
+:ref:`drm-fixes` for new fixes is typically sent on the following Thursday. This
+is repeated until final release of the kernel.
 
 This is the fastest path to getting fixes to Linus' tree. It is generally for
 the regressions, cc:stable, black screens, GPU hangs only, and should pretty
@@ -76,11 +63,11 @@ much follow the stable rules.
 topic/core-for-CI
 -----------------
 
-This branch contains hotfixes merged last on drm-tip to quickly address issues
-originating from outside of the DRM subsystem repositories. Typically local
-fixes to issues brought in from a -rc1 kernel, to ensure CI health. They may
-also be temporary cherry-picks from other subsystems until the commits hit the
-DRM subsystem via normal channels.
+This branch contains hotfixes merged last on :ref:`drm-tip` to quickly address
+issues originating from outside of the DRM subsystem repositories. Typically
+local fixes to issues brought in from a -rc1 kernel, to ensure CI health. They
+may also be temporary cherry-picks from other subsystems until the commits hit
+the DRM subsystem via normal channels.
 
 See :ref:`topic/core-for-CI` for details.
 
@@ -91,8 +78,8 @@ Features
 --------
 
 Features are picked up and pushed to drm-xe-next by committers and
-maintainers. See :ref:`committer-drm-intel` for details. (The
-drm-intel guidelines apply also for drm-xe).
+maintainers. See :ref:`committer-drm-intel` for details. (The :ref:`drm-intel`
+guidelines apply also for drm-xe).
 
 Fixes
 -----
