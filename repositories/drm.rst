@@ -35,6 +35,8 @@ Repository and Branches
 
 https://gitlab.freedesktop.org/drm/kernel
 
+.. _drm-next:
+
 drm-next
 --------
 
@@ -46,6 +48,8 @@ current development kernel in preparation for the upcoming merge window for the
 next kernel, when drm-next gets merged to Linus' master. Thus there's a
 stabilization period of about 3-5 weeks during which only bug fixes are merged
 to drm-next.
+
+.. _drm-fixes:
 
 drm-fixes
 ---------
