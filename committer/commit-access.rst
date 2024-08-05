@@ -2,12 +2,18 @@
 Commit Access
 =============
 
-The drm-misc and drm-intel repositories operate in a maintainer/committer model
-with a large pool committers who can push patches in accordance with the stated
-merge criteria, and maintainers handling pull requests, topic branches, merges,
-and so on.
+The :ref:`drm-misc`, :ref:`drm-intel`, and :ref:`drm-xe` repositories operate in
+a maintainer/committer model with a large pool committers who can push patches
+in accordance with the stated merge criteria, and maintainers handling pull
+requests, topic branches, merges, and so on.
 
-This document outlines the requirements for becoming a committer.
+This document outlines the requirements for becoming a committer, and how to
+apply for access.
+
+Criteria
+========
+
+The repositories have slightly different criteria as described below.
 
 drm-misc
 --------
@@ -28,40 +34,12 @@ below criteria:
   contributors to other parts of the linux kernel or the open source graphics
   stack who only do the oddball rare patch within drm-misc itself.
 
-- Agrees to use their commit rights in accordance with the documented merge
-  criteria, tools, processes, and :ref:`code-of-conduct`.
-
-Apply for an account (and any other account change requests) by
-`creating an issue <https://gitlab.freedesktop.org/drm/misc/kernel/-/issues/new?issue[title]=Request%20for%20Commit%20Rights&issuable_template=commit_access>`_.
-
-and please ping the maintainers if your request is stuck.
-
-Committers are encouraged to request their commit rights get removed when they
-no longer contribute to the project. Commit rights will be reinstated when they
-come back to the project.
-
-Maintainers and committers should encourage contributors to request commit
-rights, especially junior contributors tend to underestimate their skills.
+- Agrees to use their commit rights in accordance with the documented
+  :ref:`committer-drm-misc`, merge criteria, tools, processes, and
+  :ref:`code-of-conduct`.
 
 drm-intel and drm-xe
 --------------------
-
-The process is similar for both of these repositories/drivers:
-
-- The xe driver, hosted at:
-
-  - Code and issues: https://gitlab.freedesktop.org/drm/xe/kernel
-  - Mailing list: https://lists.freedesktop.org/mailman/listinfo/intel-xe
-  - IRC channel: #xe on https://www.oftc.net/
-
-- The i915 driver, hosted at:
-
-  - Code and issues: https://gitlab.freedesktop.org/drm/i915/kernel
-  - Mailing list: https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-  - IRC channel: #intel-gfx on https://www.oftc.net/
-
-Criteria
-~~~~~~~~
 
 Commit rights will be granted to anyone who requests them and fulfills the
 following criteria:
@@ -75,7 +53,7 @@ following criteria:
   must be non-trivial.
 
 - Are actively participating in discussions about their work and areas of
-  expertise on the project communication channels listed above.
+  expertise on the project communication channels (mailing list, IRC).
 
 - Has been active in the past year (at least some commits or reviews on the
   chosen driver).
@@ -84,8 +62,9 @@ following criteria:
   contributors to other parts of the open source graphics stack who only do the
   occasional patch within the driver itself.
 
-- Agrees to use their commit rights in accordance with the documented merge
-  criteria, tools, processes, and :ref:`code-of-conduct`.
+- Agrees to use their commit rights in accordance with the documented
+  :ref:`committer-drm-intel`, merge criteria, tools, processes, and
+  :ref:`code-of-conduct`.
 
 The above criteria are in place to encourage and require committers are actively
 and broadly engaged upstream, and that they are acquainted and comfortable with
@@ -94,21 +73,34 @@ experience to gauge reasonably well how much review a patch needs, and whether
 it needs acks from domain experts or maintainers before pushing.
 
 Access Request
-~~~~~~~~~~~~~~
+==============
 
-Make sure you meet the criteria, then please file an issue on the chosen
-driver's issue tracker listed above, using the label "Commit access request".
-Please ping the maintainers if your request is stuck.
+The first step is to `create a gitlab.freedesktop.org account`_ unless you
+already have one.
 
-Maintainers may rate limit adding new committers to ensure there's enough
-bandwidth to properly support ramp-up on the tools and processes. In this case,
-the maintainers will pledge to add at least two new committers per month,
-loosely prioritized based on commits, reviews, and in-flight patches.
+Request commit access (or any other permission changes) by creating an access
+request issue on the repository:
+
+* `drm-misc access request`_
+
+* `drm-intel access request`_
+
+* `drm-xe access request`_
+
+Please ping the maintainers if your request gets stuck.
 
 Committers are encouraged to request their commit rights get removed when they
-no longer contribute to the project. Commit rights will be automatically revoked
+no longer contribute to the project. Commit rights may be automatically revoked
 after a year of inactivity (no commits or reviews). Commit rights will be
 reinstated when they come back to the project.
 
 Maintainers and committers should encourage contributors to request commit
-rights.
+rights, especially junior contributors tend to underestimate their skills.
+
+.. _create a gitlab.freedesktop.org account: https://gitlab.freedesktop.org/users/sign_up
+
+.. _drm-misc access request: https://gitlab.freedesktop.org/drm/misc/kernel/-/issues/new?issue[title]=Request%20for%20Commit%20Rights&issuable_template=commit_access
+
+.. _drm-intel access request: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/new?issue[title]=Request%20for%20Commit%20Rights&issuable_template=commit_access
+
+.. _drm-xe access request: https://gitlab.freedesktop.org/drm/xe/kernel/-/issues/new?issue[title]=Request%20for%20Commit%20Rights&issuable_template=commit_access
