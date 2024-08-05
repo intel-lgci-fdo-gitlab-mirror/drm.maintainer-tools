@@ -21,13 +21,6 @@ This document describes the flow and timeline of misc drm and gpu patches to
 various upstream trees. For a detailed list of what's all maintained in drm-misc
 grep for "drm-misc" in MAINTAINERS.
 
-Rule No. 1
-==========
-
-This document is an eternal draft and simply tries to explain the reality of how
-drm-misc is maintained. If you observe a difference between these rules and
-reality, it is your assumed responsibility to update the rules.
-
 The workflow is heavily based upon the one used to maintain the Intel drm
 driver, see `drm-intel <drm-intel.html>`_:
 

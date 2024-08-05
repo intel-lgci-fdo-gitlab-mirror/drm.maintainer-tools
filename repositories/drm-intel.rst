@@ -29,13 +29,6 @@ Introduction
 This document describes the flow and timeline of drm/i915 patches to various
 upstream trees.
 
-Rule No. 1
-----------
-
-This document is an eternal draft and simply tries to explain the reality of how
-drm-intel is maintained. If you observe a difference between these rules and
-reality, it is your assumed responsibility to update the rules.
-
 Repository and Branches
 =======================
 

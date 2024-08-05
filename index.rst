@@ -16,6 +16,13 @@ differences in workflows where applicable.
 Please see :ref:`contributing` as well as the `project home page`_ for more
 information on how to collaborate on the documentation and tools.
 
+.. note::
+
+   This documentation is an eternal draft and simply tries to explain the
+   reality of how the DRM subsystem is maintained. If you observe a difference
+   between these rules and reality, it is your assumed responsibility to update
+   the rules.
+
 .. _project home page: https://gitlab.freedesktop.org/drm/maintainer-tools/
 
 Contents:
