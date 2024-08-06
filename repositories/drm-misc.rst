@@ -7,29 +7,14 @@ drm-misc
 The DRM misc repository. Maintained by Maarten Lankhorst, Maxime Ripard, and
 Thomas Zimmermann, with a large pool of committers.
 
+This repository consists mostly of the core :ref:`drm` code as well as DRM
+drivers that do *not* have a dedicated repository.
+
 See the main `DRM DRIVERS AND MISC GPU PATCHES`_ MAINTAINERS entry, as well as
 all the other MAINTAINERS entries that reference the drm-misc repository, for
 current information on maintainers, mailing lists, bug reporting, etc.
 
 .. _DRM DRIVERS AND MISC GPU PATCHES: https://docs.kernel.org/process/maintainers.html#drm-drivers-and-misc-gpu-patches
-
--------------------------------------------------------------
-drm-misc patch and upstream merge flow and timeline explained
--------------------------------------------------------------
-
-This document describes the flow and timeline of misc drm and gpu patches to
-various upstream trees. For a detailed list of what's all maintained in drm-misc
-grep for "drm-misc" in MAINTAINERS.
-
-The workflow is heavily based upon the one used to maintain the Intel drm
-driver, see `drm-intel <drm-intel.html>`_:
-
-Getting Started
-===============
-
-First you need a `freedesktop.org account with the drm-misc group permission
-<https://www.freedesktop.org/wiki/AccountRequests/>`_. Then you need to setup the
-branches and tooling, see :ref:`getting-started`.
 
 Repository and Branches
 =======================
@@ -47,8 +32,8 @@ feature freeze period, pull requests are sent to upstream roughly every 1-2
 weeks, to avoid too much coordination pains.
 
 If you're unsure, apply your patch here, it can always be cherry-picked to one
-of the -fixes branches later on. But in contrast to the drm-intel flow
-cherry-picking is not the default.
+of the -fixes branches later on. But in contrast to the :ref:`drm-intel` and
+:ref:`drm-xe` flow cherry-picking is not the default.
 
 drm-misc-next-fixes
 -------------------
