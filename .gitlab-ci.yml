@@ -16,7 +16,7 @@ variables:
 .maintainer-tools.fedora:40:
   variables:
     FDO_DISTRIBUTION_VERSION: 40
-    FDO_DISTRIBUTION_TAG: '2024-04-11.2'
+    FDO_DISTRIBUTION_TAG: '2024-08-07-sphinx-reredirects'
 
 ###### containers
 
@@ -26,7 +26,7 @@ container-build:
     - .maintainer-tools.fedora:40
   stage: containers
   variables:
-    FDO_DISTRIBUTION_PACKAGES: 'ShellCheck python3-docutils python3-sphinx make graphviz'
+    FDO_DISTRIBUTION_PACKAGES: 'ShellCheck python3-docutils python3-sphinx python3-sphinx-reredirects make graphviz'
 
 ###### build
 
