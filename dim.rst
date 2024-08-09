@@ -435,6 +435,11 @@ usage
 Short form usage help listing all subcommands. Run by default or if an unknown
 subcommand was passed on the cmdline.
 
+version
+-------
+
+Print the dim version.
+
 ALIASES
 =======
 
