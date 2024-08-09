@@ -41,6 +41,7 @@ mancheck:
 	@for cmd in $$(./dim list-commands); do \
 		if ! grep -q "^$$cmd" dim.rst; then \
 			echo "$@: $$cmd not documented"; \
+			false; \
 		fi \
 	done
 	$(RST2MAN) --halt=warning --no-raw dim.rst >/dev/null
