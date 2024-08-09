@@ -18,7 +18,7 @@ Merge your changes once you have an ack from :ref:`maintainers`.
 
 .. _merge requests: https://gitlab.freedesktop.org/drm/maintainer-tools/-/merge_requests
 
-.. _bug reports and feature requests: https://gitlab.freedesktop.org/drm/maintainer-tools/issues
+.. _bug reports and feature requests: https://gitlab.freedesktop.org/drm/maintainer-tools/-/issues
 
 .. _project home page: https://gitlab.freedesktop.org/drm/maintainer-tools/
 

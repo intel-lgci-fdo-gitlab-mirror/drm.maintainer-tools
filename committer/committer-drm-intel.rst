@@ -45,23 +45,26 @@ Detail Check List
 
 An inexhaustive list of details to check:
 
-* The patch conforms to `Documentation/process/submitting-patches
-  <https://01.org/linuxgraphics/gfx-docs/drm/process/submitting-patches.html>`_
+* The patch conforms to `submitting patches`_.
+
+.. _submitting patches: https://docs.kernel.org/process/submitting-patches.html
 
 * The commit message is sensible, and includes adequate details and references.
 
 * Bug fixes are clearly indicated as such.
 
 * IGT test cases, if applicable, must be complete and reviewed. Please see
-  `details on testing requirements
-  <http://blog.ffwll.ch/2013/11/testing-requirements-for-drmi915.html>`_.
+  `details on testing requirements`_.
+
+.. _details on testing requirements: https://blog.ffwll.ch/2013/11/testing-requirements-for-drmi915.html
 
 * The patch series has passed CI pre-merge testing. See CI details below.
 
 * An open source userspace, reviewed and ready for merging by the upstream
   project, must be available for new kernel ABI. Please see `details on
-  upstreaming requirements
-  <http://blog.ffwll.ch/2015/05/gfx-kernel-upstreaming-requirements.html>`_.
+  upstreaming requirements`_.
+
+.. _details on upstreaming requirements: https://docs.kernel.org/gpu/drm-uapi.html#open-source-userspace-requirements
 
 * Relevant documentation must be updated as part of the patch or series.
 
@@ -73,7 +76,7 @@ An inexhaustive list of details to check:
   the commit is reported to cause a regression?
 
 * When pushing someone else's patch you must add your own signed-off per
-  http://developercertificate.org/. dim apply-branch should do this
+  https://developercertificate.org/. dim apply-branch should do this
   automatically for you.
 
 * For patches that move around lots of code (file rename or extraction) please
@@ -102,10 +105,10 @@ On Confidence, Complexity, and Transparency
   list, IRC, in person, in a meeting) but must be added to the commit.
 
 * Reviewed-by. All patches must be reviewed, no exceptions. Please see
-  "Reviewer's statement of oversight" in `Documentation/process/submitting-patches
-  <https://01.org/linuxgraphics/gfx-docs/drm/process/submitting-patches.html>`_
-  and `review training
-  <http://blog.ffwll.ch/2014/08/review-training-slides.html>`_.
+  "Reviewer's statement of oversight" in `submitting patches`_ and `review
+  training`_.
+
+.. _review training: https://blog.ffwll.ch/2014/08/review-training-slides.html
 
 * Acked-by. Indicates acceptance. No reply is not a sign of acceptance, unless
   you've involved the person (added Cc:, explicitly included in discussion).
@@ -238,9 +241,7 @@ patch.
 The maintainers will cherry-pick labeled patches from drm-intel-next to the
 appropriate branches.
 
-'Fixes:' tag is described in
-`Documentation/process/submitting-patches
-<https://01.org/linuxgraphics/gfx-docs/drm/process/submitting-patches.html>`_.
+'Fixes:' tag is described in `submitting patches`_.
 
 Requesting Fixes Cherry-Pick Afterwards
 =======================================
@@ -248,8 +249,9 @@ Requesting Fixes Cherry-Pick Afterwards
 It's not uncommon for a patch to have been committed before it's identified as a
 fix needing to be backported.
 
-If the patch is already in Linus' tree, please follow `stable kernel rules
-<https://01.org/linuxgraphics/gfx-docs/drm/process/stable-kernel-rules.html>`_.
+If the patch is already in Linus' tree, please follow `stable kernel rules`_.
+
+.. _stable kernel rules: https://docs.kernel.org/process/stable-kernel-rules.html
 
 Otherwise, send an email to intel-gfx@lists.freedesktop.org containing the subject of the patch, the commit id, why you think it should be applied, and what branch you wish it to be applied to.
 
