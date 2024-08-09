@@ -35,13 +35,13 @@ Right now the only hard merge criteria are:
 
 * Larger features can be merged through drm-misc too, but in some cases
   (especially when there are cross-subsystem conflicts) it might make sense to
-  merge patches through a dedicated topic tree. The dim_ tooling has full
+  merge patches through a dedicated topic tree. The :ref:`dim` tooling has full
   support for them, if needed.
 
 * Any non-linear actions (backmerges, cherry-picks, merging topic branches and
   sending out pull requests) are only done by the official drm-misc maintainers
-  (see MAINTAINERS, or ask #dri-devel), and not by committers. See the
-  `examples section in dim <dim.html#examples>`_ for more info
+  (see MAINTAINERS, or ask #dri-devel), and not by committers. See the :ref:`dim
+  man page examples section <dim-examples>` for more info.
 
 * All the x86, arm and arm64 DRM drivers need to still compile. To simplify this
   we track defconfigs for all three platforms in the `rerere-cache` branch.
@@ -65,7 +65,7 @@ drm-misc. Slightly different rules apply:
   patch series is still acceptable if it's not a common thing (e.g. new hw
   enabling once a year), and if the series is really big (more than 20 patches)
   it should probably be managed through a topic branch in drm-misc and with a
-  separate pull request to drm maintainer. dim_ supports this with the
+  separate pull request to drm maintainer. :ref:`dim` supports this with the
   create-branch command. Everything that doesn't justify a topic branch goes
   into the normal drm-misc branches directly.
 
@@ -98,6 +98,4 @@ drm-misc. Slightly different rules apply:
 Tooling
 =======
 
-drm-misc git repositories are managed with dim_.
-
-.. _dim: dim.html
+drm-misc git repositories are managed with :ref:`dim`.

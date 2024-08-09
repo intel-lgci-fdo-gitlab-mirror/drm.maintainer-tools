@@ -43,7 +43,7 @@ parameter to git::
 
   $ dim push-branch topic/core-for-CI --force
 
-You may also need to pass ``-f`` to :doc:`/dim`::
+You may also need to pass ``-f`` to :ref:`dim`::
 
   $ dim -f push-branch topic/core-for-CI --force
 

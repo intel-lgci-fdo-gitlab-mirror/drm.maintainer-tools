@@ -266,6 +266,4 @@ Signed-off-by: line in the commit message:
 Tooling
 =======
 
-drm-intel git repositories are managed with dim_.
-
-.. _dim: dim.html
+drm-intel git repositories are managed with :ref:`dim`.

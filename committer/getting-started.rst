@@ -38,7 +38,7 @@ your .dimrc to match your setup and then run::
 
 This expects that you have the maintainer-tools already checked out in
 $DIM_PREFIX/maintainer-tools. And by the way, if you have improvements for dim,
-see `contributing <dim.html#contributing-bug-reports-and-discussion>`_.
+see :ref:`contributing`.
 
 If you have a freedesktop.org account and plan to push things on one of the
 drm-xxx repos, you should use the ssh://git.freedesktop.org/git/drm-xxx urls

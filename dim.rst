@@ -1,3 +1,5 @@
+.. _dim:
+
 ===
 dim
 ===
@@ -508,6 +510,8 @@ Make **<alias>** an alias for the subcommand defined as the value. For example,
 listed using the **list-aliases** subcommand.
 
 The alias functionality requires **bash(1)** version 4.3 or later to work.
+
+.. _dim-examples:
 
 EXAMPLES
 ========

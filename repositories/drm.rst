@@ -16,7 +16,7 @@ Introduction
 ============
 
 drm is the overall graphics subsystem integration tree, and as such works
-slightly different from the feature trees managed with :doc:`/dim`:
+slightly different from the feature trees managed with :ref:`dim`:
 
 - Normally only takes pull requests.
 
