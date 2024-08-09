@@ -25,16 +25,13 @@ SYNOPSIS
 DESCRIPTION
 ===========
 
-**dim** is the Linux kernel drm subsystem maintainer script, used to maintain
-the drm-intel_ and drm-misc_ git repositories.
+**dim** is the Linux kernel drm subsystem maintainer script, used to maintain a
+number of drm repositories. This man page is a command-line reference for the
+tool only. For more comprehensive documentation on the tools, workflows, and
+repositories, including a getting started guide, see the maintainer-tools_ web
+page.
 
-This man page is a command-line reference for the tool only; for more
-comprehensive documentation, including a getting started guide, see
-https://drm.pages.freedesktop.org/maintainer-tools/, or the same
-in source form at https://gitlab.freedesktop.org/drm/maintainer-tools.
-
-.. _drm-intel: drm-intel.html
-.. _drm-misc: drm-misc.html
+.. _maintainer-tools: https://drm.pages.freedesktop.org/maintainer-tools/
 
 OPTIONS
 =======
