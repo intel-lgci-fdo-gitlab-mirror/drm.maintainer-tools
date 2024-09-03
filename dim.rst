@@ -8,7 +8,7 @@ dim
 drm inglorious maintainer script
 --------------------------------
 
-:Author: Daniel Vetter <daniel.vetter@ffwll.ch>
+:Author: Simona Vetter <simona.vetter@ffwll.ch>
 :Author: Jani Nikula <jani.nikula@intel.com>
 :Date: 2014-05-15
 :Copyright: 2012-2016 Intel Corporation

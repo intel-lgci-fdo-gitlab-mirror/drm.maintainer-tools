@@ -24,7 +24,7 @@
 # IN THE SOFTWARE.
 #
 # Authors:
-#    Daniel Vetter <daniel.vetter@ffwll.ch>
+#    Simona Vetter <simona.vetter@ffwll.ch>
 #    Jani Nikula <jani.nikula@intel.com>
 
 # fail on any goof-up
@@ -117,7 +117,7 @@ dim_pull_request_recipients=(
 	-c "intel-xe@lists.freedesktop.org"
 	-c "dim-tools@lists.freedesktop.org"
 	"Dave Airlie <airlied@gmail.com>"
-	"Daniel Vetter <daniel.vetter@ffwll.ch>"
+	"Simona Vetter <simona.vetter@ffwll.ch>"
 )
 
 # integration configuration

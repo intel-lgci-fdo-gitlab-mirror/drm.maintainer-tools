@@ -8,7 +8,7 @@
 
 project = 'DRM Maintainer Tools'
 copyright = '2012-2024, Intel Corporation'
-author = 'Jani Nikula, Daniel Vetter, and others'
+author = 'Jani Nikula, Simona Vetter, and others'
 release = '1.0'
 
 # -- General configuration ---------------------------------------------------

@@ -6,7 +6,7 @@ Maintainers
 
 The maintainer tools and documentation is maintained by:
 
-* Daniel Vetter <daniel.vetter@ffwll.ch>
+* Simona Vetter <simona.vetter@ffwll.ch>
 * Jani Nikula <jani.nikula@intel.com>
 
 See also the full and current list of `project members`_.

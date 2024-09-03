@@ -4,7 +4,7 @@
 drm
 ===
 
-The upstream DRM subsystem repository. Maintained by Dave Airlie and Sima
+The upstream DRM subsystem repository. Maintained by Dave Airlie and Simona
 Vetter. Consists mostly of ``drivers/gpu/drm`` and ``include/drm``.
 
 See the `DRM DRIVERS`_ MAINTAINERS entry for current information on maintainers,
