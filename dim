@@ -596,7 +596,7 @@ function dim_retip
 
 	branch="$1"
 
-	if [ -n "$branch" ] ; then
+	if [[ -n "$branch" ]] && [[ "$branch" != -* ]] ; then
 		shift
 	else
 		branch=$(git symbolic-ref --short HEAD)
