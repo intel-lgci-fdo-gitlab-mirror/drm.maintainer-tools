@@ -55,7 +55,7 @@ DIM_PREFIX=${DIM_PREFIX:-$HOME/linux}
 
 # location of another dim setup used to speedup clones; default
 # to something that doesn't exist so no cache is used
-DIM_KERNEL_REFERENCE=${DIM_KERNEL_REFERENCE:-/dev/fd/-1}
+DIM_KERNEL_REFERENCE=${DIM_KERNEL_REFERENCE:-}
 
 # main maintainer repo under $DIM_PREFIX
 DIM_REPO=${DIM_REPO:-${DIM_DRM_INTEL:-src}}
@@ -2507,7 +2507,7 @@ function parse_opt_dim_setup # options
 
 function dim_setup # options
 {
-	local remote drm_tip_ssh url_list url
+	local remote drm_tip_ssh url_list url cmd_args
 
 	parse_opt_dim_setup "$@"
 
@@ -2534,8 +2534,13 @@ function dim_setup # options
 
 	if [[ ! -d "$DIM_REPO" ]]; then
 		if ask_user "The DIM_REPO maintainer kernel repository '$DIM_REPO' doesn't exist. Clone upstream?"; then
-			git clone --reference-if-able "$DIM_KERNEL_REFERENCE" --dissociate \
-				"$url" "$DIM_REPO"
+			cmd_args=()
+
+			if [[ -n "$DIM_KERNEL_REFERENCE" ]]; then
+				cmd_args+=("--reference-if-able" "$DIM_KERNEL_REFERENCE" "--dissociate")
+			fi
+
+			git clone "${cmd_args[@]}" "$url" "$DIM_REPO"
 		fi
 	fi
 
