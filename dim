@@ -38,17 +38,25 @@ set -e
 DIM_CACHE_DIR=${XDG_CACHE_HOME:-$HOME/.cache}/dim
 DIM_CONF_DIR=${XDG_CONFIG_HOME:-$HOME/.config}/dim
 
-# dim configuration file
-if [[ -n $DIM_CONFIG ]] && [ -r $DIM_CONFIG ]; then
-	# shellcheck source=/dev/null
-	. $DIM_CONFIG
-elif [ -r $DIM_CONF_DIR/dimrc ]; then
-	# shellcheck source=/dev/null
-	. $DIM_CONF_DIR/dimrc
-elif [ -r $HOME/.dimrc ]; then
-	# shellcheck source=/dev/null
-	. $HOME/.dimrc
-fi
+function load_config() {
+	if [[ -v DIM_CONFIG ]] && [[ -z "$DIM_CONFIG" ]]; then
+		return
+	fi
+
+	# dim configuration file
+	if [[ -n $DIM_CONFIG ]] && [ -r $DIM_CONFIG ]; then
+		# shellcheck source=/dev/null
+		. $DIM_CONFIG
+	elif [ -r $DIM_CONF_DIR/dimrc ]; then
+		# shellcheck source=/dev/null
+		. $DIM_CONF_DIR/dimrc
+	elif [ -r $HOME/.dimrc ]; then
+		# shellcheck source=/dev/null
+		. $HOME/.dimrc
+	fi
+}
+
+load_config
 
 # prefix for repo directories
 DIM_PREFIX=${DIM_PREFIX:-$HOME/linux}
