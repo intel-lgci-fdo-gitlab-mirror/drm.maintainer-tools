@@ -47,6 +47,19 @@ The commands are grouped by target audiences and functionality below. Many of
 the commands have default aliases. See **dim list-aliases** for the list of
 aliases.
 
+CONFIGURATION
+=============
+
+By default, dim will read configuration options from one of these files,
+checking if they exist, in order::
+
+        $DIM_CONFIG
+        $XDG_CONFIG_HOME/dim/dimrc
+        $HOME/.config/dim/dimrc
+        $HOME/.dimrc
+
+If DIM_CONFIG is set to an empty string, no configuration is used.
+
 COMMANDS FOR DEVELOPERS
 =======================
 
@@ -446,7 +459,8 @@ ALIASES
 Extending **dim** functionalities
 ---------------------------------
 
-It is possible to create your own dim helper and aliases by adding them to \$HOME/.dimrc::
+It is possible to create your own dim helper and aliases by adding them to your
+configuration file::
 
 	dim_my_fancy_list_aliases()
 	{
@@ -461,8 +475,9 @@ ENVIRONMENT
 
 DIM_CONFIG
 ----------
-Path to the dim configuration file, \$HOME/.dimrc by default, which is sourced
-if it exists. It can be used to set other environment variables to control dim.
+Path to the dim configuration file, which is sourced if it exists. It can be
+used to set other environment variables to control dim. See the CONFIGURATION
+section.
 
 DIM_PREFIX
 ----------
