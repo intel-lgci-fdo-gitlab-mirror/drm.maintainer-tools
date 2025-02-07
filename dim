@@ -55,7 +55,7 @@ DIM_PREFIX=${DIM_PREFIX:-$HOME/linux}
 
 # location of another dim setup used to speedup clones; default
 # to something that doesn't exist so no cache is used
-DIM_KERNEL_PREFIX=${DIM_KERNEL_REFERENCE:-/dev/fd/-1}
+DIM_KERNEL_REFERENCE=${DIM_KERNEL_REFERENCE:-/dev/fd/-1}
 
 # main maintainer repo under $DIM_PREFIX
 DIM_REPO=${DIM_REPO:-${DIM_DRM_INTEL:-src}}
