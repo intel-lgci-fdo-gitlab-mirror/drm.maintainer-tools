@@ -1607,7 +1607,7 @@ function git_list_fixes
 
 function dim_cherry_pick_branch
 {
-	local branch log fail_log remote needed have_fixes branch_args cherry_pick_from_branches fixes_branches b
+	local branch log fail_log remote needed have_fixes branch_args fixes_branches b
 
 	branch=${1:?$usage}
 	fail_log=$(mktemp)
@@ -1619,12 +1619,10 @@ function dim_cherry_pick_branch
 	case $branch in
 		drm-intel-next-fixes|drm-intel-fixes)
 			branch_args="$remote/$branch..$remote/drm-intel-next $remote/$branch..$remote/drm-intel-gt-next -- drivers/gpu/drm/i915"
-			cherry_pick_from_branches="drm-intel-next drm-intel-gt-next"
 			fixes_branches="drm-intel-fixes drm-intel-next-fixes"
 			;;
 		drm-xe-next-fixes|drm-xe-fixes)
 			branch_args="$remote/$branch..$remote/drm-xe-next -- drivers/gpu/drm/xe"
-			cherry_pick_from_branches="drm-xe-next"
 			fixes_branches="drm-xe-fixes drm-xe-next-fixes"
 			;;
 		*)
@@ -1667,12 +1665,10 @@ function dim_cherry_pick_branch
 				needed=1
 			fi
 
-			for b in $cherry_pick_from_branches; do
-				fix_of_fix=$(git log --grep="cherry picked from commit $fixes" --after=6months --format=format:%h $remote/$b -1)
-				if [ -n "$fix_of_fix" ]; then
-					break
-				fi
-			done
+			fix_of_fix=$(git log --grep="cherry picked from commit $fixes" --after=6months --format=format:%h $remote/$branch -1)
+			if [ -n "$fix_of_fix" ]; then
+				break
+			fi
 		done
 
 		# Note: Cc: stable will overrule Fixes:
