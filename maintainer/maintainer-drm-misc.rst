@@ -46,6 +46,13 @@ Maintainers mostly provide services to keep drm-misc running smoothly:
   pull request, to resync with all the late driver submissions during the merge
   window.
 
+* Cherry-pick commits (using ``dim cherry-pick``) that are present in existing
+  branch (e.g: `drm-misc-next`) to a different branch (e.g: `drm-misc-fixes`).
+  This will not only cherry-pick the commit but also add some metadata such as
+  the cherry-picked commit SHA-1 hash. Also checks if there were any following
+  commits in that branch that referenced the cherry-picked commit. It is useful
+  to avoid missing any follow-up fixes for the commit being cherry-picked.
+
 * Last resort fallback for applying patches, in case all area expert committers
   are somehow unavailable.
 
