@@ -103,7 +103,7 @@ dim_python=$(command -v python3)
 
 dim_fdo_cookie="--push-option fdo.pushedWithDim=this-was-pushed-with-dim-and-not-manually"
 
-dim_fdo_patchwork_linkmask="https://patchwork.freedesktop.org/patch/msgid/%s"
+dim_link_base="https://lore.kernel.org/r/"
 
 maintainer_tools_https=https://gitlab.freedesktop.org/drm/maintainer-tools.git
 
@@ -1193,7 +1193,7 @@ function apply_patch #patch_file
 	fi
 
 	if [ -n "$message_id" ]; then
-		dim_commit_add_tag "Link: https://patchwork.freedesktop.org/patch/msgid/$message_id"
+		dim_commit_add_tag "Link: ${dim_link_base}${message_id}"
 	else
 		echoerr "WARNING: No message-id found in the patch file."
 		rv=1
@@ -1333,7 +1333,7 @@ function dim_apply_pull
 			merge_msg_file="$(git_dir)/MERGE_MSG"
 			if [ -n "$message_id" ]; then
 				echo "$from_line" >> $merge_msg_file
-				echo "Link: https://patchwork.freedesktop.org/patch/msgid/$message_id" >> $merge_msg_file
+				echo "Link: ${dim_link_base}${message_id}" >> $merge_msg_file
 			fi
 
 			return 1
@@ -1346,7 +1346,7 @@ function dim_apply_pull
 	$DRY git commit --amend -s --no-edit
 	if [ -n "$message_id" ]; then
 		$DRY dim_commit_add_tag "$from_line"
-		$DRY dim_commit_add_tag "Link: https://patchwork.freedesktop.org/patch/msgid/$message_id"
+		$DRY dim_commit_add_tag "Link: ${dim_link_base}${message_id}"
 	fi
 
 
@@ -1458,7 +1458,7 @@ function dim_add_link
 	rm -f $file
 
 	if [[ -n "$message_id" ]]; then
-		dim_commit_add_tag "Link: https://patchwork.freedesktop.org/patch/msgid/$message_id"
+		dim_commit_add_tag "Link: ${dim_link_base}${message_id}"
 	else
 		echoerr "No message-id found in the patch file."
 	fi
@@ -1539,9 +1539,8 @@ function dim_b4_shazam_branch
 
 	old_head=$(git rev-parse HEAD)
 
-	# Point Link: trailer at fdo and ignore trailers from CI and bots
-	$DIM_B4 --config b4.linkmask="$dim_fdo_patchwork_linkmask" \
-		--config b4.trailers-ignore-from="patchwork@emeril.freedesktop.org,lkp@intel.com" \
+	# Ignore trailers from CI and bots. Link defaults to Lore.
+	$DIM_B4 --config b4.trailers-ignore-from="patchwork@emeril.freedesktop.org,lkp@intel.com" \
 		shazam --add-link --apply-cover-trailers --add-my-sob "$@"
 
 	# Checkpatch and more
