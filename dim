@@ -2189,7 +2189,7 @@ function dim_create_workdir
 
 		cd $DIM_REPO
 		$DRY git worktree prune
-		$DRY git worktree add $DIM_PREFIX/$branch $branch
+		$DRY git worktree add --track -B $branch $DIM_PREFIX/$branch $branch
 		cd $DIM_PREFIX
 	done
 }
@@ -2473,7 +2473,7 @@ function bootstrap_drm_rerere
 			git_fetch_helper $remote
 			git branch --track $name $remote/$name
 		fi
-		git worktree add $DIM_PREFIX/$dir $name
+		git worktree add --track -B $name $DIM_PREFIX/$dir $remote/$name
 	else
 		cd $dir
 		remote=$(url_to_remote $url_list)
