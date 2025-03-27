@@ -2541,7 +2541,7 @@ function parse_opt_dim_setup # options
 			shift
 			;;
 		--reference)
-			DIM_KERNEL_REFERENCE=$2
+			DIM_KERNEL_REFERENCE="$(realpath "$2")"
 			shift 2
 			;;
 		--)
