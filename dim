@@ -2460,7 +2460,7 @@ function bootstrap_drm_rerere
 {
 	local name dir remote url_list
 
-	url_list="ssh://git@gitlab.freedesktop.org/drm/tip.git https://gitlab.freedesktop.org/drm/tip.git"
+	url_list="ssh://git@ssh.gitlab.freedesktop.org/drm/tip.git https://gitlab.freedesktop.org/drm/tip.git"
 	name="rerere-cache"
 	dir="drm-rerere"
 
