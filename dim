@@ -2113,7 +2113,7 @@ function dim_sparse
 	commits=( $(git rev-list --reverse $range) )
 	git checkout --detach  ${commits[0]}~ > /dev/null 2>&1
 	make olddefconfig > /dev/null 2>&1
-	make -j8 drivers/gpu/drm/ > /dev/null 2>&1
+	make -j$(nproc) drivers/gpu/drm/ > /dev/null 2>&1
 
 	if [ "$fast" == 1 ]; then
 		prev_rev="${commits[0]}~"
