@@ -26,13 +26,16 @@ The recommended way to setup dim is to simply clone it::
     $ git clone git@gitlab.freedesktop.org:drm/maintainer-tools.git
 
 Plus, there's bash completion in the same directory if you feel like using that.
-Run::
+It can be added to ``~/.bashrc`` or similar file with::
+
+    $ source <(dim bash-completion)
+
+For all the available commands and options, run::
 
     $ dim help
 
-for tons of details about how this thing works. Also see the git repository
-specific pages for details on the patch merging process for each tree. Adjust
-your .dimrc to match your setup and then run::
+Also see the git repository specific pages for details on the patch merging
+process for each tree. Adjust your .dimrc to match your setup and then run::
 
     $ dim setup
 
