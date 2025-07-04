@@ -909,7 +909,7 @@ function dim_rebuild_tip # local_branch
 			fi
 			if ! check_conflicts "$repo/$branch" ; then
 				echoerr "See the section \"Resolving Conflicts when Rebuilding drm-tip\""
-				echoerr "in the drm-tip.rst documentation for how to handle this situation."
+				echoerr "in the committer/conflict-resolution.rst documentation for how to handle this situation."
 				return 1
 			fi
 			git add -u
