@@ -1358,7 +1358,7 @@ function dim_apply_pull
 	fi
 
 	check_merge_baseline FETCH_HEAD $branch $(branch_to_remote drm-fixes)/drm-fixes
-	check_merge_baseline FETCH_HEAD $branch origin/master
+	check_merge_baseline FETCH_HEAD $branch $(repo_to_remote linux-upstream)/master
 
 	repo=$(branch_to_repo $branch)
 	checkpatch_commit_push_range 0 $repo "HEAD..FETCH_HEAD"
@@ -2410,7 +2410,7 @@ function dim_pull_request_next
 
 function dim_pull_request_fixes
 {
-	upstream=${1:-origin/master}
+	upstream=${1:-$(repo_to_remote linux-upstream)/master}
 	dim_pull_request drm-intel-fixes $upstream
 }
 
@@ -2425,7 +2425,7 @@ function dim_list_upstreams
 {
 	cd $DIM_PREFIX/$DIM_REPO
 
-	echo origin/master
+	echo $(repo_to_remote linux-upstream)/master
 	echo $(branch_to_remote drm-next)/drm-next
 	echo $(branch_to_remote drm-fixes)/drm-fixes
 }
@@ -2489,7 +2489,7 @@ function dim_status
 		drm_next_upstream=$(branch_to_remote drm-fixes)/drm-fixes
 		drm_fixes_upstream=$(branch_to_remote drm-next)/drm-next
 
-		patches=$(git log --oneline $remote/$branch ^origin/master \
+		patches=$(git log --oneline $remote/$branch ^$(repo_to_remote linux-upstream)/master \
 			^$drm_next_upstream ^$drm_fixes_upstream | wc -l)
 
 		if [[ $patches -ne 0 ]] ; then
@@ -2717,7 +2717,7 @@ function dim_tc
 	fi
 
 	# not in a tagged release, show upstream branches
-	remote_branches="origin/master"
+	remote_branches="$(repo_to_remote linux-upstream)/master"
 	for conf in "${drm_tip_config[@]}"; do
 		local repo branch override remote
 
