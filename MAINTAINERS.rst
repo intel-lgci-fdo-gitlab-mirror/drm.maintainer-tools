@@ -8,6 +8,7 @@ The maintainer tools and documentation is maintained by:
 
 * Simona Vetter <simona.vetter@ffwll.ch>
 * Jani Nikula <jani.nikula@intel.com>
+* Lucas De Marchi <lucas.demarchi@intel.com>
 
 See also the full and current list of `project members`_.
 
