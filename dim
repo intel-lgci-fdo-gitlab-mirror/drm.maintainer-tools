@@ -1077,7 +1077,11 @@ function checkpatch_commit_push
 	fi
 
 	options="--no-email --no-l --scm"
-	maint_url=$(git show --no-use-mailmap --pretty=email $sha1 |
+
+	# Use diff-filter to skip check for added files as get_maintainer.pl
+	# will not order the URLs correctly.
+	# TODO: separate check for added files or improve get_maintainer.pl
+	maint_url=$(git show --no-use-mailmap --pretty=email --diff-filter=a $sha1 |
 		./scripts/get_maintainer.pl $options | head -n 1 | cut -d " " -f2)
 	patch_repo=$(url_to_repo $maint_url)
 	if [[ -z "$patch_repo" || "$repo" != "$patch_repo" ]]; then
