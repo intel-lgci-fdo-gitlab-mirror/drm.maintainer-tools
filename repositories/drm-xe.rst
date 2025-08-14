@@ -74,6 +74,11 @@ See :ref:`topic/core-for-CI` for details.
 Patch and Merge Flow
 ====================
 
+This chart describes the flow of patches to drm-intel and drm-xe branches, and
+the merge flow of the commits to :ref:`drm` and :ref:`upstream`.
+
+.. plantuml:: drm-intel-xe-branch-flow.puml
+
 Features
 --------
 

@@ -70,8 +70,8 @@ much follow the stable rules.
 Patch and Merge Flow
 ====================
 
-This chart describes the flow of patches to drm-intel branches, and the merge
-flow of the commits to :ref:`drm` and :ref:`upstream`.
+This chart describes the flow of patches to drm-intel and drm-xe branches, and
+the merge flow of the commits to :ref:`drm` and :ref:`upstream`.
 
 .. plantuml:: drm-intel-xe-branch-flow.puml
 
