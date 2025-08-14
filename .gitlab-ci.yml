@@ -16,7 +16,7 @@ variables:
 .maintainer-tools.fedora:42:
   variables:
     FDO_DISTRIBUTION_VERSION: 42
-    FDO_DISTRIBUTION_TAG: '2025-08-25'
+    FDO_DISTRIBUTION_TAG: '2025-08-26-plantuml'
 
 ###### containers
 
@@ -26,7 +26,7 @@ container-build:
     - .maintainer-tools.fedora:42
   stage: containers
   variables:
-    FDO_DISTRIBUTION_PACKAGES: 'ShellCheck python3-docutils python3-sphinx python3-sphinx-reredirects make graphviz'
+    FDO_DISTRIBUTION_PACKAGES: 'ShellCheck python3-docutils python3-sphinx python3-sphinx-reredirects python3-pip make graphviz plantuml'
     FDO_DISTRIBUTION_EXEC: '.gitlab-ci/fedora-install.sh'
 
 ###### build

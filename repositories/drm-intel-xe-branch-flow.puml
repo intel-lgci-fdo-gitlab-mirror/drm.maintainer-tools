@@ -1,0 +1,73 @@
+@startuml
+title DRM Intel (i915 & Xe) patch flow (branch hierarchy)
+
+skinparam defaultFontName Monospace
+skinparam ArrowThickness 1.2
+skinparam linetype polyline
+left to right direction
+
+rectangle "Patches (based on drm-tip) \n(**fixes & features**)" as PATCHES
+rectangle "Mailing lists\n" as MAIL
+rectangle "CI + Review" as CI
+
+package "Xe (drm-xe)" {
+  rectangle "drm-xe-next\n(xe core)" as XE_NEXT
+  rectangle "drm-xe-fixes\n" as XE_FIXES
+  rectangle "drm-xe-next-fixes\n" as XE_NEXT_FIXES
+}
+
+package "i915 (drm-intel)" {
+  rectangle "drm-intel-next\n(**Display** & i915-general)" as INTEL_NEXT
+  rectangle "drm-intel-gt-next\n(i915 GT/GEM core)" as INTEL_GT_NEXT
+  rectangle "drm-intel-fixes\n" as INTEL_FIXES
+  rectangle "drm-intel-next-fixes\n" as INTEL_NEXT_FIXES
+
+}
+
+package "DRM" {
+  rectangle "drm-next\n(targets next (upcoming+1) release)" as DRM_NEXT
+  rectangle "drm-fixes\n(weekly for upcoming release)" as DRM_FIXES
+}
+
+package "Linus master branch" {
+  rectangle "Weekly during -rc fixes" as LINUS
+  rectangle "During Merge Window" as LINUS_NEXT
+}
+
+PATCHES -[#purple]up-> MAIL
+MAIL -> CI
+
+INTEL_NEXT -[#blue]down-> INTEL_FIXES
+INTEL_GT_NEXT -[#blue]down-> INTEL_FIXES
+INTEL_NEXT -[#blue]down-> INTEL_NEXT_FIXES
+INTEL_GT_NEXT -[#blue]down-> INTEL_NEXT_FIXES
+XE_NEXT -[#blue]down-> XE_FIXES
+XE_NEXT -[#blue]down-> XE_NEXT_FIXES
+
+INTEL_NEXT -[#lightblue]down-> DRM_NEXT
+INTEL_GT_NEXT -[#lightblue]down-> DRM_NEXT
+XE_NEXT -[#lightblue]down-> DRM_NEXT
+INTEL_FIXES -[#lightblue]right-> DRM_FIXES
+XE_FIXES -[#lightblue]left-> DRM_FIXES
+INTEL_NEXT_FIXES -[#lightblue]down-> DRM_NEXT
+XE_NEXT_FIXES -[#lightblue]down-> DRM_NEXT
+
+DRM_FIXES -[#red]down-> LINUS
+DRM_NEXT -[#red]right-> LINUS_NEXT
+
+CI -[#orange]down-> INTEL_NEXT
+CI -[#orange]down-> INTEL_GT_NEXT
+CI -[#orange]down-> XE_NEXT
+
+
+
+note top of PATCHES
+**Pre-merge CI** runs with **drm-tip**.
+**Developers** (**<color:purple>------>**) should only use **drm-tip** for testing and development.
+**Committers** (**<color:orange>------>**) only apply patches to the ***-next** trees
+**Maintainers** (**<color:blue>------>**) cherry-pick **fixes** → *-fixes branches
+**Maintainers** (**<color:lightblue>------>**) take care of pull-requests towards **DRM**
+**DRM Maintainers** (**<color:red>------>**) take care of pull-requests towards **Linus**
+end note
+
+@enduml
