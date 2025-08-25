@@ -27,6 +27,7 @@ container-build:
   stage: containers
   variables:
     FDO_DISTRIBUTION_PACKAGES: 'ShellCheck python3-docutils python3-sphinx python3-sphinx-reredirects make graphviz'
+    FDO_DISTRIBUTION_EXEC: '.gitlab-ci/fedora-install.sh'
 
 ###### build
 
