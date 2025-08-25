@@ -13,17 +13,17 @@ stages:
 variables:
   FDO_UPSTREAM_REPO: drm/maintainer-tools
 
-.maintainer-tools.fedora:40:
+.maintainer-tools.fedora:42:
   variables:
-    FDO_DISTRIBUTION_VERSION: 40
-    FDO_DISTRIBUTION_TAG: '2024-08-07-sphinx-reredirects'
+    FDO_DISTRIBUTION_VERSION: 42
+    FDO_DISTRIBUTION_TAG: '2025-08-25'
 
 ###### containers
 
 container-build:
   extends:
     - .fdo.container-build@fedora
-    - .maintainer-tools.fedora:40
+    - .maintainer-tools.fedora:42
   stage: containers
   variables:
     FDO_DISTRIBUTION_PACKAGES: 'ShellCheck python3-docutils python3-sphinx python3-sphinx-reredirects make graphviz'
@@ -34,7 +34,7 @@ container-build:
 check:
   extends:
     - .fdo.distribution-image@fedora
-    - .maintainer-tools.fedora:40
+    - .maintainer-tools.fedora:42
   stage: build
   script:
     - echo "Distro - $FDO_DISTRIBUTION_NAME"
@@ -45,7 +45,7 @@ check:
 pages:
   extends:
     - .fdo.distribution-image@fedora
-    - .maintainer-tools.fedora:40
+    - .maintainer-tools.fedora:42
   stage: deploy
   script:
     - echo "Distro - $FDO_DISTRIBUTION_NAME"
