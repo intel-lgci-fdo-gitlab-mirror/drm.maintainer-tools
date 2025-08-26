@@ -1,4 +1,4 @@
-.templates_sha: &templates_sha 9568e38927f9e9c48d4f586f84a071c3a4bdcd39
+.templates_sha: &templates_sha aec7a6ce7bb38902c70641526f6611e27141784a
 
 include:
   - project: 'freedesktop/ci-templates'
