@@ -38,6 +38,18 @@ below criteria:
   :ref:`committer-drm-misc`, merge criteria, tools, processes, and
   :ref:`code-of-conduct`.
 
+drm-rust
+--------
+
+Commit rights will be granted to anyone who requests them and fulfills the
+below criteria:
+
+- The same rules as for `drm-misc`_ apply.
+
+- Agrees to use their commit rights in accordance with the documented
+  :ref:`committer-drm-rust`, merge criteria, tools, processes, and
+  :ref:`code-of-conduct`.
+
 drm-intel and drm-xe
 --------------------
 
@@ -83,6 +95,8 @@ request issue on the repository:
 
 * `drm-misc access request`_
 
+* `drm-rust access request`_
+
 * `drm-intel access request`_
 
 * `drm-xe access request`_
@@ -100,6 +114,8 @@ rights, especially junior contributors tend to underestimate their skills.
 .. _create a gitlab.freedesktop.org account: https://gitlab.freedesktop.org/users/sign_up
 
 .. _drm-misc access request: https://gitlab.freedesktop.org/drm/misc/kernel/-/issues/new?issue[title]=Request%20for%20Commit%20Rights&issuable_template=commit_access
+
+.. _drm-rust access request: https://gitlab.freedesktop.org/drm/rust/kernel/-/issues/new?issue[title]=Request%20for%20Commit%20Rights&issuable_template=commit_access
 
 .. _drm-intel access request: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/new?issue[title]=Request%20for%20Commit%20Rights&issuable_template=commit_access
 

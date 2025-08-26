@@ -15,5 +15,6 @@ Contents:
    drm-tip
    drm
    drm-misc
+   drm-rust
    drm-intel
    drm-xe

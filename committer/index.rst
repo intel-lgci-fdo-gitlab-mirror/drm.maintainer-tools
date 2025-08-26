@@ -12,6 +12,7 @@ This document gathers together committer guidelines.
    commit-access
    getting-started
    committer-drm-misc
+   committer-drm-rust
    committer-drm-intel
    conflict-resolution
    core-for-CI

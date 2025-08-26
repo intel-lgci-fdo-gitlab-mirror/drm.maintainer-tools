@@ -1,0 +1,21 @@
+digraph {
+	next_0[shape=box, style=rounded, color=blue, label="drm-rust-next"];
+	wait[shape=box, style=rounded, color=blue,
+	     label="Wait for -rc1 to release."];
+	next_1[shape=box, style=rounded, color=blue, label="drm-rust-next"];
+	fixes_0[shape=box, style=rounded, color=blue, label="drm-rust-fixes"];
+
+	is_fix[shape=diamond, color=red, label="Is this a bug fix?"];
+	in_origin[shape=diamond, color=red,
+		  label="Is the bug in the current -rc?"];
+	is_late[shape=diamond, color=red,
+		label="Is DRM in feature freeze?\n(occurs after -rc6)"];
+	is_fix -> is_late[label="no"];
+	is_fix -> in_origin[label="yes"];
+
+	is_late -> next_0[label="no"]
+	is_late -> wait[label="yes"]
+
+	in_origin -> next_1[label="no"];
+	in_origin -> fixes_0[label="yes"]
+}
