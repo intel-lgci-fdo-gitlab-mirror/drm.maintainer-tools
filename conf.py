@@ -52,6 +52,7 @@ redirects = {
     'committer-guidelines': 'committer/index.html',
     'drm-intel': 'repositories/drm-intel.html',
     'drm-misc': 'repositories/drm-misc.html',
+    'drm-rust': 'repositories/drm-rust.html',
     'drm-tip': 'repositories/drm-tip.html',
     'drm-xe': 'repositories/drm-xe.html',
     'drm': 'repositories/drm.html',
