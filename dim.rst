@@ -523,8 +523,9 @@ default, tags will not be signed.
 
 DIM_PREFERRED_PROTOCOL
 ----------------------
-Preferred protocol when adding remotes: ssh or https. If not set, each tree may
-use a different protocol according to maintainer's preference.
+Preferred protocol when adding remotes: ssh or https. When set, if the protocol
+is available for the remote, it will be preferred. Otherwise each tree may use
+a different protocol according to maintainer's preference.
 
 dim_alias_<alias>
 -----------------

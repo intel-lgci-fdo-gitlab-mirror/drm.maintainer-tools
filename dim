@@ -363,8 +363,8 @@ function pick_protocol_url # (git|ssh|https|whatever) url [url ...]
 	done
 
 	if [[ -z "$protocol_url" ]]; then
-		echoerr "No $protocol URL in any of the URLs: $*"
-		return 1
+		echoerr "No $protocol URL provided, falling back to the first URL: $*"
+		protocol_url=$1
 	fi
 
 	echo $protocol_url
@@ -2523,12 +2523,8 @@ function dim_setup # options
 	parse_opt_dim_setup "$@"
 
 	url_list=("git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git" "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git")
-	if [[ -n "$DIM_PREFERRED_PROTOCOL" ]]; then
-		# shellcheck disable=SC2068
-		url=$(pick_protocol_url "$DIM_PREFERRED_PROTOCOL" ${url_list[@]})
-	else
-		url=${url_list[0]}
-	fi
+	# shellcheck disable=SC2068
+	url=$(pick_protocol_url "$DIM_PREFERRED_PROTOCOL" ${url_list[@]})
 
 	if [[ ! -d "$DIM_PREFIX" ]]; then
 		if ask_user "The DIM_PREFIX repository directory '$DIM_PREFIX' doesn't exist. Create?"; then
