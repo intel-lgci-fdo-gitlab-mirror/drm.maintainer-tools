@@ -105,7 +105,7 @@ dim_python=$(command -v python3)
 
 dim_fdo_cookie="--push-option fdo.pushedWithDim=this-was-pushed-with-dim-and-not-manually"
 
-dim_link_base="https://lore.kernel.org/r/"
+dim_link_base="https://patch.msgid.link/"
 
 maintainer_tools_https=https://gitlab.freedesktop.org/drm/maintainer-tools.git
 
@@ -1542,7 +1542,8 @@ function dim_b4_shazam_branch
 	old_head=$(git rev-parse HEAD)
 
 	# Ignore trailers from CI and bots. Link defaults to Lore.
-	$DIM_B4 --config b4.trailers-ignore-from="patchwork@emeril.freedesktop.org,lkp@intel.com" \
+	$DIM_B4 --config b4.linkmask="$dim_link_base%s" \
+		--config b4.trailers-ignore-from="patchwork@emeril.freedesktop.org,lkp@intel.com" \
 		shazam --add-link --apply-cover-trailers --add-my-sob "$@"
 
 	# Checkpatch and more
