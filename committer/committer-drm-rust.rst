@@ -23,6 +23,10 @@ General
 
 The same guidelines as described in :ref:`committer-drm-misc` do apply.
 
+For non-DRM patches usually going through a different tree, please make sure to
+get an `Acked-by:` tag from at least one of the drm-rust maintainers, as well as
+from the maintainers of the foreign code.
+
 Submit Checklist
 ================
 
