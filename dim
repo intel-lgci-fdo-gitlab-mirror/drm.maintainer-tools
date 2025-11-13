@@ -2632,6 +2632,7 @@ function list_developer_commands
 	developer_commands=(
 		# developer commands
 		# these should match the developer section in dim.rst
+		"bash-completion"
 		"checker"
 		"checkpatch"
 		"cite"
