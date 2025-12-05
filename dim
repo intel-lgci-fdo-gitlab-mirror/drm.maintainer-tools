@@ -121,7 +121,6 @@ dim_pull_request_recipients=(
 	-c "Maxime Ripard <mripard@kernel.org>"
 	-c "Thomas Hellström <thomas.hellstrom@linux.intel.com>"
 	-c "Oded Gabbay <ogabbay@kernel.org>"
-	-c "Lucas De Marchi <lucas.demarchi@intel.com>"
 	-c "dri-devel@lists.freedesktop.org"
 	-c "intel-gfx@lists.freedesktop.org"
 	-c "intel-xe@lists.freedesktop.org"
