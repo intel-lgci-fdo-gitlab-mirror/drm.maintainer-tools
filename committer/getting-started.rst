@@ -25,8 +25,9 @@ will self-update.
     $ cd $DIM_PREFIX
     $ git clone https://gitlab.freedesktop.org/drm/maintainer-tools.git
 
-Plus, there's bash completion in the same directory if you feel like using that.
-It can be added to ``~/.bashrc`` or similar file with::
+There is also bash completion available if you feel like using that. The command
+below can be added to your ``~/.bashrc`` or similar file to use it. Make sure
+the ``maintainer-tools`` is in your PATH then do::
 
     $ source <(dim bash-completion)
 
