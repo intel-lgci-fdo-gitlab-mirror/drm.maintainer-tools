@@ -23,7 +23,7 @@ The recommended way to setup dim is to simply clone it::
 
     $ . ~/.config/dim/dimrc
     $ cd $DIM_PREFIX
-    $ git clone git@gitlab.freedesktop.org:drm/maintainer-tools.git
+    $ git clone https://gitlab.freedesktop.org/drm/maintainer-tools.git
 
 Plus, there's bash completion in the same directory if you feel like using that.
 It can be added to ``~/.bashrc`` or similar file with::
