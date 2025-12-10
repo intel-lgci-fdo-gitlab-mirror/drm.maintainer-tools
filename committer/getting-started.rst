@@ -8,7 +8,7 @@ For getting started grab the latest dim (drm-intel-maintainer) script from::
 
     https://gitlab.freedesktop.org/drm/maintainer-tools/raw/master/dim
 
-There's also a sample config file for ~/.dimrc::
+There's also a sample config file for ~/.config/dim/dimrc::
 
     https://gitlab.freedesktop.org/drm/maintainer-tools/raw/master/dimrc.sample
 
@@ -21,7 +21,7 @@ For the setup part, some of the important settings are:
 
 The recommended way to setup dim is to simply clone it::
 
-    $ . ~/.dimrc
+    $ . ~/.config/dim/dimrc
     $ cd $DIM_PREFIX
     $ git clone git@gitlab.freedesktop.org:drm/maintainer-tools.git
 
