@@ -4,13 +4,11 @@
 Getting Started
 ===============
 
-For getting started grab the latest dim (drm-intel-maintainer) script from::
+For getting started grab the latest a sample configuration and edit it to your like,
+saving it to ``~/.config/dim/dimrc``::
 
-    https://gitlab.freedesktop.org/drm/maintainer-tools/raw/master/dim
-
-There's also a sample config file for ~/.config/dim/dimrc::
-
-    https://gitlab.freedesktop.org/drm/maintainer-tools/raw/master/dimrc.sample
+    $ mkdir -p ~/.config/dim
+    $ curl -o ~/.config/dim/dimrc https://gitlab.freedesktop.org/drm/maintainer-tools/raw/master/dimrc.sample
 
 For the setup part, some of the important settings are:
 
@@ -19,7 +17,9 @@ For the setup part, some of the important settings are:
       repositories; if not set, use the preferred protocol by each tree, which
       may require login credentials in the remote repo.
 
-The recommended way to setup dim is to simply clone it::
+After setting the basic configuration, clone the maintainer-tools repository
+into your $DIM_PREFIX to start running ``dim``. After that initial clone, dim
+will self-update.
 
     $ . ~/.config/dim/dimrc
     $ cd $DIM_PREFIX
