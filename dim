@@ -2079,7 +2079,10 @@ function dim_sparse
 	commits=( $(git rev-list --reverse $range) )
 	git checkout --detach  ${commits[0]}~ > /dev/null 2>&1
 	make olddefconfig > /dev/null 2>&1
-	make -j$(nproc) drivers/gpu/drm/ > /dev/null 2>&1
+	if ! make -j$(nproc) drivers/gpu/drm/ > /dev/null 2>&1; then
+	   echo "Failed building baseline commit $(git log -n 1 --pretty=tformat:'%h ("%s")')" 2>&1
+	   false
+	fi
 
 	if [ "$fast" == 1 ]; then
 		prev_rev="${commits[0]}~"
