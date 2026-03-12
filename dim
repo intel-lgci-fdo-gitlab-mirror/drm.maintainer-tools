@@ -130,6 +130,19 @@ dim_pull_request_recipients=(
 	"Simona Vetter <simona.vetter@ffwll.ch>"
 )
 
+# Recipients for drm-rust pull requests.
+dim_pull_request_recipients_drm_rust=(
+	-c "Danilo Krummrich <dakr@kernel.org>"
+	-c "Alice Ryhl <aliceryhl@google.com>"
+	-c "Alexandre Courbot <acourbot@nvidia.com>"
+	-c "Daniel Almeida <daniel.almeida@collabora.com>"
+	-c "dri-devel@lists.freedesktop.org"
+	-c "nova-gpu@lists.linux.dev"
+	-c "rust-for-linux@vger.kernel.org"
+	"Dave Airlie <airlied@gmail.com>"
+	"Simona Vetter <simona.vetter@ffwll.ch>"
+)
+
 # integration configuration
 dim_integration_config=nightly.conf
 
@@ -2367,8 +2380,14 @@ function dim_pull_request # branch upstream [tag]
 
 	$DRY git -c diff.algorithm=histogram request-pull \
 		$upstream $git_url $tag >> $req_file
+	local recipients_name=dim_pull_request_recipients
+	if [[ "$branch" == drm-rust-* ]]; then
+		recipients_name=dim_pull_request_recipients_drm_rust
+	fi
+	local -n recipients=$recipients_name
+
 	$DRY $DIM_MUA -s "[PULL] $branch" \
-		-i $req_file "${dim_pull_request_recipients[@]}"
+		-i $req_file "${recipients[@]}"
 }
 
 function dim_pull_request_next
