@@ -1160,6 +1160,7 @@ function dim_push_branch
 	update_linux_next $branch drm-intel-gt-next drm-intel-next-fixes drm-intel-fixes \
 		for-linux-next-gt "" # no for-linux-next-gt-fixes for now
 	update_linux_next $branch drm-misc-next drm-misc-next-fixes drm-misc-fixes
+	update_linux_next $branch drm-rust-next drm-rust-next-fixes drm-rust-fixes
 	update_linux_next $branch drm-amd-next drm-amd-next-fixes drm-amd-fixes
 
 	dim_rebuild_tip
