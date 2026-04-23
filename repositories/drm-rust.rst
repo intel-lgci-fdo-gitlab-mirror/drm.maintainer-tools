@@ -30,13 +30,15 @@ drm-rust-next
 -------------
 
 This is the main feature branch where most of the patches land. This branch is
-open for new features until -rc6 of the current release cycle.
+always open for new features. Features landed until -rc6 target the upcoming
+merge window, features landed after -rc6 target the merge window after that.
 
-After -rc6, the branch is open for fixing bugs introduced by patches queued up
-in drm-rust-next for the upcoming merge window only.
+drm-rust-next-fixes
+-------------------
 
-Once -rc1 is released, i.e. the features of the previous cycle have been merged
-into Linus' tree, the branch is open for new features again.
+This branch is for bug fixes targeting changes that have landed in drm-rust-next
+up until -rc6 and have been merged into drm-next. This branch is *not* for fixes
+for bugs that are already in Linus' tree; those go to drm-rust-fixes.
 
 drm-rust-fixes
 --------------
