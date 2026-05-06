@@ -1134,14 +1134,24 @@ function dim_push_branch
 
 	remote=$(branch_to_remote $branch)
 
-	committer_email=$(git_committer_email)
+	merge_count=$(git rev-list --count --merges --first-parent "$branch@{u}..$branch")
 
-	checkpatch_commit_push_range 1 "$branch@{u}..$branch" --first-parent --committer="$committer_email"
+	# When a merge happens, only check validity for the merge commit.
+	# Especially when merging -rc tags, those can be huge.
+	# There is a warning below that only maintainers should perform merges.
+	#
+	# Otherwise check all commits for errors.
+	if [[ $merge_count -gt 0 ]]; then
+		committer_email="--committer=$(git_committer_email)"
+	else
+		comitter_email=""
+	fi
+
+	checkpatch_commit_push_range 1 "$branch@{u}..$branch" --first-parent $committer_email
 
 	# Apart from maintainers pushing merges or rebases, most patches should
 	# be pushed in small batches.
 	commit_count=$(git rev-list --count --no-merges --first-parent "$branch@{u}..$branch")
-	merge_count=$(git rev-list --count --merges --first-parent "$branch@{u}..$branch")
 	if [[ $merge_count -gt 0 ]]; then
 		if ! ask_user "Pushing $merge_count merges and $commit_count non-merge commits. Merges should only be pushed by maintainers. Are you sure?"; then
 			echoerr "NOTE: Branch not pushed."
